@@ -1,4 +1,5 @@
 import ReactQueryProvider from '@/elements/react-query-provider';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
@@ -42,7 +43,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <body>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
+            height={0}
+            width={0}
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="GTM"
+          />
+        </noscript>
         <ReactQueryProvider>
           {isStudio || isContentBlock ? <main>{children}</main> : <main>{children}</main>}
         </ReactQueryProvider>
