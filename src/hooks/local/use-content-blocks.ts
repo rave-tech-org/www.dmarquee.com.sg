@@ -30,7 +30,7 @@ const slugsToSkip: string[] = [];
 export const useContentBlocks = async () => {
   const contentBlocks = await sanityFetch<GetContentBlocksResult>({
     query: GetContentBlocks,
-    tags: ['content-blocks'],
+    tags: ['contentBlock'],
   });
 
   const skippedSlugs: string[] = [];
