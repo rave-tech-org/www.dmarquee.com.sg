@@ -2,6 +2,7 @@
 
 import { useSpring, animated } from '@react-spring/web';
 import { useEffect, useState } from 'react';
+import './styles.scss';
 
 const SkeletonLoader = () => {
   const [isMounted, setIsMounted] = useState(false);

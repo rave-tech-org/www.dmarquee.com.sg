@@ -1,54 +1,132 @@
 import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
 const config = {
   darkMode: ['class'],
-  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
-  prefix: '',
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       colors: {
-        primary: '#117dc2',
-        secondary: '#1e1e1e',
-        accent: '#1b75bb',
-        text: '#333',
-        muted: '#888888',
-        border: '#e0e0e0',
-        danger: ' #ec1c24',
-        'tag-success': 'rgba(0, 254, 30, 0.2)',
-        'tag-primary': ' rgba(0, 254, 251, 0.2)',
-        'tag-special': 'rgba(236, 28, 36, 0.2)',
-        rating: '#ffc107',
-        'book-now': '#c3996b',
-      },
+        primary: '#8D579E',
+        'primary-disabled': '#76308c',
+        muted: '#333333',
+        'muted-light': '#F2F2F2',
 
-      fontFamily: {
-        default: ['var(--font-overpass)', ...fontFamily.sans],
-        secondary: ['var(--font-kapelka)', ...fontFamily.sans],
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        chart: {
+          '1': 'hsl(var(--chart-1))',
+          '2': 'hsl(var(--chart-2))',
+          '3': 'hsl(var(--chart-3))',
+          '4': 'hsl(var(--chart-4))',
+          '5': 'hsl(var(--chart-5))',
+        },
       },
-      screens: {
-        '3xl': '2056px',
+      fontSize: {
+        h1: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+        h2: 'clamp(1.375rem, 3vw, 2.125rem)',
+        h3: 'clamp(1.25rem, 2.5vw, 1.875rem)',
+        h4: 'clamp(1.125rem, 2vw, 1.625rem)',
+        h5: 'clamp(1rem, 1.75vw, 1.375rem)',
+        h6: 'clamp(0.875rem, 1.5vw, 1.125rem)',
+        body: 'clamp(0.85rem, 1.5vw, 1rem)',
+        small: 'clamp(0.75rem, 1.25vw, 0.875rem)',
+        xs: 'clamp(0.625rem, 1vw, 0.75rem)',
       },
       borderWidth: {
-        1: '1px',
+        '1': '1px',
+      },
+      fontFamily: {
+        'brandon-grotesque': ['var(--font-brandon-grotesque)'],
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
     },
   },
-
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
+        '.wrapper': {
+          maxWidth: '1560px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        },
+        '.wrapper-small': {
+          maxWidth: '1280px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        },
+
+        '.main-padding': {
+          '@apply px-4 md:px-6 lg:px-10 py-6 md:py-8 lg:py-12': {},
+        },
+        '.main-padding-x': {
+          '@apply px-4 md:px-6 lg:px-10': {},
+        },
+
+        '.main-padding-y': {
+          '@apply py-6 md:py-8 lg:py-12': {},
+        },
+
+        '.gap-text': {
+          '@apply gap-4 xl:gap-6': {},
+        },
+
+        '.gap-text-longer': {
+          '@apply gap-[1.5rem] xl:gap-[2rem]': {},
+        },
+        '.space-padding': {
+          '@apply space-y-6 md:space-y-8 lg:space-y-12': {},
+        },
+
+        '.space-text': {
+          '@apply space-y-4 xl:space-y-6': {},
+        },
+        '.space-text-longer': {
+          '@apply space-y-[1.5rem] xl:space-y-[2rem]': {},
+        },
+        '.space-paragraph': {
+          '@apply space-y-3 xl:space-y-4': {},
+        },
+
+        '.space-grid': {
+          '@apply gap-6 xl:gap-8': {},
+        },
+
         '.animate': {
           transitionProperty: 'all',
           transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
           transitionDuration: '300ms',
         },
-        '.animate-longer': {
-          transitionProperty: 'all',
-          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-          transitionDuration: '500ms',
-        },
+
+        // for absolute, sticky, or fixed positions
         '.centered': {
           top: '50%',
           left: '50%',
@@ -111,7 +189,7 @@ const config = {
         },
       });
     }),
-    require('tailwindcss-motion'),
+    require('tailwindcss-animate'),
   ],
 } satisfies Config;
 

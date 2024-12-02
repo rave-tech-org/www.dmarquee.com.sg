@@ -1,75 +1,39 @@
-'use client';
-
-import { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
+import { buttonVariants } from '@/elements/button';
+import NextImage from '@/elements/next-image';
+import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
-import ViewIn from '@elements/view-in';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { SwiperOptions } from 'swiper/types';
-import { CustomBannerAttribute } from './type';
+import type { HomeBannerCustomAttribute } from './type';
 
-const bannerSwiperSetting: SwiperOptions = {
-  slidesPerView: 1.2,
-  loopAdditionalSlides: 1,
-  initialSlide: 2,
-  loop: true,
-  breakpoints: {
-    320: {
-      slidesPerView: 1.2,
-    },
-    480: {
-      slidesPerView: 2.4,
-    },
-  },
-  spaceBetween: 8,
-};
+export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
+  const custom = block?.customAttributes && transformObject<HomeBannerCustomAttribute>(block?.customAttributes);
 
-const HomeBanner = ({ block }: ContentBlockRegistry) => {
-  const customAttributes = block?.customAttributes;
-  const listItems = block?.listItems;
-  const custom = transformObject<CustomBannerAttribute>(customAttributes);
-
-  const target = custom?.['is-button-redirect-new-window'] ? '_blank' : '_self';
-  const href = custom?.['button-redirect-link'];
-  const buttonText = custom?.['button-text'];
+  const btnText = custom?.['btn-text'];
+  const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <ViewIn variant="slideUp" delay={200}>
-      <div className="lago-banner-carousel-wrapper">
-        <Swiper {...bannerSwiperSetting}>
-          {listItems?.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div
-                style={{
-                  position: 'relative',
-                  backgroundImage: `url(${item?.imageUrl})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  width: '100%',
-                  height: 'clamp(300px, 40vw, 800px)',
-                  borderRadius: '10px',
-                }}
-                className="black-opacity-background"
-              />
-              <div className="content">
-                <h1>{item.title}</h1>
-                {item.description && <PortableText value={item.description} />}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {custom && (
-          <button className="primary-button">
-            <Link href={href} target={target}>
-              {buttonText}
-            </Link>
-          </button>
-        )}
-      </div>
-    </ViewIn>
-  );
-};
+    <article className="main-padding home-banner-wrapper flex items-center justify-center h-screen">
+      <div className="wrapper grid lg:grid-cols-2 items-center gap-6 md:gap-24">
+        <section className="space-y-4 lg:space-y-10">
+          <header className="space-text">
+            <PortableText value={block?.description ?? []} />
+          </header>
+          <Link href={btnHref} className={buttonVariants()}>
+            {btnText}
+          </Link>
+        </section>
 
-export default HomeBanner;
+        {block?.imageUrl ? (
+          <section className="relative group">
+            <NextImage
+              src={block.imageUrl}
+              className="aspect-square object-cover z-10 group-hover:-translate-x-3 group-hover:translate-y-3 animate"
+            />
+            <div className="bg-black absolute size-full aspect-square translate-y-6 -translate-x-6 group-hover:-translate-x-3 group-hover:translate-y-3 animate top-0 left-0 -z-10 max-md:hidden" />
+          </section>
+        ) : null}
+      </div>
+    </article>
+  );
+}

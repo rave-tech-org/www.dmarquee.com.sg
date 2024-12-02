@@ -1,23 +1,16 @@
-import Image, { ImageProps } from 'next/image';
+import Image from 'next/image';
+import type { NextImageProps } from './type';
 
-interface NextImageProps extends Omit<ImageProps, 'width' | 'height' | 'alt' | 'src'> {
-  width?: number;
-  height?: number;
-  alt?: string;
-  src?: string | null;
-}
-
-const NextImage: React.FC<NextImageProps> = ({ width, height, alt, src, ...props }) => {
+export default function NextImage({ alt, src, className, priority, style }: NextImageProps) {
   return (
     <Image
-      src={src || ''}
-      width={0}
-      height={0}
-      style={{ width, height }}
-      alt={alt || 'default lago image'}
-      {...props}
+      style={style}
+      alt={alt ?? 'Travel Star'}
+      width={1000}
+      height={1000}
+      src={src}
+      priority={priority}
+      className={className}
     />
   );
-};
-
-export default NextImage;
+}
