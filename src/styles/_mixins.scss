@@ -1,0 +1,8 @@
+// Container center Mixin
+// Usage: @include container-center;
+@mixin container-center {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

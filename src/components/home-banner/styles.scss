@@ -1,0 +1,55 @@
+.lago-banner-carousel-wrapper {
+  position: relative;
+  .swiper-wrapper {
+    padding-left: 8%;
+  }
+  .black-opacity-background {
+    &::before {
+      opacity: .3;
+    }
+  }
+  .swiper-slide {
+    cursor: pointer;
+    .content {
+      transform: scale(.9);
+      z-index: $z-index-floor-one;
+      position: absolute;
+      max-width: 10rem;
+      top: 1rem;
+      left: 1rem;
+      color: #fff;
+      h1 {
+        line-height: 1.1;
+        font-weight: $heading-font-weight;
+      }
+      p {
+        margin-top: .5rem;
+        font-weight: $bold-font-weight;
+      }
+    }
+    &:hover {
+      .content {
+        transition: transform 0.5s ease;
+        transform: scale(1);
+        h1 {
+          text-decoration: underline;
+          text-decoration-thickness: 1px;
+          text-underline-offset: .5rem;
+        }
+      }
+
+    }
+  }
+  .primary-button {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: -20px;
+    z-index: $z-index-floor-one;
+    a {
+      color: #fff;
+      font-weight: $heading-font-weight;
+    }
+  }
+  
+}

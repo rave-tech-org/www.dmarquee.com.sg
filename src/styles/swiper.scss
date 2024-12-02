@@ -1,0 +1,11 @@
+@import 'swiper/scss';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+:root {
+  --swiper-pagination-color: #{$accent-color};
+  --swiper-pagination-bullet-width: 1rem;
+  --swiper-pagination-bullet-height: 1rem;
+  --swiper-pagination-bullet-size: 1rem;
+  --swiper-pagination-bullet-horizontal-gap: 1rem;
+}

@@ -1,0 +1,37 @@
+$skeleton-bg: #7c7c7c;
+$shimmer: linear-gradient(
+  90deg,
+  rgba(224, 224, 224, 0.3) 25%,
+  rgba(224, 224, 224, 0.6) 50%,
+  rgba(224, 224, 224, 0.3) 75%
+);
+
+.skeleton-loader-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  gap: 20px;
+}
+
+.skeleton-header,
+.skeleton-body,
+.skeleton-footer {
+  background-color: $skeleton-bg;
+  background-image: $shimmer;
+  background-size: 200% 100%;
+  border-radius: 8px;
+}
+
+.skeleton-header {
+  height: 60px;
+}
+
+.skeleton-body {
+  flex: 1;
+  height: 300px;
+}
+
+.skeleton-footer {
+  height: 80px;
+}

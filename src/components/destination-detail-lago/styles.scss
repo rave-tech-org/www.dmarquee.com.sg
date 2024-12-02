@@ -1,0 +1,87 @@
+.destination-detail-lago {
+  .lago-content-background {
+    .content {
+      background: #fff;
+      border-radius: 10px;
+      text-align: center;
+      padding: 3rem 4rem;
+      top: 100%;
+
+      .destination-slogan {
+        font-family: var(--font-kapelka);
+        font-size: $font-h4;
+        line-height: $line-height;
+      }
+      .destination-title {
+        font-size: $font-h2;
+        line-height: $line-height;
+        font-weight: 900;
+        color: $primary-color;
+        padding-bottom: 1.25rem;
+      }
+
+      h5 {
+        color: #000;
+      }
+
+      h3 {
+        color: $primary-color;
+      }
+      
+      p {
+        color: #000;
+        font-size: $font-xs;
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        left: 35%;
+        transform: translate(-28%, -50%);
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        left: 0;
+        transform: translate(0%, -50%);
+      }
+    }
+  }
+
+  .destination-help-group-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    .text-wrapper {
+      h3 {
+        font-weight: $heading-font-weight;
+        color: $gold-color;
+        padding-bottom: 1rem;
+      }
+      h5 {
+        font-family: $secondary-font;
+        font-weight: $text-font-weight;
+      }
+    }
+  }
+
+  .lago-travel-interest-group {
+    margin-top: 10rem;
+  }
+
+  .destination-related-products-group {
+    background-color: #fff7f2;
+  }
+
+  .lago-see-more-articles {
+    .travel-guide-title {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .travel-guide {
+      text-align: center;
+      margin-bottom: 4rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+  }
+}

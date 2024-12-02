@@ -1,0 +1,77 @@
+.lago-product-carousel-wrapper {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  h3 {
+    font-weight: $heading-font-weight;
+    color: $accent-color;
+    text-align: center;
+  }
+  h5 {
+    font-family: $secondary-font;
+    font-weight: $text-font-weight;
+    text-align: center;
+  }
+  .swiper {
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+  }
+  .swiper-slide {
+    transition: transform 0.3s ease;
+  }
+
+  .swiper-pagination {
+    .swiper-pagination-bullet {
+      position: relative;
+      background: #fff;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        z-index: $z-index-floor-one;
+      }
+
+      &::before {
+        width: 1rem;
+        height: 1rem;
+        top: 0.25rem;
+        left: 0.25rem;
+        background: $border-color;
+      }
+
+      &::after {
+        width: 1.75rem;
+        height: 1.75rem;
+        top: -0.125rem;
+        left: -0.125rem;
+        background: #fff;
+        z-index: $z-index-ground;
+      }
+
+      &:not(.swiper-pagination-bullet-active) {
+        opacity: 1;
+        background: $border-color;
+      }
+
+      &.swiper-pagination-bullet-active {
+        &::before {
+          background: $accent-color;
+        }
+      }
+    }
+
+    &::after {
+      content: '';
+      height: 0.5px;
+      width: 30%;
+      position: absolute;
+      top: 0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.3;
+      background: $muted-text-color;
+      z-index: $z-index-basement-one;
+    }
+  }
+}

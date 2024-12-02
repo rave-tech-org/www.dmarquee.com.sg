@@ -1,0 +1,109 @@
+.lago-tour-search-result {
+  .tour-search-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 1px solid #e3e3e3;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    .result-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      h5 {
+        border-right: 1px solid #e3e3e3;
+        padding-right: 2rem;
+        margin-right: 2rem;
+        padding-bottom: .5rem;
+        padding-top: .5rem;
+      }
+      p {
+        strong {
+          color: $primary-color;
+        }
+      }
+    }
+    .result-filter {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      .vertical-divider {
+        border-right: 1px solid #e3e3e3;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+      .filter-icon-wrapper {
+        padding: .5rem;
+        border-radius: 5px;
+        opacity: .2;
+        border: 1px solid #17202A;
+        &.active {
+          opacity: 1;
+          border: 2px solid #17202A;
+        }
+      }
+    }
+  }
+  .tour-search-result {
+    display: flex;
+    gap: 2rem;
+    .tour-filter {
+      flex: 1;
+      .price-range {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        h6 {
+          font-size: $font-body;
+          margin-left: .25rem;
+        }
+        p {
+          font-size: $font-small;
+          margin-left: .25rem;
+          color: $muted-text-color;
+        }
+      }
+    }
+    .tour-result-wrapper {
+      flex: 4;
+      .tour-result {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        .lago-hot-deals-card-wrapper {
+          max-width: 260px;
+        }
+      }
+      .tour-pagination {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .ant-select {
+    .ant-select-selector {
+      border: 0 !important;
+    }
+  }
+  .ant-collapse {
+    border: 0;
+    .ant-collapse-item {
+      border: 0;
+      .ant-collapse-header {
+        background: #fff;
+        flex-direction: row-reverse;
+      }
+      .ant-collapse-content {
+        border: 0;
+        .ant-collapse-content-box {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+  .ant-checkbox-group {
+    flex-direction: column;
+  }
+}

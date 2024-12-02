@@ -1,0 +1,45 @@
+
+.lago-testimonial-card {
+  display: flex;
+  gap: 1.75rem;
+  background: #fff;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: $default-shadow;
+  .image-circle-wrapper {
+    display: flex;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    img {
+      border-radius: 50%;
+      border: 1px solid $circle-image-border;
+    }
+  }
+  .image-wrapper {
+    display: flex;
+    align-items: flex-start;
+    width: 80px;
+    height: 80px;
+  }
+  .testimonial-text {
+    margin-top: 1.25rem;
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    .author {
+      color: $primary-color;
+      font-weight: $bold-font-weight;
+    }
+  }
+  span {
+    font-size: $font-xs !important;
+  }
+  p {
+    font-size: $font-small !important;
+  }
+}

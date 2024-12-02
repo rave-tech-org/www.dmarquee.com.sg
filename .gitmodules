@@ -1,0 +1,3 @@
+[submodule "rave-ui"]
+	path = rave-ui
+	url = git@github.com:rave-tech-org/rave-ui.git

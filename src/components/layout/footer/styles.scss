@@ -1,0 +1,76 @@
+.lago-footer {
+  padding-top: 3rem;
+
+  .main-footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    @media (max-width: $breakpoint-sm) {
+      .logo {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+  .list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    & > div {
+      max-width: 10rem;
+    }
+    ul {
+      margin-top: 1rem;
+    }
+    li {
+      margin-top: .25rem;
+    }
+    a {
+      font-size: $font-xs !important;
+      color: $secondary-color;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+  .bottom-footer {
+    border-top: 1px solid #e3e3e3;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    p {
+      font-weight: $bold-font-weight;
+    }
+    a {
+      text-decoration: underline !important;
+      text-decoration-thickness: 1px !important;
+      color: $primary-color;
+    }
+  }
+
+  .socials {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .payments {
+    display: flex;
+    gap: 1rem;
+  }
+  .info-sharing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+}

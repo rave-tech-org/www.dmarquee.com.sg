@@ -1,0 +1,28 @@
+.lago-testimonial-carousel-wrapper {
+  .swiper-wrapper {
+    padding-left: 15%;
+  }
+  background-color: #FFF7F2;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  h5 {
+    font-weight: $text-font-weight;
+    text-align: center;
+    font-family: $secondary-font;
+    margin-bottom: 1.25rem;
+  }
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.75rem;
+  }
+  .primary-button.outline {
+    padding: .5rem 2rem;
+    background: transparent;
+  }
+  @media (max-width: $breakpoint-sm) {
+    .swiper-wrapper {
+      padding-left: 5%;
+    }
+  }
+}

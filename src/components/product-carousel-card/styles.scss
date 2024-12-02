@@ -1,0 +1,61 @@
+.lago-product-carousel-card-wrapper {
+  .card-image-container {
+    overflow: hidden;
+    position: relative;
+    img {
+      border-radius: 10px;
+    }
+    .special-card-label {
+      width: 64px;
+      height: 64px;
+      position: absolute;
+      z-index: $z-index-floor-two;
+    }
+  }
+  .card-content {
+    padding: 0.75rem;
+
+    h6.text-ellipsis {
+      color: $text-color;
+      min-height: 50px;
+    }
+
+    .location-label {
+      display: flex;
+      align-items: center;
+      margin-left: -0.25rem;
+      span {
+        color: $text-danger;
+      }
+    }
+
+    .pricing {
+      .original-price {
+        display: flex;
+        color: $muted-text-color;
+        text-decoration: line-through;
+        line-height: 0.8rem;
+      }
+      .current-price {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        color: $accent-color;
+      }
+      .rating {
+        display: flex;
+        align-items: center;
+        p {
+          color: $rating-color;
+          font-weight: $bold-font-weight;
+          padding-top: 6px;
+        }
+      }
+      .book-now-info {
+        color: $book-now-color;
+        line-height: 0.8rem;
+      }
+    }
+  }
+}

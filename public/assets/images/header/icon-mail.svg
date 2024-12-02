@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 48 34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b75bb;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+  <g>
+    <g id="Icon">
+      <path class="cls-1" d="M27.28,26.49c-.88.88-2.04,1.36-3.28,1.36s-2.4-.48-3.28-1.36l-7.72-7.72L0,31.76v.24c0,1.1.9,2,2,2h44c1.1,0,2-.9,2-2v-.23l-13-13-7.72,7.72ZM0,5.77v22.46l11.23-11.23L0,5.77ZM46,0H2C.9,0,0,.9,0,2v.24l22.49,22.49c.42.42.96.62,1.51.62s1.1-.21,1.51-.63L48,2.24v-.24c0-1.1-.9-2-2-2ZM48,28.23V5.77l-11.23,11.23,11.23,11.23Z"/>
+    </g>
+  </g>
+</svg>

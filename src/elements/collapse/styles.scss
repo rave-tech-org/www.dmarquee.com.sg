@@ -1,0 +1,18 @@
+#generic-collapse-container {
+  .generic-collapse-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    svg {
+      color: $primary-color;
+    }
+  }
+  .generic-collapse-panel {
+    display: flex;
+    flex-direction: column;
+  }
+}
