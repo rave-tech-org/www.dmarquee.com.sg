@@ -20,23 +20,23 @@
     @apply animate;
   }
   h1 {
-    @apply text-4xl xl:text-[64px] xl:leading-[78px] font-medium;
+    @apply text-5xl xl:text-[64px] xl:leading-[78px] font-medium;
   }
   h2 {
-    @apply text-3xl xl:text-5xl font-medium;
+    @apply text-4xl xl:text-5xl font-medium;
   }
   h3 {
-    @apply text-2xl xl:text-4xl;
+    @apply text-2xl xl:text-3xl font-medium;
   }
-  h4 {
-    @apply text-xl xl:text-3xl;
+  /* h4 {
+    @apply text-2xl xl:text-3xl;
   }
   h5 {
     @apply text-lg xl:text-2xl;
   }
   h6 {
     @apply text-lg xl:text-xl font-medium;
-  }
+  } */
   p,
   a,
   li,
@@ -45,7 +45,7 @@
   textarea,
   label,
   blockquote {
-    @apply text-base lg:text-lg xl:text-[20px] leading-[30px];
+    @apply text-lg xl:text-[20px] xl:leading-[30px];
   }
   small,
   figcaption {

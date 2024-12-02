@@ -25,7 +25,7 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
           </Link>
         </section>
 
-        {block?.imageUrl ? <NextImage src={block?.imageUrl} className="w-full -mt-16" /> : null}
+        {block?.imageUrl ? <NextImage src={block?.imageUrl} className="w-full -mt-16 object-cover" /> : null}
       </div>
     </article>
   );
