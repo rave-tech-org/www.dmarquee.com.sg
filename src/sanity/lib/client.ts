@@ -39,7 +39,7 @@ export async function sanityFetch<QueryResponse>({
   }
   const currentClient = isDraft ? previewClient : client;
   return currentClient.fetch<QueryResponse>(query, qParams, {
-    cache: 'no-store',
+    cache: process.env.NODE_ENV === 'development' ? 'no-store' : 'force-cache',
     next: { tags },
   });
 }
