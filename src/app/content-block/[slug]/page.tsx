@@ -14,5 +14,5 @@ export default async function ContentBlockPage({ params }: { params: { slug: str
   const [entries, contentBlock] = await Promise.all([useEntries(), useContentBlocks()]);
 
   const Component = contentBlock.get(block?.slug?.current || '');
-  return <main className="block-wrapper">{Component ? <Component entries={entries} block={block} /> : null}</main>;
+  return Component ? <Component entries={entries} block={block} /> : null;
 }

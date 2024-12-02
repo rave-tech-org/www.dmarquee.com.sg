@@ -43,9 +43,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <body>
+        <ReactQueryProvider>
+          {isStudio || isContentBlock ? <main>{children}</main> : <main>{children}</main>}
+        </ReactQueryProvider>
+
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
@@ -55,10 +57,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             title="GTM"
           />
         </noscript>
-        <ReactQueryProvider>
-          {isStudio || isContentBlock ? <main>{children}</main> : <main>{children}</main>}
-        </ReactQueryProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
     </html>
   );
 }

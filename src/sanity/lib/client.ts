@@ -1,6 +1,6 @@
-import { ClientPerspective, createClient, QueryParams } from 'next-sanity';
-import { projectId, dataset, apiVersion } from './env';
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { type UseQueryOptions, type UseQueryResult, useQuery } from '@tanstack/react-query';
+import { type ClientPerspective, type QueryParams, createClient } from 'next-sanity';
+import { apiVersion, dataset, projectId } from './env';
 
 export const token = typeof process === 'undefined' ? '' : process.env.SANITY_API_READ_TOKEN!;
 
@@ -8,7 +8,7 @@ const clientConfig = {
   projectId,
   dataset,
   apiVersion,
-  useCdn: process.env.NODE_ENV === 'development' ? true : false,
+  useCdn: process.env.NODE_ENV === 'development',
   perspective: 'published' as ClientPerspective,
 };
 
@@ -33,12 +33,7 @@ export async function sanityFetch<QueryResponse>({
   qParams = {},
   tags,
   isDraft = false,
-}: {
-  query: string;
-  qParams?: QueryParams;
-  tags: string[];
-  isDraft?: boolean;
-}): Promise<QueryResponse> {
+}: SanityFetchProps): Promise<QueryResponse> {
   if (isDraft && !token) {
     throw new Error('The `SANITY_API_READ_TOKEN` environment variable is required.');
   }
