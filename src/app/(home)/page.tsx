@@ -15,8 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 
   return {
-    title: homePage?.metaTitle || 'Lago Travel',
-    description: homePage?.metaDescription || 'Lago Travel',
+    title: homePage?.metaTitle || 'D’Marquee',
+    description: homePage?.metaDescription || 'D’Marquee',
   };
 }
 

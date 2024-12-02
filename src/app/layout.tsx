@@ -11,8 +11,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 export const metadata: Metadata = {
-  title: 'Lago Travel',
-  description: 'Lago Travel',
+  title: 'D’Marquee',
+  description: 'D’Marquee',
 };
 
 const brandonGrotesque = localFont({

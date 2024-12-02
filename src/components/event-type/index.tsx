@@ -14,9 +14,9 @@ export default function EventType({ block, entries }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="bg-muted-light main-padding-x py-16 lg:py-24">
+    <article className="bg-muted-light main-padding-x py-16 lg:py-24 event-type-wrapper">
       <div className="wrapper space-y-12">
-        <header className="space-text text-center">
+        <header className="space-text text-center event-type-header-wrapper">
           <PortableText value={block?.description ?? []} />
         </header>
 
