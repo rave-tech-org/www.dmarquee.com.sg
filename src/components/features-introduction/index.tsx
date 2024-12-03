@@ -38,7 +38,7 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
 
                 <header
                   className={cn('space-text', {
-                    'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16': isOdd,
+                    'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16 max-md:text-right': isOdd,
                     'md:px-6 lg:px-16': !isOdd,
                   })}
                 >

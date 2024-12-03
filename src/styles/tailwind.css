@@ -28,15 +28,15 @@
   h3 {
     @apply text-xl xl:text-3xl font-medium;
   }
-  /* h4 {
-    @apply text-2xl xl:text-3xl;
+  h4 {
+    @apply text-xl xl:text-3xl font-medium;
   }
   h5 {
-    @apply text-lg xl:text-2xl;
+    @apply text-xl xl:text-3xl font-medium;
   }
   h6 {
-    @apply text-lg xl:text-xl font-medium;
-  } */
+    @apply text-xl xl:text-3xl font-medium;
+  }
   p,
   a,
   li,
@@ -45,7 +45,7 @@
   textarea,
   label,
   blockquote {
-    @apply text-lg xl:text-[20px] xl:leading-[30px];
+    @apply text-base xl:text-[20px] xl:leading-[30px];
   }
   small,
   figcaption {

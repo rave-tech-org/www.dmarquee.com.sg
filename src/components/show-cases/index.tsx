@@ -30,16 +30,15 @@ export default function ShowCases({ block, entries }: ContentBlockRegistry) {
               return (
                 <li
                   onMouseEnter={() => setSelectedIndex(i)}
-                  className={cn(
-                    'animate relative lg:h-[55vh] max-lg:!w-full',
-
-                    { 'h-[50vh]': selected, 'max-lg:h-[20vh]': !selected }
-                  )}
+                  className={cn('animate-longer-2 relative h-[40rem] max-lg:!w-full group', {
+                    'max-lg:h-[16rem]': !selected,
+                    'max-lg:h-[27rem]': selected,
+                  })}
                   key={e.title}
                   style={{
                     width: selected
-                      ? '35%'
-                      : `${65 / ((block?.listItems?.length ? block?.listItems?.length : 0) - 1)}%`,
+                      ? '40%'
+                      : `${60 / ((block?.listItems?.length ? block?.listItems?.length : 0) - 1)}%`,
                   }}
                 >
                   {e.imageUrl ? <NextImage src={e.imageUrl} className="object-cover object-center h-full" /> : null}
@@ -50,7 +49,9 @@ export default function ShowCases({ block, entries }: ContentBlockRegistry) {
                       { 'opacity-100': selected }
                     )}
                   >
-                    <header className="space-y-1.5 main-padding">
+                    <header
+                      className={cn('animate-longer-3 space-y-1.5 main-padding', { 'translate-y-12': !selected })}
+                    >
                       <PortableText value={e.description ?? []} />
                     </header>
                   </div>

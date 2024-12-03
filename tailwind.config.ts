@@ -95,6 +95,10 @@ const config = {
           '@apply py-6 md:py-8 lg:py-12': {},
         },
 
+        '.main-padding-t': {
+          '@apply pt-6 md:pt-8 lg:pt-12': {},
+        },
+
         '.gap-text': {
           '@apply gap-4 xl:gap-6': {},
         },
@@ -124,6 +128,16 @@ const config = {
           transitionProperty: 'all',
           transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
           transitionDuration: '300ms',
+        },
+        '.animate-longer-2': {
+          transitionProperty: 'all',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '500ms',
+        },
+        '.animate-longer-3': {
+          transitionProperty: 'all',
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          transitionDuration: '1000ms',
         },
 
         // for absolute, sticky, or fixed positions

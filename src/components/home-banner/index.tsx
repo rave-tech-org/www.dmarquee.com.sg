@@ -14,7 +14,7 @@ export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
 
   return (
     <article className="main-padding home-banner-wrapper flex items-center justify-center min-h-screen">
-      <div className="wrapper grid lg:grid-cols-2 items-center gap-12 lg:gap-24">
+      <div className="wrapper grid lg:grid-cols-2 items-center gap-6 lg:gap-24">
         <section className="space-y-4 lg:space-y-10">
           <header className="space-text">
             <PortableText value={block?.description ?? []} />

@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import Footer from '@/components/layout/footer';
 
 export const metadata: Metadata = {
   title: 'D’Marquee',
@@ -48,7 +49,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
       <body>
         <ReactQueryProvider>
-          {isStudio || isContentBlock ? <main>{children}</main> : <main>{children}</main>}
+          {isStudio || isContentBlock ? (
+            <main>{children}</main>
+          ) : (
+            <main>
+              {children}
+              <Footer />
+            </main>
+          )}
         </ReactQueryProvider>
 
         <noscript>

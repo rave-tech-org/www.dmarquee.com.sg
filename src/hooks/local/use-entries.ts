@@ -10,22 +10,22 @@ import type {
 export const useEntries = async () => {
   const categories = await sanityFetch<GetCategoriesResult>({
     query: GetCategories,
-    tags: ['categories'],
+    tags: ['category'],
   });
 
   const products = await sanityFetch<GetProductsResult>({
     query: GetProducts,
-    tags: ['products'],
+    tags: ['prouct'],
   });
 
   const testimonials = await sanityFetch<GetTestimonialsResult>({
     query: GetTestimonials,
-    tags: ['testimonials'],
+    tags: ['testimonial'],
   });
 
   const posts = await sanityFetch<GetPostsResult>({
     query: GetPosts,
-    tags: ['posts'],
+    tags: ['post'],
   });
 
   return {

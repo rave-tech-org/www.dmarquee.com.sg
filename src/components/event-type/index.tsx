@@ -14,16 +14,19 @@ export default function EventType({ block, entries }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="bg-muted-light main-padding-x py-16 lg:py-24 event-type-wrapper">
+    <article className="bg-muted-light main-padding-x py-12 lg:py-24 event-type-wrapper">
       <div className="wrapper space-y-12">
         <header className="space-text text-center event-type-header-wrapper">
           <PortableText value={block?.description ?? []} />
         </header>
 
-        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-20">
+        <ul
+          className="grid max-lg:!grid-cols-2 gap-6 lg:gap-20"
+          style={{ gridTemplateColumns: `repeat(${block?.listItems?.length}, minmax(0, 1fr))` }}
+        >
           {block?.listItems?.map((e) => {
             return (
-              <li key={e.title} className="space-text">
+              <li key={e.title} className="space-text max-lg:flex flex-col items-center max-lg:text-center">
                 {e.imageUrl ? (
                   <section className="aspect-square bg-primary w-16 md:w-20 flex items-center justify-center">
                     <NextImage src={e.imageUrl} className="w-8 md:w-12" />
