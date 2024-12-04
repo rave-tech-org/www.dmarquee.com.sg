@@ -1,9 +1,25 @@
+'use client';
+
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 export default function Form({ block, entries }: ContentBlockRegistry) {
+  const router = useRouter();
+
+  useEffect(() => {
+    window.addEventListener('message', (event) => {
+      if (event.data === 'formSubmitted') {
+        console.log('Form was submitted in the iframe');
+        setTimeout(() => {
+          router.push('/thank-you');
+        }, 5000);
+      }
+    });
+  }, []);
+
   return (
     <article>
       <section className="bg-primary main-padding !pb-32">
