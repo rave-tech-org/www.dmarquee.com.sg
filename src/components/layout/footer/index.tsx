@@ -26,8 +26,8 @@ export default async function Footer() {
     <footer>
       <section className="main-padding">
         <div className="max-lg:text-center wrapper grid lg:grid-cols-5 gap-4 items-center main-padding-y bg-white">
-          <header className="lg:col-span-2">
-            <h1>{title1}</h1>
+          <header className="lg:col-span-2 space-y-2">
+            <h3>{title1}</h3>
             <h2>{title2}</h2>
           </header>
           <div className="lg:col-span-3">
@@ -47,7 +47,7 @@ export default async function Footer() {
                   <Link href={e.marks?.href ?? '/'} className="hover:underline">
                     {e.text}
                   </Link>
-                  {!lastIndex ? <span className="px-4">|</span> : null}
+                  {!lastIndex ? <span className="px-1 md:px-4">|</span> : null}
                 </li>
               );
             })}

@@ -8,7 +8,7 @@ import type { SwiperOptions } from 'swiper/types';
 
 const swiperConfig: SwiperOptions = {
   spaceBetween: 16,
-  slidesPerView: 1.5,
+  slidesPerView: 1.25,
   modules: [Mousewheel],
   mousewheel: { forceToAxis: true },
   initialSlide: 3,

@@ -6,13 +6,10 @@ import type { Entries } from './use-entries';
 export const slugToComponentMap: Record<string, string> = {
   // It allows multiple slugs to reuse the same component by mapping them to a common component slug or path.
   // Example: 'tour-experience' and 'tour-search-banner' both map to 'content-background' component.
-  'tour-experience': 'content-background',
-  'tour-search-banner': 'content-background',
 
   // Very special case
-  'social-link': 'layout/navigation-menu',
-  'navigation-menu': 'layout/navigation-menu',
   'footer-menu': 'layout/footer',
+  'footer-body': 'layout/footer',
 };
 
 export const loadComponent = async (slug: string) => {
