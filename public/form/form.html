@@ -1,4 +1,3 @@
-
 <!--  ----------------------------------------------------------------------  -->
 <!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
 <!--  If necessary, please modify the charset parameter to specify the        -->
@@ -27,6 +26,7 @@
     * {
       font-family: Brandon Grotesque;
     }
+
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus,
@@ -83,6 +83,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 32px;
+    }
+
+    ::placeholder {
+      color: white;
     }
 
     .input-wrapper {
@@ -193,28 +197,31 @@
       font-size: 18px;
       margin-top: 5px;
     }
+
     .submit-success label a.submit-success-pdf {
       color: rgb(2, 163, 2);
       font-weight: 500;
     }
 
     .btn-group {
+      margin-top: 1rem;
       display: flex;
       gap: 0.5vw;
     }
 
     .btn-group .btn-primary {
-      border-radius: 25px;
+      border-radius: 10px;
       background-color: white;
       border: none;
       outline: none;
-      padding: 12px 1.5rem;
+      padding: 0.75rem 1rem;
       text-transform: uppercase;
       font-size: 18px;
       cursor: pointer;
       color: black;
       font-weight: 400;
     }
+
     .btn-group .btn-primary:disabled {
       background-color: #F2F2F2;
       cursor: not-allowed;
@@ -239,16 +246,10 @@
 <!--  NOTE: Please add the following <FORM> element to your page.             -->
 <!--  ----------------------------------------------------------------------  -->
 
-<form
-  id="web2lead"
-  action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D2x0000073XGr"
-  method="POST"
->
-  <input
-    type="hidden"
-    name="captcha_settings"
-    value='{"keyname":"GooglereCaptcha","fallback":"true","orgId":"00D2x0000073XGr","ts":""}'
-  />
+<form id="web2lead" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D2x0000073XGr"
+  method="POST">
+  <input type="hidden" name="captcha_settings"
+    value='{"keyname":"GooglereCaptcha","fallback":"true","orgId":"00D2x0000073XGr","ts":""}' />
   <input type="hidden" name="oid" value="00D2x0000073XGr" />
   <input type="hidden" name="retURL" value="https://dmarquee.com.sg/thank-you" />
 
@@ -263,43 +264,38 @@
   <div class="form-inner-wrapper">
     <div class="form-row">
       <div class="input-wrapper">
-        <label for="first_name">First Name</label>
-        <input id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+        <label for="company" style="display:none;">First Name</label>
+        <input id="first_name" maxlength="40" name="first_name" size="20" type="text" required
+          placeholder="First Name" />
       </div>
       <div class="input-wrapper">
-        <label for="last_name">Last Name</label>
-        <input id="last_name" maxlength="80" name="last_name" size="20" type="text" required />
+        <label for="company" style="display:none;">Last Name</label>
+        <input id="last_name" maxlength="80" name="last_name" size="20" type="text" required placeholder="Last Name" />
       </div>
     </div>
     <div class="form-row pd-t-32">
       <div class="input-wrapper">
-        <label for="company">Company</label>
-        <input id="company" maxlength="40" name="company" size="20" type="text" required />
+        <label for="company" style="display:none;">Company</label>
+        <input id="company" maxlength="40" name="company" size="20" type="text" required placeholder="Company" />
       </div>
       <div class="input-wrapper">
-        <label for="email">Email Address</label>
-        <input id="email" maxlength="80" name="email" size="20" type="email" required />
+        <label for="email" style="display:none;">Email Address</label>
+        <input id="email" maxlength="80" name="email" size="20" type="email" required placeholder="Email Address" />
       </div>
     </div>
 
     <div class="form-row pd-t-32">
       <div class="input-wrapper">
-        <label for="mobile">Phone Number</label>
-        <input
-          id="mobile"
-          maxlength="40"
-          name="mobile"
-          size="20"
-          type="text"
-          pattern="^[0-9]{7,15}$"
+        <label for="mobile" style="display:none;">Phone Number</label>
+        <input id="mobile" maxlength="40" name="mobile" size="20" type="text" pattern="^[0-9]{7,15}$"
+          placeholder="Phone Number"
           title="SG mobile numbers, use this format: '12345678' and for non-SG mobile numbers, use this format: 'CountryCode + mobile number', e.g. ' 6312345678'"
-          required
-        />
+          required />
       </div>
       <div class="input-wrapper">
-        <label for="lead_source">Media Source</label>
+        <label for="lead_source" style="display:none;">Media Source</label>
         <select id="lead_source" name="lead_source" required>
-          <option value="">--None--</option>
+          <option value="">Media Source</option>
           <option value="EDM">EDM</option>
           <option value="Facebook">Facebook</option>
           <option value="LinkedIn">LinkedIn</option>
@@ -310,12 +306,13 @@
 
     <div class="form-row pd-t-32">
       <div class="input-wrapper">
-        <label for="00NIh000000Jd1B">Subject</label>
-        <input id="00NIh000000Jd1B" maxlength="255" name="00NIh000000Jd1B" size="20" type="text" required />
+        <label for="00NIh000000Jd1B" style="display:none;">Subject</label>
+        <input id="00NIh000000Jd1B" maxlength="255" name="00NIh000000Jd1B" size="20" type="text" required
+          placeholder="Subject" />
       </div>
       <div class="input-wrapper">
-        <label for="description">Description</label>
-        <input name="description" required></input>
+        <label for="description" style="display:none;">Description</label>
+        <input name="description" required placeholder="Description"></input>
       </div>
     </div>
 
@@ -324,13 +321,17 @@
         <div>
           <input id="00NIh000000Jb8v" name="00NIh000000Jb8v" type="checkbox" value="1" />
         </div>
-        <label for="00NIh000000Jb8v">By checking this box, you agree to allow NTUC Club and its entities to use and disclose your contact details and particulars for the purposes of facilitating your feedback. I acknowledge that all personal data provided shall be disclosed and shared amongst the NTUC Club Group for the purposes set out in our Privacy Policy.</label>
+        <label for="00NIh000000Jb8v">By checking this box, you agree to allow NTUC Club and its entities to use and
+          disclose your contact details and particulars for the purposes of facilitating your feedback. I acknowledge
+          that all personal data provided shall be disclosed and shared amongst the NTUC Club Group for the purposes set
+          out in our Privacy Policy.</label>
       </div>
     </div>
 
     <div class="form-row pd-t-8 pd-l-32">
       <div class="input-wrapper-linear">
-        <label for="requestText">I would like to receive the latest updates on new campaigns, promotions, events and products and services from the NTUC Club Group via:</label>
+        <label for="requestText">I would like to receive the latest updates on new campaigns, promotions, events and
+          products and services from the NTUC Club Group via:</label>
       </div>
     </div>
 
@@ -356,14 +357,17 @@
 
     <div class="form-row pd-t-8">
       <div class="input-wrapper-linear">
-        <label for="noteText">Please note that your selection here shall not supersede any consents provided to us prior to this.</label>
+        <label for="noteText">Please note that your selection here shall not supersede any consents provided to us prior
+          to this.</label>
       </div>
     </div>
 
 
     <div class="form-row pd-t-8">
       <div class="input-wrapper-linear">
-        <label for="noteDesc"> For more information, please refer to our Privacy Policy which can be found at here, and is incorporated into this Agreement by reference. Please note our privacy policy may be updated from time to time without notice.</label>
+        <label for="noteDesc"> For more information, please refer to our Privacy Policy which can be found at here, and
+          is incorporated into this Agreement by reference. Please note our privacy policy may be updated from time to
+          time without notice.</label>
       </div>
     </div>
 
@@ -371,9 +375,10 @@
       reCAPTCHA is required. Please verify you are not a robot.
     </div>
 
-    <div style="margin-top: 0.5rem;" class="g-recaptcha" data-sitekey="6LfobYIcAAAAAAWcmAxPbPX_iSIWzmVvtryzxXTG" data-callback="verifyCaptcha"></div>
-    <br />
-    <br />
+    <div style="margin-top: 0.75rem;" class="g-recaptcha" data-sitekey="6LfobYIcAAAAAAWcmAxPbPX_iSIWzmVvtryzxXTG"
+      data-callback="verifyCaptcha"></div>
+
+
     <div class="btn-group">
       <button disabled type="submit" id="submitBtn" class="btn-primary">
         Submit
@@ -434,7 +439,7 @@
     // Clear previous error messages
     document.getElementById('captchaMessage').style.display = 'none'
 
-    if(isCaptchaVerified) {
+    if (isCaptchaVerified) {
       const button = document.getElementById('submitBtn')
       button.removeAttribute("disabled");
     }
@@ -446,7 +451,7 @@
     }
   })
 
-  document.querySelector('#web2lead').addEventListener('submit', function(event) {
+  document.querySelector('#web2lead').addEventListener('submit', function (event) {
     if (isCaptchaVerified) {
       console.log('Form submitted inside iframe!');
       window.parent.postMessage('formSubmitted', '*');

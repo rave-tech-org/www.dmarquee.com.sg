@@ -85,43 +85,36 @@ const config = {
         },
 
         '.main-padding': {
-          '@apply px-4 md:px-6 lg:px-10 py-6 md:py-8 lg:py-12': {},
+          '@apply px-6 lg:px-10 py-8 lg:py-12': {},
         },
         '.main-padding-x': {
-          '@apply px-4 md:px-6 lg:px-10': {},
+          '@apply px-6 lg:px-10': {},
         },
 
         '.main-padding-y': {
-          '@apply py-6 md:py-8 lg:py-12': {},
+          '@apply py-8 lg:py-12': {},
         },
 
         '.main-padding-t': {
-          '@apply pt-6 md:pt-8 lg:pt-12': {},
+          '@apply pt-8 lg:pt-12': {},
         },
 
         '.gap-text': {
-          '@apply gap-4 xl:gap-6': {},
+          '@apply gap-6': {},
         },
 
         '.gap-text-longer': {
-          '@apply gap-[1.5rem] xl:gap-[2rem]': {},
+          '@apply gap-[2rem]': {},
         },
         '.space-padding': {
-          '@apply space-y-6 md:space-y-8 lg:space-y-12': {},
+          '@apply space-y-8 lg:space-y-12': {},
         },
 
         '.space-text': {
-          '@apply space-y-4 xl:space-y-6': {},
+          '@apply space-y-6': {},
         },
         '.space-text-longer': {
-          '@apply space-y-[1.5rem] xl:space-y-[2rem]': {},
-        },
-        '.space-paragraph': {
-          '@apply space-y-3 xl:space-y-4': {},
-        },
-
-        '.space-grid': {
-          '@apply gap-6 xl:gap-8': {},
+          '@apply space-y-[2rem]': {},
         },
 
         '.animate': {

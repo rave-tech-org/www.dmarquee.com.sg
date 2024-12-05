@@ -1,64 +1,26 @@
-'use client';
-
 import { buttonVariants } from '@/elements/button';
-import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
-import { useState } from 'react';
+import Carousel from './carousel';
 import type { ShowCasesCustomAttribute } from './type';
 
 export default function ShowCases({ block, entries }: ContentBlockRegistry) {
-  const [selectedIndex, setSelectedIndex] = useState(1);
-
   const custom = block?.customAttributes && transformObject<ShowCasesCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="main-padding">
+    <article className="main-padding-y lg:main-padding-x">
       <div className="wrapper space-padding">
         <section className="space-text">
-          <PortableText value={block?.description ?? []} />
-
-          <ul className="flex lg:flex-row flex-col gap-4">
-            {block?.listItems?.map((e, i) => {
-              const selected = selectedIndex === i;
-              return (
-                <li
-                  onMouseEnter={() => setSelectedIndex(i)}
-                  className={cn('animate-longer-2 relative h-[40rem] max-lg:!w-full group', {
-                    'max-lg:h-[16rem]': !selected,
-                    'max-lg:h-[27rem]': selected,
-                  })}
-                  key={e.title}
-                  style={{
-                    width: selected
-                      ? '40%'
-                      : `${60 / ((block?.listItems?.length ? block?.listItems?.length : 0) - 1)}%`,
-                  }}
-                >
-                  {e.imageUrl ? <NextImage src={e.imageUrl} className="object-cover object-center h-full" /> : null}
-
-                  <div
-                    className={cn(
-                      'text-white animate flex items-end absolute top-0 left-0 size-full opacity-0 bg-gradient-to-b from-transparent to-black/70',
-                      { 'opacity-100': selected }
-                    )}
-                  >
-                    <header
-                      className={cn('animate-longer-3 space-y-1.5 main-padding', { 'translate-y-12': !selected })}
-                    >
-                      <PortableText value={e.description ?? []} />
-                    </header>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          <header className="space-text max-lg:text-center max-lg:main-padding-x">
+            <PortableText value={block?.description ?? []} />
+          </header>
+          <Carousel block={block} />
         </section>
 
         <Link href={btnHref} className={cn(buttonVariants({ className: 'mx-auto' }))}>

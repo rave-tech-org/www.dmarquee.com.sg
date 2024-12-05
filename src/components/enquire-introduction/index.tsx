@@ -17,7 +17,7 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
     <article className="main-padding enquire-introduction-wrapper">
       <div className="wrapper">
         <section className="flex flex-col gap-6 md:flex-row md:justify-between items-center main-padding !pb-24 bg-muted-light">
-          <header className="space-text">
+          <header className="space-text max-md:text-center">
             <PortableText value={block?.description ?? []} />
           </header>
           <Link className={buttonVariants()} href={btnHref}>
@@ -25,7 +25,12 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
           </Link>
         </section>
 
-        {block?.imageUrl ? <NextImage src={block?.imageUrl} className="w-full -mt-16 object-cover" /> : null}
+        {block?.imageUrl ? (
+          <NextImage
+            src={block?.imageUrl}
+            className="w-full max-md:aspect-video max-md:object-right -mt-16 object-cover"
+          />
+        ) : null}
       </div>
     </article>
   );

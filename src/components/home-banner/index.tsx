@@ -14,28 +14,35 @@ export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
 
   return (
     <article className="main-padding home-banner-wrapper flex items-center justify-center min-h-screen">
-      <div className="wrapper grid lg:grid-cols-2 items-center gap-6 lg:gap-24 relative">
+      <div className="wrapper grid lg:grid-cols-2 items-center gap-10 lg:gap-24 relative">
         {block?.fileUrl ? (
-          <Link href={'/'} className="lg:absolute lg:-top-16 left-0">
-            <NextImage src={block.fileUrl} className="w-24 lg:w-32" />
+          <Link href={'/'} className="lg:absolute lg:-top-20 xl:-top-16 left-0 max-lg:hidden">
+            <NextImage src={block.fileUrl} className="w-40 xl:w-44" />
           </Link>
         ) : null}
-        <section className="space-y-4 lg:space-y-10">
-          <header className="space-text">
+        <section className="space-y-6 lg:space-y-10">
+          <header className="space-text max-lg:text-center">
             <PortableText value={block?.description ?? []} />
           </header>
-          <Link href={btnHref} className={buttonVariants()}>
+          <Link href={btnHref} className={buttonVariants({ className: 'max-lg:mx-auto' })}>
             {btnText}
           </Link>
         </section>
 
         {block?.imageUrl ? (
-          <section className="relative group">
+          <section className="relative group max-lg:w-[90%] max-lg:mx-auto max-lg:mt-6 max-lg:translate-x-2">
             <NextImage
               src={block.imageUrl}
-              className="aspect-square object-cover z-10 group-hover:md:-translate-x-3 group-hover:md:translate-y-3 animate"
+              className="aspect-square object-cover z-10 
+              group-hover:lg:-translate-x-6 group-hover:lg:translate-y-6
+              group-hover:-translate-x-4 group-hover:-translate-y-4
+              animate"
             />
-            <div className="bg-black absolute size-full aspect-square translate-y-6 -translate-x-6 group-hover:-translate-x-3 group-hover:translate-y-3 animate top-0 left-0 -z-10 max-lg:hidden" />
+            <div
+              className="bg-black absolute size-full aspect-square animate top-0 left-0 -z-10
+              -translate-x-4 -translate-y-4
+              lg:-translate-x-6 lg:translate-y-6 group-hover:translate-x-0 group-hover:translate-y-0"
+            />
           </section>
         ) : null}
       </div>

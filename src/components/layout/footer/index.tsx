@@ -26,8 +26,9 @@ export default async function Footer() {
     <footer>
       <section className="main-padding">
         <div className="max-lg:text-center wrapper grid lg:grid-cols-5 gap-4 items-center main-padding-y bg-white">
-          <header className="lg:col-span-2 space-y-2">
-            <h3>{title1}</h3>
+          <header className="lg:col-span-2 space-y-1 lg:space-y-2">
+            <h3 className="hidden md:flex">{title1}</h3>
+            <p className="md:hidden">{title1}</p>
             <h2>{title2}</h2>
           </header>
           <div className="lg:col-span-3">
@@ -37,7 +38,7 @@ export default async function Footer() {
       </section>
 
       <section className="main-padding-x py-6 bg-black text-white">
-        <div className="wrapper flex md:flex-row flex-col gap-4 justify-between items-center">
+        <div className="wrapper flex flex-col-reverse md:flex-row gap-1 md:gap-4 justify-between items-center">
           <PortableText value={data?.description ?? []} />
           <ul className="flex">
             {footerMenu?.[0]?.subMenu?.map((e, i) => {

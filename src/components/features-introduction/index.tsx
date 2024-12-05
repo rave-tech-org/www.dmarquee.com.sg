@@ -17,7 +17,7 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
   return (
     <article className="main-padding features-introduction-wrapper">
       <div className="wrapper space-padding">
-        <ul className="space-text-longer">
+        <ul className="space-y-[2rem]">
           {block?.listItems?.map((e, i) => {
             const isOdd = i % 2 !== 0;
             return (
@@ -37,8 +37,8 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
                 ) : null}
 
                 <header
-                  className={cn('space-text', {
-                    'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16 max-md:text-right': isOdd,
+                  className={cn('space-y-2 md:space-y-4 max-md:text-center', {
+                    'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16': isOdd,
                     'md:pl-6 lg:pl-16': !isOdd,
                   })}
                 >

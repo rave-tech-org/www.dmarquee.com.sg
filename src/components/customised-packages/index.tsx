@@ -19,7 +19,7 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
           <PortableText value={block?.description ?? []} />
         </header>
 
-        <ul className="grid gap-4 md:grid-cols-2 md:gap-6">
+        <ul className="grid md:grid-cols-2 gap-6">
           {block?.listItems?.map((e) => {
             return (
               <li key={e.title}>

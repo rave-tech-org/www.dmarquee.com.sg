@@ -24,13 +24,18 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
     <article>
       <section className="bg-primary main-padding !pb-32">
         <div className="wrapper grid md:grid-cols-2 gap-6 lg:gap-12 text-white main-padding-y">
-          <header className="space-text max-w-[32rem]">
+          <header className="space-text max-md:text-center max-w-[32rem]">
             <PortableText value={block?.description ?? []} />
           </header>
           <iframe src="/form/form.html" className="min-h-[32rem]" width="100%" height="100%" title="Web-to-Lead form" />
         </div>
       </section>
-      {block?.imageUrl ? <NextImage src={block?.imageUrl} className="w-full -mt-24 object-cover object-top" /> : null}
+      {block?.imageUrl ? (
+        <NextImage
+          src={block?.imageUrl}
+          className="w-full -mt-24 object-cover object-top max-md:aspect-video max-md:object-right"
+        />
+      ) : null}
     </article>
   );
 }

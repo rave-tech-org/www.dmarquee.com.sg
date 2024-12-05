@@ -20,22 +20,22 @@
     @apply animate;
   }
   h1 {
-    @apply text-5xl xl:text-[64px] xl:leading-[78px] font-medium;
+    @apply text-4xl xl:text-[64px] xl:leading-[78px] font-medium;
   }
   h2 {
-    @apply text-4xl xl:text-5xl font-medium;
+    @apply text-3xl xl:text-5xl font-medium;
   }
   h3 {
-    @apply text-xl xl:text-3xl font-medium;
+    @apply text-2xl xl:text-3xl font-medium;
   }
   h4 {
-    @apply text-xl xl:text-3xl font-medium;
+    @apply text-2xl xl:text-3xl font-medium;
   }
   h5 {
-    @apply text-xl xl:text-3xl font-medium;
+    @apply text-2xl xl:text-3xl font-medium;
   }
   h6 {
-    @apply text-xl xl:text-3xl font-medium;
+    @apply text-2xl xl:text-3xl font-medium;
   }
   p,
   a,
