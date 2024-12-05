@@ -7,6 +7,7 @@ import type { GetContentBlockResult } from '@/sanity/sanity.types';
 export default async function ContentBlockPage({ params }: { params: { slug: string } }) {
   const block = await sanityFetch<GetContentBlockResult>({
     query: GetContentBlockBySlug,
+    isDraft: true,
     tags: ['contentBlock'],
     qParams: { slug: params?.slug || 'home-banner' },
   });

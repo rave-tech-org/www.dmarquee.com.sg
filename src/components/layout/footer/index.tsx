@@ -6,9 +6,10 @@ import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import type { FooterCustomAttribute } from './type';
 
-export default async function Footer() {
+export default async function Footer({ isDraft = true }: { isDraft?: boolean }) {
   const data = await sanityFetch<PageType>({
     query: GetFooterLayout,
+    isDraft,
     tags: ['page', 'footerLayout'],
   });
 

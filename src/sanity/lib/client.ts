@@ -2,7 +2,10 @@ import { type UseQueryOptions, type UseQueryResult, useQuery } from '@tanstack/r
 import { type ClientPerspective, type QueryParams, createClient } from 'next-sanity';
 import { apiVersion, dataset, projectId } from './env';
 
-export const token = typeof process === 'undefined' ? '' : process.env.SANITY_API_READ_TOKEN!;
+export const token =
+  typeof process === 'undefined'
+    ? ''
+    : process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN! || process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN!;
 
 const clientConfig = {
   projectId,
@@ -39,7 +42,7 @@ export async function sanityFetch<QueryResponse>({
   }
   const currentClient = isDraft ? previewClient : client;
   return currentClient.fetch<QueryResponse>(query, qParams, {
-    cache: process.env.NODE_ENV === 'development' ? 'no-store' : 'force-cache',
+    cache: process.env.NODE_ENV === 'development' ? 'no-store' : isDraft ? 'no-store' : 'force-cache',
     next: { tags },
   });
 }

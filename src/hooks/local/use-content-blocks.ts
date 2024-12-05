@@ -27,6 +27,7 @@ const slugsToSkip: string[] = [];
 export const useContentBlocks = async () => {
   const contentBlocks = await sanityFetch<GetContentBlocksResult>({
     query: GetContentBlocks,
+    isDraft: true,
     tags: ['contentBlock'],
   });
 

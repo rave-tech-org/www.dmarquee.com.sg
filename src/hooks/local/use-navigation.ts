@@ -4,9 +4,10 @@ import { GetHeaderLayout } from '@/sanity/lib/queries/cms';
 import { GetPageResult } from '@/sanity/sanity.types';
 import { buildMenu } from '@/utils/build-menu';
 
-const useNavigation = () => {
+const useNavigation = ({ isDraft = true }: { isDraft?: boolean }) => {
   const { data: menuLayout, ...rest } = useSanityQuery<GetPageResult>({
     query: GetHeaderLayout,
+    isDraft,
     tags: ['page', 'contentBlock'],
   });
 

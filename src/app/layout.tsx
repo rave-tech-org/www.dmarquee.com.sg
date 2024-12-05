@@ -41,6 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   const isStudio = pathname.includes('studio');
   const isContentBlock = pathname.includes('content-block');
+  const isPreview = pathname.includes('preview');
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           ) : (
             <main>
               {children}
-              <Footer />
+              <Footer isDraft={isPreview} />
             </main>
           )}
         </ReactQueryProvider>
