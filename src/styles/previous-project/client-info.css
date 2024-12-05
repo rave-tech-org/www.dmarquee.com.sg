@@ -1,0 +1,28 @@
+.client-info{
+  background-color: rgba(167, 132, 182, 10.2%);
+  padding: 50px 0;
+}
+
+.client-info h2{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.client-info-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+.client-info-column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  max-width: 233px;
+}
+.logo-img{
+  border-radius: 10px;
+  margin: 7px;
+}

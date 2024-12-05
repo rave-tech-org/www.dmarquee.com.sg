@@ -1,0 +1,401 @@
+@import url("./introduction-section.css");
+@import url("./occasion-section.css");
+@import url("./moving-text-section.css");
+@import url("./zoom-slider-section.css");
+@import url("./form-section.css");
+@import url("./client-info.css");
+
+.wrapper {
+  padding-left: 3.65vw;
+  padding-right: 3.65vw;
+}
+
+.navigation-header {
+  background: #642b7c;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 6.25vw;
+  gap: 2.22vw;
+  transition: all 0.5s;
+}
+
+.navigation-header.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 30;
+}
+
+.navigation-header.mobile {
+  position: initial;
+}
+
+.navigation-header.sticky button {
+  margin-right: 3.65vw;
+}
+
+.page-layout-content.sticky {
+  padding-top: 120px;
+}
+
+.page-layout-content.sticky.mobile {
+  padding-top: 0px;
+}
+
+@media (max-width: 768px) {
+  .navigation-header {
+    height: 48px;
+  }
+  .navigation-header ul {
+    opacity: 0;
+  }
+  .navigation-header button {
+    opacity: 0;
+  }
+}
+
+.navigation-header li {
+  text-transform: uppercase;
+  font-size: 1vw;
+  cursor: pointer;
+  color: #fff;
+}
+
+.navigation-header ul {
+  display: flex;
+  gap: 2.22vw;
+}
+.navigation-header .enquiry-btn {
+  border-radius: 0.347vw;
+  background-color: #8c54a1;
+  border: none;
+  outline: none;
+  padding-top: 0.8333vw;
+  padding-bottom: 0.8333vw;
+  padding-left: 1.67vw;
+  padding-right: 1.67vw;
+  text-transform: uppercase;
+  font-size: 1vw;
+  cursor: pointer;
+  color: #fff;
+}
+
+.mobile-navigation {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-navigation {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.mobile-navigation nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.mobile-navigation .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #642b7c;
+  z-index: 9;
+}
+.mobile-navigation button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 4.65vw;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 10;
+}
+
+.mobile-navigation .enquiry-btn {
+  border-radius: 5px;
+  background-color: #8c54a1;
+  border: none;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.mobile-navigation ul {
+  padding: 25px;
+  position: absolute;
+  top: 50px;
+  width: 230px;
+  right: 0;
+}
+
+.mobile-navigation li {
+  list-style: none;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 11;
+  justify-content: flex-end;
+  text-transform: uppercase;
+}
+
+.mobile-navigation a {
+  color: #fff;
+}
+
+.mobile-navigation .refresh {
+  padding: 10px;
+  position: absolute;
+  background: #642b7c;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Home Page */
+
+.home-page .banner-section {
+  background: #642b7c;
+}
+
+.image-contain-component {
+  position: relative;
+  width: 100%;
+  height: 50vw;
+}
+
+.image-contain-component h1 {
+  color: #fff;
+}
+
+.image-contain-component .left-top-1 {
+  position: absolute;
+  left: 15vw;
+  top: 0;
+  width: 19.79vw;
+  height: 15.63vw;
+}
+
+.image-contain-component .left-top-2 {
+  position: absolute;
+  left: 7.7vw;
+  top: 10.7vw;
+  width: 9.375vw;
+  height: 10.42vw;
+}
+
+.image-contain-component .left-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 7vw;
+  width: 29.17vw;
+  height: 17.97vw;
+}
+
+.image-contain-component .right-top {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 29.17vw;
+  height: 17.97vw;
+}
+
+.image-contain-component .right-bottom-1 {
+  position: absolute;
+  right: 4.17vw;
+  bottom: 13.77vw;
+  width: 9.375vw;
+  height: 10.42vw;
+}
+
+.image-contain-component .right-bottom-2 {
+  position: absolute;
+  right: 8.33vw;
+  bottom: 7vw;
+  width: 18.75vw;
+  height: 10.42vw;
+}
+
+.image-contain-component .logo-element {
+  position: absolute;
+  left: calc(50% - 2vw);
+  top: 4vw;
+  width: 7.55vw;
+  height: 5.21vw;
+}
+
+.image-contain-component .content-first {
+  position: absolute;
+  left: calc(50% - 21vw);
+  top: calc(50% - 17vw);
+  font-size: 4.3vw;
+}
+
+.image-contain-component .content-btn {
+  position: absolute;
+  left: calc(50% - 8vw);
+  top: calc(50% + 7vw);
+  font-size: 2.3vw;
+  border-radius: 0.3vw;
+  color: #642b7c;
+  border: none;
+  outline: none;
+  padding-top: 0.6333vw;
+  padding-bottom: 0.6333vw;
+  padding-left: 1.3vw;
+  padding-right: 1.3vw;
+  text-transform: uppercase;
+  font-size: 1vw;
+  cursor: pointer;
+  background-color: #fff;
+  font-weight: 500;
+}
+
+.image-contain-component .content-first.two {
+  left: 50%;
+}
+
+.image-contain-component .content-first.three {
+  left: calc(50% - 19vw);
+  top: calc(50% - 12vw);
+}
+
+.image-contain-component .content-first.four {
+  left: calc(50% + 17.5vw);
+  top: calc(50% - 12vw);
+}
+
+.image-contain-component .content-first.five {
+  left: calc(50% - 21vw);
+  top: calc(50% - 7vw);
+}
+
+.image-contain-component .content-first.six {
+  left: calc(50% + 6vw);
+  top: calc(50% - 7vw);
+}
+
+.image-contain-component .content-first.seven {
+  left: calc(50% + 8vw);
+}
+
+.image-contain-component .content-first.eight {
+  left: calc(50% + 9.8vw);
+}
+
+.image-contain-component .content-first.nine {
+  left: calc(50% + 13.5vw);
+}
+
+.image-contain-component .content-second {
+  position: absolute;
+  left: calc(50% - 16vw);
+  top: calc(50% - 9vw);
+  font-size: 7.3vw;
+}
+
+.image-contain-component .content-second.two {
+  left: calc(50% - 12.7vw);
+}
+
+.image-contain-component .content-second.three {
+  left: calc(50% - 9.7vw);
+}
+
+.image-contain-component .content-second.four {
+  left: calc(50% - 6.7vw);
+}
+
+.image-contain-component .content-second.five {
+  left: calc(50% - 3vw);
+}
+
+.image-contain-component .content-second.six {
+  left: calc(50% + 1vw);
+}
+
+.image-contain-component .content-third {
+  position: absolute;
+  left: calc(50% - 5.5vw);
+  top: calc(50% + 2vw);
+  font-size: 1.5vw;
+  color: #fff;
+}
+
+.image-contain-component .arrow-down {
+  position: absolute;
+  left: calc(50% + 1vw);
+  top: calc(50% + 14vw);
+  width: 3vw;
+  height: 3vw;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .image-contain-component .arrow-down {
+    width: 18px;
+    height: 18px;
+    left: 50%;
+  }
+}
+
+.moving-element {
+  animation: moveTopBottom 4s linear infinite; /* Animation properties */
+}
+
+@keyframes moveTopBottom {
+  0% {
+    top: 4vw;
+    transform: rotate(0.5deg);
+  }
+  50% {
+    top: 3vw;
+    transform: rotate(1deg);
+  }
+  100% {
+    top: 4vw;
+    transform: rotate(0.5deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce-hover {
+  display: inline-block; /* Ensure the element respects the bounce */
+  transition: transform 0.2s; /* Smooth transition for the hover effect */
+  animation: bounce 2s infinite;
+}

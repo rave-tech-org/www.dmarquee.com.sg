@@ -1,3 +1,4 @@
+'use client';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';

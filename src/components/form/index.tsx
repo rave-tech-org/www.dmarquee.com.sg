@@ -27,7 +27,13 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
           <header className="space-text max-md:text-center max-w-[32rem]">
             <PortableText value={block?.description ?? []} />
           </header>
-          <iframe src="/form/form.html" className="min-h-[32rem]" width="100%" height="100%" title="Web-to-Lead form" />
+          <iframe
+            src="/form/new-form.html"
+            className="min-h-[32rem]"
+            width="100%"
+            height="100%"
+            title="Web-to-Lead form"
+          />
         </div>
       </section>
       {block?.imageUrl ? (

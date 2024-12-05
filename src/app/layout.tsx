@@ -4,16 +4,16 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
 import '@/styles/global.scss';
-import '@/styles/tailwind.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Footer from '@/components/layout/footer';
+import PageLayout from '@/components/previous-project/page-layout';
 
 export const metadata: Metadata = {
-  title: 'D’Marquee',
-  description: 'D’Marquee',
+  title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
+  description: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
 };
 
 const brandonGrotesque = localFont({
@@ -42,6 +42,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const isStudio = pathname.includes('studio');
   const isContentBlock = pathname.includes('content-block');
   const isPreview = pathname.includes('preview');
+  const isDiscoverDmq = pathname.includes('discoverdmq');
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>
@@ -52,11 +53,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ReactQueryProvider>
           {isStudio || isContentBlock ? (
             <main>{children}</main>
-          ) : (
+          ) : isDiscoverDmq ? (
             <main>
               {children}
               <Footer isDraft={isPreview} />
             </main>
+          ) : (
+            <PageLayout className="">{children}</PageLayout>
           )}
         </ReactQueryProvider>
 

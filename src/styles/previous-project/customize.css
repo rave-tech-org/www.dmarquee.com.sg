@@ -1,0 +1,19 @@
+@import url("./layout.css");
+@import url("./home-page.css");
+@import url("./thank-you-page.css");
+
+body {
+  background-color: #fff;
+  margin: 0;
+  font-family: var(--font-brandon-grotesque);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
