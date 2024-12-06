@@ -27,7 +27,6 @@ export default async function Home() {
     qParams: { name: 'discover-dmq' },
   });
   const [entries, contentBlock] = await Promise.all([useEntries(), useContentBlocks()]);
-
   return (
     <main>
       {homePage?.layout?.map((block, index) => {
