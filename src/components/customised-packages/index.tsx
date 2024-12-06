@@ -15,7 +15,7 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
 
   return (
     <article className="main-padding customised-packages-wrapper">
-      <div className="wrapper space-padding">
+      <div className="component-wrapper space-padding">
         <header className="space-text text-center">
           <PortableText value={block?.description ?? []} />
         </header>

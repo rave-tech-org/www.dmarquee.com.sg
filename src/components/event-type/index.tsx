@@ -16,7 +16,7 @@ export default function EventType({ block, entries }: ContentBlockRegistry) {
 
   return (
     <article className="lg:bg-muted-light main-padding event-type-wrapper">
-      <div className="wrapper main-padding-y space-padding lg:space-y-12">
+      <div className="component-wrapper main-padding-y space-padding lg:space-y-12">
         <header className="space-text text-center event-type-header-wrapper">
           <PortableText value={block?.description ?? []} />
         </header>

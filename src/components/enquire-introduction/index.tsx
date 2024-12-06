@@ -17,7 +17,7 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
 
   return (
     <article className="main-padding enquire-introduction-wrapper">
-      <div className="wrapper">
+      <div className="component-wrapper">
         <section className="flex flex-col gap-6 md:flex-row md:justify-between items-center main-padding !pb-24 bg-muted-light">
           <header className="space-text max-md:text-center">
             <PortableText value={block?.description ?? []} />

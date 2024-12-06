@@ -16,7 +16,7 @@ export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
 
   return (
     <article className="main-padding home-banner-wrapper flex items-center justify-center min-h-screen">
-      <div className="wrapper grid lg:grid-cols-2 items-center gap-10 lg:gap-24 relative">
+      <div className="component-wrapper grid lg:grid-cols-2 items-center gap-10 lg:gap-24 relative">
         {block?.fileUrl ? (
           <Link href={'/'} className="lg:absolute lg:-top-20 xl:-top-16 left-0 max-lg:hidden">
             <NextImage src={block.fileUrl} className="w-40 xl:w-44" />

@@ -23,7 +23,7 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
   return (
     <article>
       <section className="bg-primary main-padding !pb-32">
-        <div className="wrapper grid md:grid-cols-2 gap-6 lg:gap-12 text-white main-padding-y">
+        <div className="component-wrapper grid md:grid-cols-2 gap-6 lg:gap-12 text-white main-padding-y">
           <header className="space-text max-md:text-center max-w-[32rem]">
             <PortableText value={block?.description ?? []} />
           </header>

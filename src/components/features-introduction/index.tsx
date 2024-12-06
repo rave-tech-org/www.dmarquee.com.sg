@@ -17,7 +17,7 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
 
   return (
     <article className="main-padding features-introduction-wrapper">
-      <div className="wrapper space-padding">
+      <div className="component-wrapper space-padding">
         <ul className="space-y-[2rem]">
           {block?.listItems?.map((e, i) => {
             const isOdd = i % 2 !== 0;

@@ -15,7 +15,7 @@ export default function ShowCases({ block, entries }: ContentBlockRegistry) {
 
   return (
     <article className="main-padding-y lg:main-padding-x">
-      <div className="wrapper space-padding">
+      <div className="component-wrapper space-padding">
         <section className="space-text">
           <header className="space-text max-lg:text-center max-lg:main-padding-x">
             <PortableText value={block?.description ?? []} />

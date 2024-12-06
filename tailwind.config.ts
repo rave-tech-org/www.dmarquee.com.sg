@@ -73,12 +73,12 @@ const config = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
-        '.wrapper': {
+        '.component-wrapper': {
           maxWidth: '1560px',
           marginLeft: 'auto',
           marginRight: 'auto',
         },
-        '.wrapper-small': {
+        '.component-wrapper-small': {
           maxWidth: '1280px',
           marginLeft: 'auto',
           marginRight: 'auto',

@@ -17,13 +17,13 @@ export default function EventGalleries({ block, entries }: ContentBlockRegistry)
   return (
     <article className="main-padding-y event-galleries-wrapper">
       <div className="space-padding">
-        <header className="wrapper text-center">
+        <header className="component-wrapper text-center">
           <h2 className="main-padding-x">{block?.title}</h2>
         </header>
         <Carousel block={block} />
 
         <section className="main-padding-x">
-          <div className="wrapper relative">
+          <div className="component-wrapper relative">
             {block?.imageUrl ? (
               <NextImage
                 src={block.imageUrl}
