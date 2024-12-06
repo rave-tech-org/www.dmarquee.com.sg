@@ -3,6 +3,7 @@ import { useEntries } from '@/hooks/local/use-entries';
 import { sanityFetch } from '@/sanity/lib/client';
 import { GetContentBlockBySlug } from '@/sanity/lib/queries/cms';
 import type { GetContentBlockResult } from '@/sanity/sanity.types';
+import '@/styles/tailwind.css';
 
 export default async function ContentBlockPage({ params }: { params: { slug: string } }) {
   const block = await sanityFetch<GetContentBlockResult>({
