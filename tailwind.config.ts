@@ -74,9 +74,7 @@ const config = {
     plugin(({ addUtilities }) => {
       addUtilities({
         '.component-wrapper': {
-          maxWidth: '1560px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          '@apply max-w-[393px] md:max-w-[1560px] mx-auto': {},
         },
         '.component-wrapper-small': {
           maxWidth: '1280px',
