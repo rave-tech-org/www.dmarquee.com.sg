@@ -432,46 +432,35 @@
   </select>
 </form>
 <script>
-  var isCaptchaVerified = false
-  var pdpaCheckbox = document.getElementById('00NIh000000Jb8v')
-  var submitButton = document.getElementById('submitBtn')
+var isCaptchaVerified = false;
+var pdpaCheckbox = document.getElementById('00NIh000000Jb8v');
+var submitButton = document.getElementById('submitBtn');
 
-  function verifyCaptcha() {
-    isCaptchaVerified = true
-    document.getElementById('captchaMessage').style.display = 'none'
+function verifyCaptcha() {
+  isCaptchaVerified = true;
+  document.getElementById('captchaMessage').style.display = 'none';
+}
+
+document.getElementById('web2lead').addEventListener('submit', function (event) {
+  document.getElementById('captchaMessage').style.display = 'none';
+
+  if (!isCaptchaVerified) {
+    document.getElementById('captchaMessage').style.display = 'block';
+    event.preventDefault();
+    return; 
   }
 
-  document.getElementById('web2lead').addEventListener('submit', function (event) {
-    // Clear previous error messages
-    document.getElementById('captchaMessage').style.display = 'none'
+  if (isCaptchaVerified) {
+    submitButton.removeAttribute('disabled');
+  }
 
-    if(isCaptchaVerified) {
-      const button = document.getElementById('submitBtn')
-      button.removeAttribute("disabled");
-    }
-    // CAPTCHA Verification
-    if (!isCaptchaVerified) {
-      document.getElementById('captchaMessage').style.display = 'block'
-      event.preventDefault() // Prevent form submission
-      return // Exit function to prevent further execution
-    }
-  })
+  setTimeout(() => {
+    console.log('Form submission completed inside iframe!');
+    window.parent.postMessage('formSubmissionComplete', '*');
+  }, 2000);
+});
 
-  document.querySelector('#web2lead').addEventListener('submit', function(event) {
-    if (isCaptchaVerified) {
-      console.log('Form submitted inside iframe!');
-      window.parent.postMessage('formSubmitted', '*');
-    }
-  });
-
-  /// Add event listener to the checkbox
-  pdpaCheckbox.addEventListener('change', function () {
-    // If the checkbox is checked, enable the submit button
-    if (pdpaCheckbox.checked) {
-      submitButton.disabled = false
-    } else {
-      // If the checkbox is not checked, disable the submit button
-      submitButton.disabled = true
-    }
-  })
+pdpaCheckbox.addEventListener('change', function () {
+  submitButton.disabled = !pdpaCheckbox.checked;
+});
 </script>

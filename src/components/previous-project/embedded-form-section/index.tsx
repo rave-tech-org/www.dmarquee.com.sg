@@ -14,16 +14,29 @@ const EmbeddedFormSection = () => {
     desc: `Fill out our contact form for a Free Consultation or to discuss any event types not listed on our site.`,
   };
 
+  // useEffect(() => {
+  //   window.addEventListener('message', function (event) {
+  //     if (event.data === 'formSubmitted') {
+  //       setIsLoading(true);
+  //       console.log('Form was submitted in the iframe');
+  //       setTimeout(() => {
+  //         router.push('/thank-you');
+  //       }, 5000);
+  //     }
+  //   });
+  // }, []);
   useEffect(() => {
-    window.addEventListener('message', function (event) {
-      if (event.data === 'formSubmitted') {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data === 'formSubmissionComplete') {
+        console.log('Received formSubmissionComplete message from iframe.');
         setIsLoading(true);
-        console.log('Form was submitted in the iframe');
-        setTimeout(() => {
-          router.push('/thank-you');
-        }, 5000);
+        router.push('/thank-you');
       }
-    });
+    };
+    window.addEventListener('message', handleMessage);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
   }, []);
 
   return (
