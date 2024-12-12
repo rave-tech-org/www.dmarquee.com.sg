@@ -14,30 +14,22 @@ const EmbeddedFormSection = () => {
     desc: `Fill out our contact form for a Free Consultation or to discuss any event types not listed on our site.`,
   };
 
-  // useEffect(() => {
-  //   window.addEventListener('message', function (event) {
-  //     if (event.data === 'formSubmitted') {
-  //       setIsLoading(true);
-  //       console.log('Form was submitted in the iframe');
-  //       setTimeout(() => {
-  //         router.push('/thank-you');
-  //       }, 5000);
-  //     }
-  //   });
-  // }, []);
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data === 'formSubmissionComplete') {
-        console.log('Received formSubmissionComplete message from iframe.');
+      if (event.data === 'formSubmitted') {
         setIsLoading(true);
-        router.push('/thank-you');
+        console.log('Form was submitted in the iframe');
+        window.open('https://dmarquee.com.sg/thank-you', '_blank');
+        setTimeout(() => {
+          router.push('/thank-you');
+        }, 5000);
       }
     };
     window.addEventListener('message', handleMessage);
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  }, []);
+  }, [router]);
 
   return (
     <div id="form-section" className="form-section">
