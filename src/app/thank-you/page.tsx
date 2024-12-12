@@ -1,5 +1,6 @@
 import { buttonVariants } from '@/elements/button';
 import Link from 'next/link';
+import '@/styles/tailwind.css';
 
 const ThankYouPage = () => {
   return (

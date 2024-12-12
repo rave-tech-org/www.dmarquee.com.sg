@@ -13,6 +13,7 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
     window.addEventListener('message', (event) => {
       if (event.data === 'formSubmitted') {
         console.log('Form was submitted in the iframe');
+        window.open('https://dmarquee.com.sg/thank-you', '_blank');
         setTimeout(() => {
           router.push('/thank-you');
         }, 5000);
