@@ -27,7 +27,7 @@ export default function EventGalleries({ block, entries }: ContentBlockRegistry)
             {block?.imageUrl ? (
               <NextImage
                 src={block.imageUrl}
-                className="max-md:h-[32rem] md:aspect-[21/9] xl:aspect-[25/9] w-full object-center object-cover"
+                className="max-md:h-[32rem] md:aspect-[21/9] xl:aspect-[25/9] w-full object-[40%_top] md:object-right object-cover"
               />
             ) : null}
 

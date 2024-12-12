@@ -39,7 +39,7 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
       {block?.imageUrl ? (
         <NextImage
           src={block?.imageUrl}
-          className="w-full -mt-24 object-cover object-top max-md:aspect-video max-md:object-right"
+          className="w-full max-md:aspect-video md:h-[30rem] object-[80%_top] md:object-right-top -mt-16 object-cover"
         />
       ) : null}
     </article>

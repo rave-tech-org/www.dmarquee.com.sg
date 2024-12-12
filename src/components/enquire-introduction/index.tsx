@@ -30,7 +30,7 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
         {block?.imageUrl ? (
           <NextImage
             src={block?.imageUrl}
-            className="w-full max-md:aspect-video max-md:object-right -mt-16 object-cover"
+            className="w-full max-md:aspect-video md:h-[20rem] object-[80%_top] md:object-right-top -mt-16 object-cover"
           />
         ) : null}
       </div>
