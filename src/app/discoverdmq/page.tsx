@@ -6,6 +6,7 @@ import { GetPage, GetPageMeta } from '@/sanity/lib/queries/cms';
 import type { GetPageResult, Page } from '@/sanity/sanity.types';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+
 import '@/styles/tailwind.css';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,16 +29,12 @@ export default async function Home() {
   });
   const [entries, contentBlock] = await Promise.all([useEntries(), useContentBlocks()]);
 
-  return (
-    <main>
-      {homePage?.layout?.map((block, index) => {
-        const Component = contentBlock.get(block.slug?.current || '');
-        return (
-          <Suspense key={`home-page-${index}`} fallback={<SkeletonLoader />}>
-            {Component ? <Component block={block} entries={entries} /> : null}
-          </Suspense>
-        );
-      })}
-    </main>
-  );
+  return homePage?.layout?.map((block, index) => {
+    const Component = contentBlock.get(block.slug?.current || '');
+    return (
+      <Suspense key={`home-page-${index}`} fallback={<SkeletonLoader />}>
+        {Component ? <Component block={block} entries={entries} /> : null}
+      </Suspense>
+    );
+  });
 }
