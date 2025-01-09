@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 type PageLayoutProps = {
   children: ReactNode;
-  className: string;
+  className?: string;
 };
 
 export default PageLayoutProps;

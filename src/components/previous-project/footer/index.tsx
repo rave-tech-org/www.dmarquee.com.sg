@@ -23,13 +23,6 @@ const Footer = () => {
 
   return (
     <footer className="footer-section">
-      <a
-        href="https://api.whatsapp.com/send/?phone=6590212844&text&app_absent=0"
-        className="whatsapp-link"
-        target="_blank"
-      >
-        <img src="/assets/images/whatsapp-img.png" />
-      </a>
       <div className="center-wrapper">
         <div className="top-footer">
           <div className="left-footer">
