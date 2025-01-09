@@ -8,7 +8,7 @@ import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import type { HomeBannerCustomAttribute } from './type';
 
-export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
+export default function HomeBanner({ block }: ContentBlockRegistry) {
   const custom = block?.customAttributes && transformObject<HomeBannerCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
@@ -16,19 +16,24 @@ export default function HomeBanner({ entries, block }: ContentBlockRegistry) {
 
   return (
     <article className="main-padding home-banner-wrapper flex items-center justify-center min-h-screen">
-      <div className="component-wrapper grid lg:grid-cols-2 items-center gap-10 lg:gap-24 relative">
-        {block?.fileUrl ? (
-          <Link href={'/'} className="lg:absolute lg:-top-20 xl:-top-16 left-0 max-lg:hidden">
-            <NextImage src={block.fileUrl} className="w-40 xl:w-44" />
-          </Link>
-        ) : null}
-        <section className="space-y-6 lg:space-y-10">
-          <header className="space-text max-lg:text-center">
-            <PortableText value={block?.description ?? []} />
-          </header>
-          <Link href={btnHref} className={buttonVariants({ className: 'max-lg:mx-auto' })}>
-            {btnText}
-          </Link>
+      <div className="component-wrapper grid lg:grid-cols-2 gap-10 lg:gap-24">
+        <section className="flex flex-col justify-between">
+          {block?.fileUrl ? (
+            <Link href={'/'} className="max-lg:hidden">
+              <NextImage src={block.fileUrl} className="w-40 xl:w-44" />
+            </Link>
+          ) : null}
+
+          <section className="space-y-6 lg:space-y-10">
+            <header className="space-text max-lg:text-center">
+              <PortableText value={block?.description ?? []} />
+            </header>
+            <Link href={btnHref} className={buttonVariants({ className: 'max-lg:mx-auto' })}>
+              {btnText}
+            </Link>
+          </section>
+
+          <div />
         </section>
 
         {block?.imageUrl ? (
