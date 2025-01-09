@@ -6,3 +6,5 @@ export const middleware = (req: NextRequest) => {
   res.headers.set('path', path);
   return res;
 };
+
+export const config = { matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'] };

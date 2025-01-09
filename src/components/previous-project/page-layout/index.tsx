@@ -4,14 +4,14 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-image-lightbox/style.css';
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import PageLayoutProps from './type';
-import useViewport from '@/hooks/client/use-viewport';
 import useScrollTo from '@/hooks/client/use-scroll-to';
+import useViewport from '@/hooks/client/use-viewport';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import PageLayoutProps from './type';
 import '@/styles/previous-project/customize.css';
-import { MobileNavigation } from '@/components/previous-project/mobile-navigation';
 import Footer from '@/components/previous-project/footer';
+import { MobileNavigation } from '@/components/previous-project/mobile-navigation';
 
 const PageLayout = ({ children, className }: PageLayoutProps) => {
   const pathname = usePathname();

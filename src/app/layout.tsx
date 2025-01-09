@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import Footer from '@/components/layout/footer';
 import PageLayout from '@/components/previous-project/page-layout';
+import WhatsAppButton from '@/elements/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
@@ -51,6 +52,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
       <body>
         <ReactQueryProvider>
+          {!isStudio && !isContentBlock && <WhatsAppButton />}
+
           {isStudio || isContentBlock ? (
             <main>{children}</main>
           ) : isDiscoverDmq ? (
@@ -59,12 +62,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Footer isDraft={isPreview} />
             </main>
           ) : (
-            <PageLayout className="">{children}</PageLayout>
+            <PageLayout>{children}</PageLayout>
           )}
         </ReactQueryProvider>
 
         <noscript>
           <iframe
+            title="GTM"
             src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
             height={0}
             width={0}
