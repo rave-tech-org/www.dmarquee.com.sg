@@ -1,11 +1,12 @@
 import { type UseQueryOptions, type UseQueryResult, useQuery } from '@tanstack/react-query';
 import { type ClientPerspective, type QueryParams, createClient } from 'next-sanity';
 import { apiVersion, dataset, projectId } from './env';
+import { getTokens } from './getToken';
+
+const { sanityApiReadToken } = await getTokens();
 
 export const token =
-  typeof process === 'undefined'
-    ? ''
-    : process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN! || process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN!;
+  typeof process === 'undefined' ? '' : sanityApiReadToken! || process.env.NEXT_PUBLIC_SANITY_API_READ_TOKEN!;
 
 const clientConfig = {
   projectId,
