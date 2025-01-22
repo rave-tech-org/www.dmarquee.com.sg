@@ -1,6 +1,6 @@
-import React, { ComponentType } from 'react';
 import { Stack } from '@sanity/ui';
-import { NavbarProps } from 'sanity';
+import type { ComponentType } from 'react';
+import type { NavbarProps } from 'sanity';
 
 const CustomNavBar: ComponentType<NavbarProps> = (props) => {
   return (
