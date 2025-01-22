@@ -1,8 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import ClientInfoSection from '@/components/previous-project/client-info-section';
+import EmbeddedFormSection from '@/components/previous-project/embedded-form-section';
+import IntroductionSection from '@/components/previous-project/introduction-section';
+import MovingTextSection from '@/components/previous-project/moving-text-section';
+import OccasionSection from '@/components/previous-project/occasion-section';
+import ZoomSliderSection from '@/components/previous-project/zoom-slider-section';
 // import IntroductionSection from '@client-components/introduction-section';
 // import OccasionSection from '@client-components/occasion-section';
 // import MovingTextSection from '@client-components/moving-text-section';
@@ -11,12 +14,9 @@ import { useEffect, useState } from 'react';
 // import ClientInfoSection from '../components/client/client-info-section';
 // import EmbeddedFormSection from '../components/client/embedded-form-section';
 import useScrollTo from '@/hooks/client/use-scroll-to';
-import IntroductionSection from '@/components/previous-project/introduction-section';
-import OccasionSection from '@/components/previous-project/occasion-section';
-import MovingTextSection from '@/components/previous-project/moving-text-section';
-import ZoomSliderSection from '@/components/previous-project/zoom-slider-section';
-import ClientInfoSection from '@/components/previous-project/client-info-section';
-import EmbeddedFormSection from '@/components/previous-project/embedded-form-section';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
   const revealVariants = (delay: number) => ({
