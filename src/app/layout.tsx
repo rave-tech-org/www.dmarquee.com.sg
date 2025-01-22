@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
@@ -46,6 +47,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const isContentBlock = pathname.includes('content-block');
   const isPreview = pathname.includes('preview');
   const isDiscoverDmq = pathname.includes('discoverdmq');
+
+  const isRedirectToDiscoverDmq = true;
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>

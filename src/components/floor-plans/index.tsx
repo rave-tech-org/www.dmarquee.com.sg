@@ -26,7 +26,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
         </header>
 
         {block?.listItems?.length ? (
-          <section className="grid grid-cols-3 lg:flex justify-center gap-4 lg:gap-12 lg:px-16">
+          <section className="hidden lg:flex justify-center gap-4 lg:gap-12 lg:px-16">
             <ul className="flex flex-col w-[20%]">
               {block?.listItems?.map((e, i) => {
                 const isActive = i === selected;
@@ -58,6 +58,47 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
               </figure>
             </section>
           </section>
+        ) : null}
+
+        {block?.listItems?.length ? (
+          <ul className="flex flex-col lg:hidden">
+            {block.listItems.map((e, i) => {
+              const isActive = i === selected;
+              return (
+                <li key={e.title} className="flex flex-col">
+                  <button type="button" onClick={() => setSelected(i)} className="grid items-center grid-cols-12">
+                    <div
+                      className={cn('ml-3 md:ml-12 animate bg-muted-light h-[40px] w-[3px]', {
+                        'bg-primary': isActive,
+                      })}
+                    />
+                    <h6
+                      className={cn('text-left text-[#B1B0B0] line-clamp-1 col-span-11', {
+                        'text-black': isActive,
+                      })}
+                    >
+                      {e.title}
+                    </h6>
+                  </button>
+
+                  <div className="grid grid-cols-12">
+                    <div className="ml-3 md:ml-12 animate bg-muted-light h-full w-[3px]" />
+
+                    <figure className={cn('space-y-6 col-span-11 py-4', { hidden: !isActive })}>
+                      <NextImage
+                        preview
+                        src={block?.listItems?.[selected].imageUrl ?? ''}
+                        alt={block?.listItems?.[selected].title}
+                      />
+                      <figcaption className="space-y-4">
+                        <PortableText value={block?.listItems?.[selected].description ?? []} />
+                      </figcaption>
+                    </figure>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         ) : null}
 
         <Link href={btnHref} className={cn(buttonVariants({ className: 'mx-auto' }))}>
