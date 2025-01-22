@@ -77,9 +77,7 @@ const config = {
           '@apply max-w-[393px] md:max-w-[1560px] mx-auto': {},
         },
         '.component-wrapper-small': {
-          maxWidth: '1280px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          '@apply max-w-[393px] md:max-w-[1200px] mx-auto': {},
         },
 
         '.main-padding': {
