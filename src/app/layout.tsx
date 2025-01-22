@@ -1,16 +1,18 @@
+import Footer from '@/components/layout/footer';
+import PageLayout from '@/components/previous-project/page-layout';
 import ReactQueryProvider from '@/elements/react-query-provider';
+import WhatsAppButton from '@/elements/whatsapp-button';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 import '@/styles/global.scss';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import Footer from '@/components/layout/footer';
-import PageLayout from '@/components/previous-project/page-layout';
-import WhatsAppButton from '@/elements/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
@@ -51,21 +53,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
 
       <body>
-        <ReactQueryProvider>
-          {!isStudio && !isContentBlock && <WhatsAppButton />}
+        <NuqsAdapter>
+          <ReactQueryProvider>
+            {!isStudio && !isContentBlock && <WhatsAppButton />}
 
-          {isStudio || isContentBlock ? (
-            <main>{children}</main>
-          ) : isDiscoverDmq ? (
-            <main>
-              {children}
-              <Footer isDraft={isPreview} />
-            </main>
-          ) : (
-            <PageLayout>{children}</PageLayout>
-          )}
-        </ReactQueryProvider>
-
+            {isStudio || isContentBlock ? (
+              <main>{children}</main>
+            ) : isDiscoverDmq ? (
+              <main>
+                {children}
+                <Footer isDraft={isPreview} />
+              </main>
+            ) : (
+              <PageLayout>{children}</PageLayout>
+            )}
+          </ReactQueryProvider>
+        </NuqsAdapter>
         <noscript>
           <iframe
             title="GTM"

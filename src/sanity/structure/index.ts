@@ -1,5 +1,13 @@
+import {
+  BlockContentIcon,
+  CommentIcon,
+  DocumentIcon,
+  DocumentTextIcon,
+  ImageIcon,
+  ImagesIcon,
+  StringIcon,
+} from '@sanity/icons';
 import type { StructureResolver } from 'sanity/structure';
-import { TagIcon, PackageIcon, UserIcon, DocumentIcon, DashboardIcon } from '@sanity/icons';
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -7,86 +15,41 @@ export const structure: StructureResolver = (S) =>
     .title('Content')
     .items([
       S.listItem()
-        .title('CMS')
-        .icon(DocumentIcon)
+        .title('Pages')
+        .schemaType('page')
+        .child(S.documentTypeList('page').title('All Pages'))
+        .icon(DocumentIcon),
+
+      S.listItem()
+        .title('Content Blocks')
+        .schemaType('contentBlock')
+        .child(S.documentTypeList('contentBlock').title('All Content Blocks'))
+        .icon(BlockContentIcon),
+      S.listItem()
+        .title('Testimonial')
+        .schemaType('testimonial')
+        .child(S.documentTypeList('testimonial').title('All Testimonials'))
+        .icon(CommentIcon),
+      S.listItem()
+        .title('Post')
+        .schemaType('post')
+        .child(S.documentTypeList('post').title('All Posts'))
+        .icon(StringIcon),
+      S.listItem()
+        .title('Assets')
+        .icon(ImageIcon)
         .child(
           S.list()
-            .title('Pages')
+            .title('All Assets')
             .items([
-              S.listItem().title('Pages').schemaType('page').child(S.documentTypeList('page').title('All Pages')),
-
               S.listItem()
-                .title('Content Blocks')
-                .schemaType('contentBlock')
-                .child(S.documentTypeList('contentBlock').title('All Content Blocks')),
+                .title('Images')
+                .icon(ImagesIcon)
+                .child(S.documentList().title('All Images').filter('_type == "sanity.imageAsset"')),
               S.listItem()
-                .title('Testimonial')
-                .schemaType('testimonial')
-                .child(S.documentTypeList('testimonial').title('All Testimonials')),
-              S.listItem().title('Post').schemaType('post').child(S.documentTypeList('post').title('All Posts')),
+                .icon(DocumentTextIcon)
+                .title('Files')
+                .child(S.documentList().title('All Files').filter('_type == "sanity.fileAsset"')),
             ])
         ),
-
-      // S.divider(),
-
-      // S.listItem()
-      //   .title('Package Lists')
-      //   .icon(PackageIcon)
-      //   .child(
-      //     S.list()
-      //       .title('Package Lists')
-      //       .items([
-      //         // Products
-      //         S.listItem()
-      //           .title('Products')
-      //           .icon(PackageIcon)
-      //           .child(
-      //             S.list()
-      //               .title('Products')
-      //               .items([
-      //                 S.listItem()
-      //                   .title('All Products')
-      //                   .schemaType('product')
-      //                   .child(S.documentTypeList('product').title('All Products')),
-
-      //                 S.listItem()
-      //                   .title('Tour')
-      //                   .schemaType('product')
-      //                   .child(S.documentList().title('Tour').filter('_type == "product" && productType == "tour"')),
-
-      //                 S.listItem()
-      //                   .title('Transport')
-      //                   .schemaType('product')
-      //                   .child(
-      //                     S.documentList().title('Transport').filter('_type == "product" && productType == "transport"')
-      //                   ),
-
-      //                 S.listItem()
-      //                   .title('Destination')
-      //                   .schemaType('product')
-      //                   .child(
-      //                     S.documentList()
-      //                       .title('Destination')
-      //                       .filter('_type == "product" && productType == "destination"')
-      //                   ),
-
-      //                 S.listItem()
-      //                   .title('Ticket')
-      //                   .schemaType('product')
-      //                   .child(
-      //                     S.documentList().title('Ticket').filter('_type == "product" && productType == "ticket"')
-      //                   ),
-      //               ])
-      //           ),
-
-      //         // Categories
-      //         S.listItem()
-      //           .title('Categories')
-      //           .icon(TagIcon)
-      //           .schemaType('category')
-      //           .child(S.documentTypeList('category').title('All Categories')),
-      //       ])
-      //   ),
-
-      S.divider(),
     ]);
