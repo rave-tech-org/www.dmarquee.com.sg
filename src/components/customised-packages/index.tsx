@@ -36,7 +36,11 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
             );
           })}
         </ul>
-        <Link className={buttonVariants({ className: 'mx-auto' })} href={btnHref}>
+        <Link
+          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+          className={buttonVariants({ className: 'mx-auto' })}
+          href={btnHref}
+        >
           {btnText}
         </Link>
       </div>

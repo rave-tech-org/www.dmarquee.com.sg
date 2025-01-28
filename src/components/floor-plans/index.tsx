@@ -101,7 +101,11 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
           </ul>
         ) : null}
 
-        <Link href={btnHref} className={cn(buttonVariants({ className: 'mx-auto' }))}>
+        <Link
+          href={btnHref}
+          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+          className={cn(buttonVariants({ className: 'mx-auto' }))}
+        >
           {btnText}
         </Link>
       </div>
