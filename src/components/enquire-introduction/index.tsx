@@ -29,7 +29,11 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
               value={block?.description ?? []}
             />
           </header>
-          <Link className={buttonVariants()} href={btnHref}>
+          <Link
+            target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+            className={buttonVariants()}
+            href={btnHref}
+          >
             {btnText}
           </Link>
         </section>

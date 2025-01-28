@@ -28,7 +28,11 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
             <header className="space-text max-lg:text-center">
               <PortableText value={block?.description ?? []} />
             </header>
-            <Link href={btnHref} className={buttonVariants({ className: 'max-lg:mx-auto' })}>
+            <Link
+              target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+              href={btnHref}
+              className={buttonVariants({ className: 'max-lg:mx-auto' })}
+            >
               {btnText}
             </Link>
           </section>

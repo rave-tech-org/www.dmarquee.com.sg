@@ -50,7 +50,11 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
           })}
         </ul>
 
-        <Link href={btnHref} className={cn(buttonVariants({ className: 'mx-auto' }))}>
+        <Link
+          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+          href={btnHref}
+          className={cn(buttonVariants({ className: 'mx-auto' }))}
+        >
           {btnText}
         </Link>
       </div>
