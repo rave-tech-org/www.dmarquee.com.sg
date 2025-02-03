@@ -19,8 +19,8 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
       <div className="component-wrapper grid lg:grid-cols-2 gap-10 lg:gap-24">
         <section className="flex flex-col justify-between">
           {block?.fileUrl ? (
-            <Link href={'/'} className="max-lg:hidden">
-              <NextImage src={block.fileUrl} className="w-40 xl:w-44" />
+            <Link href={'/'} className="max-lg:mb-6">
+              <NextImage src={block.fileUrl} className="w-36 xl:w-44" />
             </Link>
           ) : null}
 
