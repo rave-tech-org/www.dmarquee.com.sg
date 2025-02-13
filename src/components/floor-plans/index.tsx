@@ -26,8 +26,8 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
         </header>
 
         {block?.listItems?.length ? (
-          <section className="hidden lg:flex justify-center gap-4 lg:gap-12 lg:px-16">
-            <ul className="flex flex-col w-[20%]">
+          <section className="hidden lg:grid grid-cols-6 gap-4 lg:pl-24 lg:pr-6">
+            <ul className="flex flex-col col-span-2">
               {block?.listItems?.map((e, i) => {
                 const isActive = i === selected;
                 return (
@@ -38,14 +38,14 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                           'bg-primary': isActive,
                         })}
                       />
-                      <h6 className={cn('text-[#B1B0B0] line-clamp-1', { 'text-black': isActive })}>{e.title}</h6>
+                      <h6 className={cn('text-[#B1B0B0]', { 'text-black': isActive })}>{e.title}</h6>
                     </button>
                   </li>
                 );
               })}
             </ul>
 
-            <section className="max-lg:col-span-2 space-text">
+            <section className="col-span-4 space-text">
               <figure className="space-y-6">
                 <NextImage
                   preview
@@ -73,7 +73,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                       })}
                     />
                     <h6
-                      className={cn('text-left text-[#B1B0B0] line-clamp-1 col-span-11', {
+                      className={cn('text-left text-[#B1B0B0] col-span-11', {
                         'text-black': isActive,
                       })}
                     >
