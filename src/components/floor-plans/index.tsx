@@ -14,7 +14,6 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
   const [selected, setSelected] = useQueryState('floor-plan', parseAsInteger.withDefault(0));
 
   const custom = block?.customAttributes && transformObject<FloorPlansCustomAttribute>(block?.customAttributes);
-
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? '/';
 
