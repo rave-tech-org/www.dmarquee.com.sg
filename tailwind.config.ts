@@ -74,7 +74,7 @@ const config = {
     plugin(({ addUtilities }) => {
       addUtilities({
         '.component-wrapper': {
-          '@apply max-w-[393px] md:max-w-[1560px] mx-auto': {},
+          '@apply max-w-[393px] md:max-w-[1440px] w-full mx-auto': {},
         },
         '.component-wrapper-small': {
           '@apply max-w-[393px] md:max-w-[1200px] mx-auto': {},
@@ -89,6 +89,10 @@ const config = {
 
         '.main-padding-y': {
           '@apply py-8 lg:py-12': {},
+        },
+
+        '.main-padding-y-longer': {
+          '@apply py-8 lg:py-16': {},
         },
 
         '.main-padding-t': {

@@ -116,3 +116,16 @@
 .ant-image {
   display: none !important;
 }
+
+.swiper-scrollbar {
+  --swiper-scrollbar-border-radius: 0px;
+  --swiper-scrollbar-bottom: 0px;
+  --swiper-scrollbar-sides-offset: 0%;
+  --swiper-scrollbar-bg-color: #cbcbcb;
+  --swiper-scrollbar-drag-bg-color: #8d579e;
+  --swiper-scrollbar-size: 3px;
+  max-width: 225px;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
