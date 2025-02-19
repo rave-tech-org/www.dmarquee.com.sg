@@ -16,7 +16,7 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="main-padding features-introduction-wrapper">
+    <article id={block?.slug?.current} className="main-padding features-introduction-wrapper">
       <div className="component-wrapper space-padding">
         <ul className="space-y-[2rem]">
           {block?.listItems?.map((e, i) => {

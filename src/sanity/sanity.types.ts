@@ -130,6 +130,35 @@ export type ContentBlock = {
   customAttributes?: Array<{
     key?: string;
     value?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
     _type: 'attribute';
     _key: string;
   }>;
@@ -203,6 +232,41 @@ export type ContentBlock = {
       crop?: SanityImageCrop;
       _type: 'image';
     };
+    customAttributes?: Array<{
+      key?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      _type: 'attribute';
+      _key: string;
+    }>;
     _key: string;
   }>;
   categoryBlock?: Array<{
@@ -662,6 +726,15 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type MediaTag = {
+  _id: string;
+  _type: 'media.tag';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
 export type Slug = {
   _type: 'slug';
   current?: string;
@@ -685,6 +758,7 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | MediaTag
   | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries/cms.ts
@@ -698,58 +772,58 @@ export type GetPageMetaResult = {
   metaKeywords: Array<string> | null;
 } | null;
 // Variable: GetPage
-// Query: *[_type == "page" && slug.current == $name][0] {    _id,    title,    slug,    pageType,    layout[]->{      _id,      slug,      blockType,      title,      description,      image,      "imageUrl": image.asset->url,      "fileUrl": file.asset->url,      customAttributes,      listItems[]{        title,        slug,        description,        image,        "imageUrl": image.asset->url,      },      "categories": categoryBlock[]->{        _id,        slug,      }    },    variants[]->{      _id,      title,      slug    }  }
+// Query: *[_type == "page" && slug.current == $name][0] {    ...,    layout[]->{      ...,      "imageUrl": image.asset->url,      "fileUrl": file.asset->url,      listItems[]{        ...,        "imageUrl": image.asset->url,        customAttributes[]{          ...,          "imageUrl": image.asset->url        },      },      "categories": categoryBlock[]->{        ...      },      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    variants[]->{      ...    }  }
 export type GetPageResult = {
   _id: string;
-  title: string | null;
-  slug: Slug | null;
-  pageType: 'multiple' | 'single' | null;
+  _type: 'page';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  pageType?: 'multiple' | 'single';
+  title?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
   layout: Array<{
     _id: string;
-    slug: Slug | null;
-    blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-    title: string | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-      listItem?: 'bullet' | 'number';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: 'image';
-    } | null;
-    imageUrl: string | null;
-    fileUrl: string | null;
+    _type: 'contentBlock';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+    title?: string;
+    slug?: Slug;
     customAttributes: Array<{
       key?: string;
       value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-    listItems: Array<{
-      title: string | null;
-      slug: Slug | null;
-      description: Array<{
+      description?: Array<{
         children?: Array<{
           marks?: Array<string>;
           text?: string;
@@ -766,8 +840,8 @@ export type GetPageResult = {
         level?: number;
         _type: 'block';
         _key: string;
-      }> | null;
-      image: {
+      }>;
+      image?: {
         asset?: {
           _ref: string;
           _type: 'reference';
@@ -777,345 +851,191 @@ export type GetPageResult = {
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
         _type: 'image';
-      } | null;
+      };
+      _type: 'attribute';
+      _key: string;
       imageUrl: string | null;
     }> | null;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      _type: 'file';
+    };
+    listItems: Array<{
+      title?: string;
+      slug?: Slug;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      customAttributes: Array<{
+        key?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        value?: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }>;
+        _type: 'attribute';
+        _key: string;
+        imageUrl: string | null;
+      }> | null;
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    categoryBlock?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'category';
+    }>;
+    imageUrl: string | null;
+    fileUrl: string | null;
     categories: Array<{
       _id: string;
-      slug: Slug | null;
+      _type: 'category';
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      description?: string;
+      parentCategory?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'category';
+      };
+      customAttributes?: Array<{
+        key?: string;
+        value?: string;
+        _type: 'attribute';
+        _key: string;
+      }>;
     }> | null;
   }> | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: Array<string>;
   variants: Array<{
     _id: string;
-    title: null;
-    slug: Slug | null;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: GetPosts
-// Query: *[_type == "post"] {    _id,    title,    slug,    publishedDate,    excerpt,    "imageUrl": image.asset->url,    content,    tags  }
+// Query: *[_type == "post"] {    ...,    "imageUrl": image.asset->url  }
 export type GetPostsResult = Array<{
   _id: string;
-  title: string | null;
-  slug: Slug | null;
-  publishedDate: string | null;
-  excerpt: string | null;
-  imageUrl: string | null;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  tags: Array<string> | null;
-}>;
-// Variable: GetTestimonials
-// Query: *[_type == "testimonial"]{    name,    slug,    testimonialText,    "imageUrl": image.asset->url,    rating,    dateTime,    product->{      name,      slug    }  }
-export type GetTestimonialsResult = Array<{
-  name: string | null;
-  slug: Slug | null;
-  testimonialText: string | null;
-  imageUrl: string | null;
-  rating: number | null;
-  dateTime: string | null;
-  product: {
-    name: string | null;
-    slug: Slug | null;
-  } | null;
-}>;
-// Variable: GetHeaderLayout
-// Query: *[_type == "page" && slug.current == "header-layout"][0] {    _id,    title,    slug,    "imageUrl": image.asset->url,    description,    layout[]->{      _id,      slug,      blockType,      title,      description,      image,      "imageUrl": image.asset->url,      customAttributes,      listItems[]{        title,        slug,        description,        image,        "imageUrl": image.asset->url,      },    }  }
-export type GetHeaderLayoutResult = {
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  imageUrl: string | null;
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  layout: Array<{
-    _id: string;
-    slug: Slug | null;
-    blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-    title: string | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-      listItem?: 'bullet' | 'number';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: 'image';
-    } | null;
-    imageUrl: string | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-    listItems: Array<{
-      title: string | null;
-      slug: Slug | null;
-      description: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }> | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      } | null;
-      imageUrl: string | null;
-    }> | null;
-  }> | null;
-} | null;
-// Variable: GetFooterLayout
-// Query: *[_type == "page" && slug.current == "footer-layout"][0] {    _id,    title,    slug,    "imageUrl": image.asset->url,    description,    layout[]->{      _id,      slug,      blockType,      title,      description,      image,      "imageUrl": image.asset->url,      customAttributes,      listItems[]{        title,        slug,        description,        image,        "imageUrl": image.asset->url,      },    }  }
-export type GetFooterLayoutResult = {
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  imageUrl: string | null;
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  layout: Array<{
-    _id: string;
-    slug: Slug | null;
-    blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-    title: string | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-      listItem?: 'bullet' | 'number';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: 'reference';
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: 'image';
-    } | null;
-    imageUrl: string | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-    listItems: Array<{
-      title: string | null;
-      slug: Slug | null;
-      description: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }> | null;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      } | null;
-      imageUrl: string | null;
-    }> | null;
-  }> | null;
-} | null;
-// Variable: GetCategoriesByParentCategory
-// Query: *[_type == "category" && parentCategory->slug.current == $slug] {    _id,    name,    slug,    description  }
-export type GetCategoriesByParentCategoryResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  description: string | null;
-}>;
-// Variable: GetCategoriesByParentCategories
-// Query: *[_type == "category" && parentCategory->slug.current in $slugs] {    _id,    name,    slug,    description,    parentCategory-> {      _id,      slug,    }  }
-export type GetCategoriesByParentCategoriesResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  description: string | null;
-  parentCategory: {
-    _id: string;
-    slug: Slug | null;
-  } | null;
-}>;
-// Variable: GetProductsByParentCategories
-// Query: *[_type == "product" && references(    *[_type == "category" && parentCategory->slug.current in $categories]._id  )] {    _id,    name,    slug,    price,    "imageUrl": image.asset->url,    categories[]-> {      _id,      name,      slug,      customAttributes    },    features,    customPrices  }
-export type GetProductsByParentCategoriesResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  price: number | null;
-  imageUrl: string | null;
-  categories: Array<{
-    _id: string;
-    name: string | null;
-    slug: Slug | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-  }> | null;
-  features: Array<{
-    key?: string;
-    value?: string;
-    _type: 'feature';
-    _key: string;
-  }> | null;
-  customPrices: Array<{
-    key?: string;
-    value?: string;
-    _type: 'price';
-    _key: string;
-  }> | null;
-}>;
-// Variable: GetContentBlockBySlug
-// Query: *[_type == "contentBlock" && slug.current == $slug][0] {    _id,    slug,    blockType,    title,    description,    image,    "imageUrl": image.asset->url,    customAttributes,    listItems[]{      title,      slug,      description,      image,      "imageUrl": image.asset->url,    },    "categories": categoryBlock[]->{      _id,      slug,    }  }
-export type GetContentBlockBySlugResult = {
-  _id: string;
-  slug: Slug | null;
-  blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-  title: string | null;
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  image: {
+  _type: 'post';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  publishedDate?: string;
+  excerpt?: string;
+  image?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -1125,18 +1045,82 @@ export type GetContentBlockBySlugResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: 'image';
-  } | null;
-  imageUrl: string | null;
-  customAttributes: Array<{
-    key?: string;
-    value?: string;
-    _type: 'attribute';
+  };
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
     _key: string;
-  }> | null;
-  listItems: Array<{
-    title: string | null;
-    slug: Slug | null;
-    description: Array<{
+  }>;
+  tags?: Array<string>;
+  imageUrl: string | null;
+}>;
+// Variable: GetTestimonials
+// Query: *[_type == "testimonial"] {    ...,    "imageUrl": image.asset->url,    product->{      ...    }  }
+export type GetTestimonialsResult = Array<{
+  _id: string;
+  _type: 'testimonial';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  testimonialText?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  rating?: number;
+  dateTime?: string;
+  product: {
+    _id: string;
+    _type: 'product';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+    name?: string;
+    slug?: Slug;
+    categories?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'category';
+    }>;
+    price?: number;
+    customPrices?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'price';
+      _key: string;
+    }>;
+    departureDateRanges?: Array<{
+      startDate?: string;
+      endDate?: string;
+      _key: string;
+    }>;
+    duration?: string;
+    description?: Array<{
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -1153,8 +1137,8 @@ export type GetContentBlockBySlugResult = {
       level?: number;
       _type: 'block';
       _key: string;
-    }> | null;
-    image: {
+    }>;
+    image?: {
       asset?: {
         _ref: string;
         _type: 'reference';
@@ -1164,30 +1148,1269 @@ export type GetContentBlockBySlugResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: 'image';
-    } | null;
+    };
+    helpIcon?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    bookingUrl?: string;
+    features?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'feature';
+      _key: string;
+    }>;
+    areaName?: string;
+    landArea?: string;
+    travelDuration?: string;
+    averageClimate?: string;
+    peakSeason?: string;
+    midSeason?: string;
+    monsoonSeason?: string;
+    travelGuide?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    tourSummary?: Array<{
+      isActive?: boolean;
+      title?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      _type: 'tourSummaryItem';
+      _key: string;
+    }>;
+    overview?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+          _key: string;
+        }
+    >;
+    itinerary?: Array<{
+      title?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      images?: Array<{
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }>;
+      _type: 'itineraryItem';
+      _key: string;
+    }>;
+    transportation?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    accommodation?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+          _key: string;
+        }
+    >;
+    reviews?: Array<
+      | {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'post';
+        }
+      | {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'testimonial';
+        }
+    >;
+    thingsToNote?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+          _key: string;
+        }
+    >;
+  } | null;
+  imageUrl: string | null;
+}>;
+// Variable: GetHeaderLayout
+// Query: *[_type == "page" && slug.current == "header-layout"][0] {    ...,    "imageUrl": image.asset->url,    description,    layout[]->{      ...,      "imageUrl": image.asset->url,      listItems[]{        ...,        "imageUrl": image.asset->url      }    }  }
+export type GetHeaderLayoutResult = {
+  _id: string;
+  _type: 'page';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  pageType?: 'multiple' | 'single';
+  title?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }> | null;
+  layout: Array<{
+    _id: string;
+    _type: 'contentBlock';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+    title?: string;
+    slug?: Slug;
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      _type: 'attribute';
+      _key: string;
+    }>;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      _type: 'file';
+    };
+    listItems: Array<{
+      title?: string;
+      slug?: Slug;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      customAttributes?: Array<{
+        key?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        value?: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }>;
+        _type: 'attribute';
+        _key: string;
+      }>;
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    categoryBlock?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'category';
+    }>;
     imageUrl: string | null;
   }> | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: Array<string>;
+  variants?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'category';
+  }>;
+  imageUrl: string | null;
+} | null;
+// Variable: GetFooterLayout
+// Query: *[_type == "page" && slug.current == "footer-layout"][0] {    ...,    "imageUrl": image.asset->url,    layout[]->{      ...,      "imageUrl": image.asset->url,      listItems[]{        ...,        "imageUrl": image.asset->url      }    }  }
+export type GetFooterLayoutResult = {
+  _id: string;
+  _type: 'page';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  pageType?: 'multiple' | 'single';
+  title?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  layout: Array<{
+    _id: string;
+    _type: 'contentBlock';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+    title?: string;
+    slug?: Slug;
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      _type: 'attribute';
+      _key: string;
+    }>;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      _type: 'file';
+    };
+    listItems: Array<{
+      title?: string;
+      slug?: Slug;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      customAttributes?: Array<{
+        key?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        value?: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }>;
+        _type: 'attribute';
+        _key: string;
+      }>;
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    categoryBlock?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'category';
+    }>;
+    imageUrl: string | null;
+  }> | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: Array<string>;
+  variants?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'category';
+  }>;
+  imageUrl: string | null;
+} | null;
+// Variable: GetCategoriesByParentCategory
+// Query: *[_type == "category" && parentCategory->slug.current == $slug] {    ...  }
+export type GetCategoriesByParentCategoryResult = Array<{
+  _id: string;
+  _type: 'category';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  parentCategory?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  customAttributes?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'attribute';
+    _key: string;
+  }>;
+}>;
+// Variable: GetCategoriesByParentCategories
+// Query: *[_type == "category" && parentCategory->slug.current in $slugs] {    ...,    parentCategory->{      ...    }  }
+export type GetCategoriesByParentCategoriesResult = Array<{
+  _id: string;
+  _type: 'category';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
+  parentCategory: {
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  } | null;
+  customAttributes?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'attribute';
+    _key: string;
+  }>;
+}>;
+// Variable: GetProductsByParentCategories
+// Query: *[_type == "product" && references(    *[_type == "category" && parentCategory->slug.current in $categories]._id  )] {    ...,    "imageUrl": image.asset->url,    categories[]->{      ...    }  }
+export type GetProductsByParentCategoriesResult = Array<{
+  _id: string;
+  _type: 'product';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+  name?: string;
+  slug?: Slug;
   categories: Array<{
     _id: string;
-    slug: Slug | null;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+  price?: number;
+  customPrices?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'price';
+    _key: string;
+  }>;
+  departureDateRanges?: Array<{
+    startDate?: string;
+    endDate?: string;
+    _key: string;
+  }>;
+  duration?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  helpIcon?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bookingUrl?: string;
+  features?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  areaName?: string;
+  landArea?: string;
+  travelDuration?: string;
+  averageClimate?: string;
+  peakSeason?: string;
+  midSeason?: string;
+  monsoonSeason?: string;
+  travelGuide?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tourSummary?: Array<{
+    isActive?: boolean;
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'tourSummaryItem';
+    _key: string;
+  }>;
+  overview?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  itinerary?: Array<{
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }>;
+    _type: 'itineraryItem';
+    _key: string;
+  }>;
+  transportation?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  accommodation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  reviews?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'post';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'testimonial';
+      }
+  >;
+  thingsToNote?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  imageUrl: string | null;
+}>;
+// Variable: GetContentBlockBySlug
+// Query: *[_type == "contentBlock" && slug.current == $slug][0] {    ...,    "imageUrl": image.asset->url,    listItems[]{      ...,      "imageUrl": image.asset->url,      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    "categories": categoryBlock[]->{      ...    },    customAttributes[]{          ...,          "imageUrl": image.asset->url        }  }
+export type GetContentBlockBySlugResult = {
+  _id: string;
+  _type: 'contentBlock';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+  title?: string;
+  slug?: Slug;
+  customAttributes: Array<{
+    key?: string;
+    value?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'attribute';
+    _key: string;
+    imageUrl: string | null;
+  }> | null;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  file?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+    };
+    _type: 'file';
+  };
+  listItems: Array<{
+    title?: string;
+    slug?: Slug;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    customAttributes: Array<{
+      key?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      _type: 'attribute';
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    _key: string;
+    imageUrl: string | null;
+  }> | null;
+  categoryBlock?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'category';
+  }>;
+  imageUrl: string | null;
+  categories: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: GetProductBySlug
-// Query: *[_type == "product" && slug.current == $slug && productType == $type][0]{    name,    productType,    slug,    price,    customPrices,    availableDate,    duration,    description,    "imageUrl": image.asset->url,    "helpIconImageUrl": helpIcon.asset->url,    landArea,    averageClimate,    travelDuration,    peakSeason,    midSeason,    monsoonSeason,    travelGuide,    bookingUrl,    features,    overview,    itinerary[]{      title,      "imageUrls": images[].asset->url,      description    },    accommodation,    thingsToNote,    tourSummary[]{      "imageUrl": image.asset->url,      isActive,      title,      description    },    categories[]-> {      _id,      name,      slug,      customAttributes    }  }
+// Query: *[_type == "product" && slug.current == $slug && productType == $type][0] {    ...,    "imageUrl": image.asset->url,    "helpIconImageUrl": helpIcon.asset->url,    itinerary[]{      ...,      "imageUrls": images[].asset->url    },    tourSummary[]{      ...,      "imageUrl": image.asset->url    },    categories[]->{      ...    }  }
 export type GetProductBySlugResult = {
-  name: string | null;
-  productType: 'destination' | 'ticket' | 'tour' | 'transport' | null;
-  slug: Slug | null;
-  price: number | null;
-  customPrices: Array<{
+  _id: string;
+  _type: 'product';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+  name?: string;
+  slug?: Slug;
+  categories: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+  price?: number;
+  customPrices?: Array<{
     key?: string;
     value?: string;
     _type: 'price';
     _key: string;
-  }> | null;
-  availableDate: null;
-  duration: string | null;
-  description: Array<{
+  }>;
+  departureDateRanges?: Array<{
+    startDate?: string;
+    endDate?: string;
+    _key: string;
+  }>;
+  duration?: string;
+  description?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1204,345 +2427,8 @@ export type GetProductBySlugResult = {
     level?: number;
     _type: 'block';
     _key: string;
-  }> | null;
-  imageUrl: string | null;
-  helpIconImageUrl: string | null;
-  landArea: string | null;
-  averageClimate: string | null;
-  travelDuration: string | null;
-  peakSeason: string | null;
-  midSeason: string | null;
-  monsoonSeason: string | null;
-  travelGuide: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  bookingUrl: string | null;
-  features: Array<{
-    key?: string;
-    value?: string;
-    _type: 'feature';
-    _key: string;
-  }> | null;
-  overview: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-        _key: string;
-      }
-  > | null;
-  itinerary: Array<{
-    title: string | null;
-    imageUrls: Array<string | null> | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-      listItem?: 'bullet' | 'number';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
-  }> | null;
-  accommodation: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-        _key: string;
-      }
-  > | null;
-  thingsToNote: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: 'span';
-          _key: string;
-        }>;
-        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-        listItem?: 'bullet' | 'number';
-        markDefs?: Array<{
-          href?: string;
-          _type: 'link';
-          _key: string;
-        }>;
-        level?: number;
-        _type: 'block';
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-        _key: string;
-      }
-  > | null;
-  tourSummary: Array<{
-    imageUrl: string | null;
-    isActive: boolean | null;
-    title: string | null;
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: 'span';
-        _key: string;
-      }>;
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-      listItem?: 'bullet' | 'number';
-      markDefs?: Array<{
-        href?: string;
-        _type: 'link';
-        _key: string;
-      }>;
-      level?: number;
-      _type: 'block';
-      _key: string;
-    }> | null;
-  }> | null;
-  categories: Array<{
-    _id: string;
-    name: string | null;
-    slug: Slug | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-  }> | null;
-} | null;
-// Variable: GetProductsByType
-// Query: *[_type == "product" && productType == $type]{    _id,    name,    slug,    price,    "imageUrl": image.asset->url,    categories[]-> {      _id,      name,      slug,      customAttributes    },    features,    customPrices  }
-export type GetProductsByTypeResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  price: number | null;
-  imageUrl: string | null;
-  categories: Array<{
-    _id: string;
-    name: string | null;
-    slug: Slug | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-  }> | null;
-  features: Array<{
-    key?: string;
-    value?: string;
-    _type: 'feature';
-    _key: string;
-  }> | null;
-  customPrices: Array<{
-    key?: string;
-    value?: string;
-    _type: 'price';
-    _key: string;
-  }> | null;
-}>;
-// Variable: GetPostBySlug
-// Query: *[_type == "post" && slug.current == $slug][0]{    title,    slug,    price,    publishedDate,    excerpt,    "imageUrl": image.asset->url,    content,    tags,  }
-export type GetPostBySlugResult = {
-  title: string | null;
-  slug: Slug | null;
-  price: null;
-  publishedDate: string | null;
-  excerpt: string | null;
-  imageUrl: string | null;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  tags: Array<string> | null;
-} | null;
-// Variable: GetProductsByCategory
-// Query: *[_type == "product" && references(*[_type == "category" && slug.current == $categorySlug]._id)] {    _id,    name,    slug,    price,    "imageUrl": image.asset->url,    categories[]-> {      _id,      name,      slug,      customAttributes    },    features,    customPrices  }
-export type GetProductsByCategoryResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  price: number | null;
-  imageUrl: string | null;
-  categories: Array<{
-    _id: string;
-    name: string | null;
-    slug: Slug | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-  }> | null;
-  features: Array<{
-    key?: string;
-    value?: string;
-    _type: 'feature';
-    _key: string;
-  }> | null;
-  customPrices: Array<{
-    key?: string;
-    value?: string;
-    _type: 'price';
-    _key: string;
-  }> | null;
-}>;
-// Variable: GetProducts
-// Query: *[_type == "product"] {    _id,    name,    slug,    price,    productType,    "imageUrl": image.asset->url,    categories[]-> {      _id,      name,      slug,      customAttributes    },    features,    customPrices  }
-export type GetProductsResult = Array<{
-  _id: string;
-  name: string | null;
-  slug: Slug | null;
-  price: number | null;
-  productType: 'destination' | 'ticket' | 'tour' | 'transport' | null;
-  imageUrl: string | null;
-  categories: Array<{
-    _id: string;
-    name: string | null;
-    slug: Slug | null;
-    customAttributes: Array<{
-      key?: string;
-      value?: string;
-      _type: 'attribute';
-      _key: string;
-    }> | null;
-  }> | null;
-  features: Array<{
-    key?: string;
-    value?: string;
-    _type: 'feature';
-    _key: string;
-  }> | null;
-  customPrices: Array<{
-    key?: string;
-    value?: string;
-    _type: 'price';
-    _key: string;
-  }> | null;
-}>;
-// Variable: GetContentBlock
-// Query: *[_type == "contentBlock"][0] {    _id,    slug,    blockType,    title,    description,    image,    "imageUrl": image.asset->url,    "fileUrl": file.asset->url,    customAttributes,    listItems[]{      title,      slug,      description,      image,      "imageUrl": image.asset->url,    },    "categories": categoryBlock[]->{      _id,      slug,    }  }
-export type GetContentBlockResult = {
-  _id: string;
-  slug: Slug | null;
-  blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-  title: string | null;
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  image: {
+  }>;
+  image?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -1552,19 +2438,54 @@ export type GetContentBlockResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: 'image';
-  } | null;
-  imageUrl: string | null;
-  fileUrl: string | null;
-  customAttributes: Array<{
+  };
+  helpIcon?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bookingUrl?: string;
+  features?: Array<{
     key?: string;
     value?: string;
-    _type: 'attribute';
+    _type: 'feature';
     _key: string;
-  }> | null;
-  listItems: Array<{
-    title: string | null;
-    slug: Slug | null;
-    description: Array<{
+  }>;
+  areaName?: string;
+  landArea?: string;
+  travelDuration?: string;
+  averageClimate?: string;
+  peakSeason?: string;
+  midSeason?: string;
+  monsoonSeason?: string;
+  travelGuide?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tourSummary: Array<{
+    isActive?: boolean;
+    title?: string;
+    description?: Array<{
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -1581,8 +2502,8 @@ export type GetContentBlockResult = {
       level?: number;
       _type: 'block';
       _key: string;
-    }> | null;
-    image: {
+    }>;
+    image?: {
       asset?: {
         _ref: string;
         _type: 'reference';
@@ -1592,72 +2513,1371 @@ export type GetContentBlockResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: 'image';
-    } | null;
+    };
+    _type: 'tourSummaryItem';
+    _key: string;
     imageUrl: string | null;
   }> | null;
+  overview?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  itinerary: Array<{
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }>;
+    _type: 'itineraryItem';
+    _key: string;
+    imageUrls: Array<string | null> | null;
+  }> | null;
+  transportation?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  accommodation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  reviews?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'post';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'testimonial';
+      }
+  >;
+  thingsToNote?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  imageUrl: string | null;
+  helpIconImageUrl: string | null;
+} | null;
+// Variable: GetProductsByType
+// Query: *[_type == "product" && productType == $type] {    ...,    "imageUrl": image.asset->url,    categories[]->{      ...    }  }
+export type GetProductsByTypeResult = Array<{
+  _id: string;
+  _type: 'product';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+  name?: string;
+  slug?: Slug;
   categories: Array<{
     _id: string;
-    slug: Slug | null;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+  price?: number;
+  customPrices?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'price';
+    _key: string;
+  }>;
+  departureDateRanges?: Array<{
+    startDate?: string;
+    endDate?: string;
+    _key: string;
+  }>;
+  duration?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  helpIcon?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bookingUrl?: string;
+  features?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  areaName?: string;
+  landArea?: string;
+  travelDuration?: string;
+  averageClimate?: string;
+  peakSeason?: string;
+  midSeason?: string;
+  monsoonSeason?: string;
+  travelGuide?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tourSummary?: Array<{
+    isActive?: boolean;
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'tourSummaryItem';
+    _key: string;
+  }>;
+  overview?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  itinerary?: Array<{
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }>;
+    _type: 'itineraryItem';
+    _key: string;
+  }>;
+  transportation?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  accommodation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  reviews?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'post';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'testimonial';
+      }
+  >;
+  thingsToNote?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  imageUrl: string | null;
+}>;
+// Variable: GetPostBySlug
+// Query: *[_type == "post" && slug.current == $slug][0] {    ...,    "imageUrl": image.asset->url  }
+export type GetPostBySlugResult = {
+  _id: string;
+  _type: 'post';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  publishedDate?: string;
+  excerpt?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tags?: Array<string>;
+  imageUrl: string | null;
+} | null;
+// Variable: GetProductsByCategory
+// Query: *[_type == "product" && references(    *[_type == "category" && slug.current == $categorySlug]._id  )] {    ...,    "imageUrl": image.asset->url,    categories[]->{      ...    }  }
+export type GetProductsByCategoryResult = Array<{
+  _id: string;
+  _type: 'product';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+  name?: string;
+  slug?: Slug;
+  categories: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+  price?: number;
+  customPrices?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'price';
+    _key: string;
+  }>;
+  departureDateRanges?: Array<{
+    startDate?: string;
+    endDate?: string;
+    _key: string;
+  }>;
+  duration?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  helpIcon?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bookingUrl?: string;
+  features?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  areaName?: string;
+  landArea?: string;
+  travelDuration?: string;
+  averageClimate?: string;
+  peakSeason?: string;
+  midSeason?: string;
+  monsoonSeason?: string;
+  travelGuide?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tourSummary?: Array<{
+    isActive?: boolean;
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'tourSummaryItem';
+    _key: string;
+  }>;
+  overview?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  itinerary?: Array<{
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }>;
+    _type: 'itineraryItem';
+    _key: string;
+  }>;
+  transportation?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  accommodation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  reviews?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'post';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'testimonial';
+      }
+  >;
+  thingsToNote?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  imageUrl: string | null;
+}>;
+// Variable: GetProducts
+// Query: *[_type == "product"] {    ...,    "imageUrl": image.asset->url,    categories[]->{      ...    }  }
+export type GetProductsResult = Array<{
+  _id: string;
+  _type: 'product';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  productType?: 'destination' | 'ticket' | 'tour' | 'transport';
+  name?: string;
+  slug?: Slug;
+  categories: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+  price?: number;
+  customPrices?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'price';
+    _key: string;
+  }>;
+  departureDateRanges?: Array<{
+    startDate?: string;
+    endDate?: string;
+    _key: string;
+  }>;
+  duration?: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  helpIcon?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  bookingUrl?: string;
+  features?: Array<{
+    key?: string;
+    value?: string;
+    _type: 'feature';
+    _key: string;
+  }>;
+  areaName?: string;
+  landArea?: string;
+  travelDuration?: string;
+  averageClimate?: string;
+  peakSeason?: string;
+  midSeason?: string;
+  monsoonSeason?: string;
+  travelGuide?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  tourSummary?: Array<{
+    isActive?: boolean;
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'tourSummaryItem';
+    _key: string;
+  }>;
+  overview?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  itinerary?: Array<{
+    title?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+      _key: string;
+    }>;
+    _type: 'itineraryItem';
+    _key: string;
+  }>;
+  transportation?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'category';
+  };
+  accommodation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  reviews?: Array<
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'post';
+      }
+    | {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'testimonial';
+      }
+  >;
+  thingsToNote?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
+  imageUrl: string | null;
+}>;
+// Variable: GetContentBlock
+// Query: *[_type == "contentBlock"][0] {    ...,    "imageUrl": image.asset->url,    "fileUrl": file.asset->url,    listItems[]{      ...,      "imageUrl": image.asset->url,      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    "categories": categoryBlock[]->{      ...    },    customAttributes[]{          ...,          "imageUrl": image.asset->url        }  }
+export type GetContentBlockResult = {
+  _id: string;
+  _type: 'contentBlock';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+  title?: string;
+  slug?: Slug;
+  customAttributes: Array<{
+    key?: string;
+    value?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    _type: 'attribute';
+    _key: string;
+    imageUrl: string | null;
+  }> | null;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  file?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+    };
+    _type: 'file';
+  };
+  listItems: Array<{
+    title?: string;
+    slug?: Slug;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    customAttributes: Array<{
+      key?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      _type: 'attribute';
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    _key: string;
+    imageUrl: string | null;
+  }> | null;
+  categoryBlock?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'category';
+  }>;
+  imageUrl: string | null;
+  fileUrl: string | null;
+  categories: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
   }> | null;
 } | null;
 // Variable: GetCategories
-// Query: *[_type == "category"] {    _id,    name,    slug,    parentCategory-> {      slug    }  }
+// Query: *[_type == "category"] {    ...,    parentCategory->{      ...    }  }
 export type GetCategoriesResult = Array<{
   _id: string;
-  name: string | null;
-  slug: Slug | null;
+  _type: 'category';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  description?: string;
   parentCategory: {
-    slug: Slug | null;
-  } | null;
-}>;
-// Variable: GetContentBlocks
-// Query: *[_type == "contentBlock"] {    _id,    slug,    blockType,    title,    description,    image,    "imageUrl": image.asset->url,    "fileUrl": file.asset->url,    customAttributes,    listItems[]{      title,      slug,      description,      image,      "imageUrl": image.asset->url,    },    "categories": categoryBlock[]->{      _id,      slug,    }  }
-export type GetContentBlocksResult = Array<{
-  _id: string;
-  slug: Slug | null;
-  blockType: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial' | null;
-  title: string | null;
-  description: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }> | null;
-  image: {
-    asset?: {
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
       _ref: string;
       _type: 'reference';
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      [internalGroqTypeReferenceTo]?: 'category';
     };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: 'image';
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
   } | null;
-  imageUrl: string | null;
-  fileUrl: string | null;
-  customAttributes: Array<{
+  customAttributes?: Array<{
     key?: string;
     value?: string;
     _type: 'attribute';
     _key: string;
-  }> | null;
-  listItems: Array<{
-    title: string | null;
-    slug: Slug | null;
-    description: Array<{
+  }>;
+}>;
+// Variable: GetContentBlocks
+// Query: *[_type == "contentBlock"] {    ...,    "imageUrl": image.asset->url,    "fileUrl": file.asset->url,    listItems[]{      ...,      "imageUrl": image.asset->url,      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    "categories": categoryBlock[]->{      ...    },    customAttributes[]{          ...,          "imageUrl": image.asset->url        }  }
+export type GetContentBlocksResult = Array<{
+  _id: string;
+  _type: 'contentBlock';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+  title?: string;
+  slug?: Slug;
+  customAttributes: Array<{
+    key?: string;
+    value?: string;
+    description?: Array<{
       children?: Array<{
         marks?: Array<string>;
         text?: string;
@@ -1674,8 +3894,8 @@ export type GetContentBlocksResult = Array<{
       level?: number;
       _type: 'block';
       _key: string;
-    }> | null;
-    image: {
+    }>;
+    image?: {
       asset?: {
         _ref: string;
         _type: 'reference';
@@ -1685,12 +3905,150 @@ export type GetContentBlocksResult = Array<{
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: 'image';
-    } | null;
+    };
+    _type: 'attribute';
+    _key: string;
     imageUrl: string | null;
   }> | null;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  file?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+    };
+    _type: 'file';
+  };
+  listItems: Array<{
+    title?: string;
+    slug?: Slug;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    customAttributes: Array<{
+      key?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      _type: 'attribute';
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    _key: string;
+    imageUrl: string | null;
+  }> | null;
+  categoryBlock?: Array<{
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: 'category';
+  }>;
+  imageUrl: string | null;
+  fileUrl: string | null;
   categories: Array<{
     _id: string;
-    slug: Slug | null;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
   }> | null;
 }>;
 
@@ -1699,22 +4057,22 @@ import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "page" && slug.current == $name][0] {\n    _id,\n    slug,\n    metaTitle,\n    metaDescription,\n    metaKeywords\n  }\n': GetPageMetaResult;
-    '\n  *[_type == "page" && slug.current == $name][0] {\n    _id,\n    title,\n    slug,\n    pageType,\n    layout[]->{\n      _id,\n      slug,\n      blockType,\n      title,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n      "fileUrl": file.asset->url,\n      customAttributes,\n      listItems[]{\n        title,\n        slug,\n        description,\n        image,\n        "imageUrl": image.asset->url,\n      },\n      "categories": categoryBlock[]->{\n        _id,\n        slug,\n      }\n    },\n    variants[]->{\n      _id,\n      title,\n      slug\n    }\n  }\n': GetPageResult;
-    '\n  *[_type == "post"] {\n    _id,\n    title,\n    slug,\n    publishedDate,\n    excerpt,\n    "imageUrl": image.asset->url,\n    content,\n    tags\n  }\n': GetPostsResult;
-    '\n  *[_type == "testimonial"]{\n    name,\n    slug,\n    testimonialText,\n    "imageUrl": image.asset->url,\n    rating,\n    dateTime,\n    product->{\n      name,\n      slug\n    }\n  }\n': GetTestimonialsResult;
-    '\n  *[_type == "page" && slug.current == "header-layout"][0] {\n    _id,\n    title,\n    slug,\n    "imageUrl": image.asset->url,\n    description,\n    layout[]->{\n      _id,\n      slug,\n      blockType,\n      title,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n      customAttributes,\n      listItems[]{\n        title,\n        slug,\n        description,\n        image,\n        "imageUrl": image.asset->url,\n      },\n    }\n  }\n': GetHeaderLayoutResult;
-    '\n  *[_type == "page" && slug.current == "footer-layout"][0] {\n    _id,\n    title,\n    slug,\n    "imageUrl": image.asset->url,\n    description,\n    layout[]->{\n      _id,\n      slug,\n      blockType,\n      title,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n      customAttributes,\n      listItems[]{\n        title,\n        slug,\n        description,\n        image,\n        "imageUrl": image.asset->url,\n      },\n    }\n  }\n': GetFooterLayoutResult;
-    '\n  *[_type == "category" && parentCategory->slug.current == $slug] {\n    _id,\n    name,\n    slug,\n    description\n  }\n': GetCategoriesByParentCategoryResult;
-    '\n  *[_type == "category" && parentCategory->slug.current in $slugs] {\n    _id,\n    name,\n    slug,\n    description,\n    parentCategory-> {\n      _id,\n      slug,\n    }\n  }\n': GetCategoriesByParentCategoriesResult;
-    '\n  *[_type == "product" && references(\n    *[_type == "category" && parentCategory->slug.current in $categories]._id\n  )] {\n    _id,\n    name,\n    slug,\n    price,\n    "imageUrl": image.asset->url,\n    categories[]-> {\n      _id,\n      name,\n      slug,\n      customAttributes\n    },\n    features,\n    customPrices\n  }\n': GetProductsByParentCategoriesResult;
-    '\n  *[_type == "contentBlock" && slug.current == $slug][0] {\n    _id,\n    slug,\n    blockType,\n    title,\n    description,\n    image,\n    "imageUrl": image.asset->url,\n    customAttributes,\n    listItems[]{\n      title,\n      slug,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n    },\n    "categories": categoryBlock[]->{\n      _id,\n      slug,\n    }\n  }\n': GetContentBlockBySlugResult;
-    '\n  *[_type == "product" && slug.current == $slug && productType == $type][0]{\n    name,\n    productType,\n    slug,\n    price,\n    customPrices,\n    availableDate,\n    duration,\n    description,\n    "imageUrl": image.asset->url,\n    "helpIconImageUrl": helpIcon.asset->url,\n    landArea,\n    averageClimate,\n    travelDuration,\n    peakSeason,\n    midSeason,\n    monsoonSeason,\n    travelGuide,\n    bookingUrl,\n    features,\n    overview,\n    itinerary[]{\n      title,\n      "imageUrls": images[].asset->url,\n      description\n    },\n    accommodation,\n    thingsToNote,\n    tourSummary[]{\n      "imageUrl": image.asset->url,\n      isActive,\n      title,\n      description\n    },\n    categories[]-> {\n      _id,\n      name,\n      slug,\n      customAttributes\n    }\n  }\n': GetProductBySlugResult;
-    '\n  *[_type == "product" && productType == $type]{\n    _id,\n    name,\n    slug,\n    price,\n    "imageUrl": image.asset->url,\n    categories[]-> {\n      _id,\n      name,\n      slug,\n      customAttributes\n    },\n    features,\n    customPrices\n  }\n': GetProductsByTypeResult;
-    '\n  *[_type == "post" && slug.current == $slug][0]{\n    title,\n    slug,\n    price,\n    publishedDate,\n    excerpt,\n    "imageUrl": image.asset->url,\n    content,\n    tags,\n  }\n': GetPostBySlugResult;
-    '\n  *[_type == "product" && references(*[_type == "category" && slug.current == $categorySlug]._id)] {\n    _id,\n    name,\n    slug,\n    price,\n    "imageUrl": image.asset->url,\n    categories[]-> {\n      _id,\n      name,\n      slug,\n      customAttributes\n    },\n    features,\n    customPrices\n  }\n': GetProductsByCategoryResult;
-    '\n  *[_type == "product"] {\n    _id,\n    name,\n    slug,\n    price,\n    productType,\n    "imageUrl": image.asset->url,\n    categories[]-> {\n      _id,\n      name,\n      slug,\n      customAttributes\n    },\n    features,\n    customPrices\n  }\n': GetProductsResult;
-    '\n  *[_type == "contentBlock"][0] {\n    _id,\n    slug,\n    blockType,\n    title,\n    description,\n    image,\n    "imageUrl": image.asset->url,\n    "fileUrl": file.asset->url,\n    customAttributes,\n    listItems[]{\n      title,\n      slug,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n    },\n    "categories": categoryBlock[]->{\n      _id,\n      slug,\n    }\n  }\n': GetContentBlockResult;
-    '\n  *[_type == "category"] {\n    _id,\n    name,\n    slug,\n    parentCategory-> {\n      slug\n    }\n  }\n': GetCategoriesResult;
-    '\n  *[_type == "contentBlock"] {\n    _id,\n    slug,\n    blockType,\n    title,\n    description,\n    image,\n    "imageUrl": image.asset->url,\n    "fileUrl": file.asset->url,\n    customAttributes,\n    listItems[]{\n      title,\n      slug,\n      description,\n      image,\n      "imageUrl": image.asset->url,\n    },\n    "categories": categoryBlock[]->{\n      _id,\n      slug,\n    }\n  }\n': GetContentBlocksResult;
+    '\n  *[_type == "page" && slug.current == $name][0] {\n    ...,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      "fileUrl": file.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url,\n        customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        },\n      },\n      "categories": categoryBlock[]->{\n        ...\n      },\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    variants[]->{\n      ...\n    }\n  }\n': GetPageResult;
+    '\n  *[_type == "post"] {\n    ...,\n    "imageUrl": image.asset->url\n  }\n': GetPostsResult;
+    '\n  *[_type == "testimonial"] {\n    ...,\n    "imageUrl": image.asset->url,\n    product->{\n      ...\n    }\n  }\n': GetTestimonialsResult;
+    '\n  *[_type == "page" && slug.current == "header-layout"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    description,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url\n      }\n    }\n  }\n': GetHeaderLayoutResult;
+    '\n  *[_type == "page" && slug.current == "footer-layout"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url\n      }\n    }\n  }\n': GetFooterLayoutResult;
+    '\n  *[_type == "category" && parentCategory->slug.current == $slug] {\n    ...\n  }\n': GetCategoriesByParentCategoryResult;
+    '\n  *[_type == "category" && parentCategory->slug.current in $slugs] {\n    ...,\n    parentCategory->{\n      ...\n    }\n  }\n': GetCategoriesByParentCategoriesResult;
+    '\n  *[_type == "product" && references(\n    *[_type == "category" && parentCategory->slug.current in $categories]._id\n  )] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsByParentCategoriesResult;
+    '\n  *[_type == "contentBlock" && slug.current == $slug][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    listItems[]{\n      ...,\n      "imageUrl": image.asset->url,\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    "categories": categoryBlock[]->{\n      ...\n    },\n    customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n  }\n': GetContentBlockBySlugResult;
+    '\n  *[_type == "product" && slug.current == $slug && productType == $type][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    "helpIconImageUrl": helpIcon.asset->url,\n    itinerary[]{\n      ...,\n      "imageUrls": images[].asset->url\n    },\n    tourSummary[]{\n      ...,\n      "imageUrl": image.asset->url\n    },\n    categories[]->{\n      ...\n    }\n  }\n': GetProductBySlugResult;
+    '\n  *[_type == "product" && productType == $type] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsByTypeResult;
+    '\n  *[_type == "post" && slug.current == $slug][0] {\n    ...,\n    "imageUrl": image.asset->url\n  }\n': GetPostBySlugResult;
+    '\n  *[_type == "product" && references(\n    *[_type == "category" && slug.current == $categorySlug]._id\n  )] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsByCategoryResult;
+    '\n  *[_type == "product"] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsResult;
+    '\n  *[_type == "contentBlock"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    "fileUrl": file.asset->url,\n    listItems[]{\n      ...,\n      "imageUrl": image.asset->url,\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    "categories": categoryBlock[]->{\n      ...\n    },\n    customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n  }\n': GetContentBlockResult;
+    '\n  *[_type == "category"] {\n    ...,\n    parentCategory->{\n      ...\n    }\n  }\n': GetCategoriesResult;
+    '\n  *[_type == "contentBlock"] {\n    ...,\n    "imageUrl": image.asset->url,\n    "fileUrl": file.asset->url,\n    listItems[]{\n      ...,\n      "imageUrl": image.asset->url,\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    "categories": categoryBlock[]->{\n      ...\n    },\n    customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n  }\n': GetContentBlocksResult;
   }
 }

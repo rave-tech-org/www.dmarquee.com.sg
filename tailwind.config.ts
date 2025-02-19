@@ -92,7 +92,7 @@ const config = {
         },
 
         '.main-padding-y-longer': {
-          '@apply py-8 lg:py-16': {},
+          '@apply py-16 lg:py-24': {},
         },
 
         '.main-padding-t': {

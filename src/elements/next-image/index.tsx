@@ -44,9 +44,9 @@ export default function NextImage({ alt, src, preview, className, priority, styl
         <button
           type="button"
           onClick={() => setVisible(true)}
-          className="size-9 z-40 rounded-full aspect-square absolute right-4 bottom-4 flex items-center justify-center bg-primary hover:bg-primary-disabled text-white"
+          className="size-8 z-40 rounded-full aspect-square absolute right-4 bottom-4 flex items-center justify-center bg-primary hover:bg-primary-disabled text-white"
         >
-          <ZoomIn className="size-[60%]" />
+          <ZoomIn className="size-[65%]" />
         </button>
 
         <AntdImage

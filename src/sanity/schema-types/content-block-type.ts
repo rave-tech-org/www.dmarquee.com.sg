@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export const contentBlockType = defineType({
   name: 'contentBlock',
@@ -65,6 +65,18 @@ export const contentBlockType = defineType({
               title: 'Value',
               type: 'string',
               validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'array',
+              of: [{ type: 'block' }],
+            },
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
             },
           ],
           preview: {
@@ -137,6 +149,56 @@ export const contentBlockType = defineType({
               title: 'Image',
               type: 'image',
               options: { hotspot: true },
+            }),
+
+            defineField({
+              name: 'customAttributes',
+              title: 'Custom Attributes',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  name: 'attribute',
+                  title: 'Attribute',
+                  fields: [
+                    {
+                      name: 'key',
+                      title: 'Key',
+                      type: 'string',
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: 'image',
+                      title: 'Image',
+                      type: 'image',
+                      options: { hotspot: true },
+                    },
+                    {
+                      name: 'value',
+                      title: 'Value',
+                      type: 'string',
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: 'description',
+                      title: 'Description',
+                      type: 'array',
+                      of: [{ type: 'block' }],
+                    },
+                  ],
+                  preview: {
+                    select: {
+                      key: 'key',
+                      value: 'value',
+                    },
+                    prepare({ key, value }) {
+                      return {
+                        title: `${key}: ${value}`,
+                      };
+                    },
+                  },
+                },
+              ],
             }),
           ],
         },

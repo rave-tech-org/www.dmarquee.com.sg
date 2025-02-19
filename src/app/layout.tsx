@@ -1,4 +1,3 @@
-import Footer from '@/components/layout/footer';
 import PageLayout from '@/components/previous-project/page-layout';
 import ReactQueryProvider from '@/elements/react-query-provider';
 import WhatsAppButton from '@/elements/whatsapp-button';
@@ -45,7 +44,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   const isStudio = pathname.includes('studio');
   const isContentBlock = pathname.includes('content-block');
-  const isPreview = pathname.includes('preview');
   const isHome = pathname === '/';
 
   return (
@@ -58,16 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ReactQueryProvider>
             {!isStudio && !isContentBlock && <WhatsAppButton />}
 
-            {isStudio || isContentBlock ? (
-              <main>{children}</main>
-            ) : isHome ? (
-              <PageLayout>{children}</PageLayout>
-            ) : (
-              <main>
-                {children}
-                <Footer isDraft={isPreview} />
-              </main>
-            )}
+            {isHome ? <PageLayout>{children}</PageLayout> : children}
           </ReactQueryProvider>
         </NuqsAdapter>
         <noscript>
