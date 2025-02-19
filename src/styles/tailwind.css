@@ -23,23 +23,24 @@
     @apply animate;
   }
   h1 {
-    @apply text-4xl xl:text-[64px] xl:leading-[78px] font-medium;
+    @apply text-5xl xl:text-6xl xl:leading-[4.5rem] font-medium;
   }
   h2 {
-    @apply text-3xl xl:text-5xl font-medium;
+    @apply text-4xl xl:text-5xl xl:leading-[3.75rem] font-medium;
   }
   h3 {
-    @apply text-2xl xl:text-3xl font-medium;
+    @apply text-3xl xl:text-4xl font-medium;
   }
   h4 {
     @apply text-2xl xl:text-3xl font-medium;
   }
   h5 {
-    @apply text-2xl xl:text-3xl font-medium;
+    @apply text-xl xl:text-2xl font-medium;
   }
   h6 {
-    @apply text-2xl xl:text-3xl font-medium;
+    @apply text-lg xl:text-xl font-medium;
   }
+
   p,
   a,
   li,
@@ -48,7 +49,7 @@
   textarea,
   label,
   blockquote {
-    @apply text-base xl:text-[20px] xl:leading-[30px];
+    @apply text-base xl:text-lg;
   }
   small,
   figcaption {

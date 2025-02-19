@@ -4,16 +4,11 @@ import type { GetContentBlockResult, GetContentBlocksResult } from '@/sanity/san
 import type { Entries } from './use-entries';
 
 export const slugToComponentMap: Record<string, string> = {
-  // It allows multiple slugs to reuse the same component by mapping them to a common component slug or path.
-  // Example: 'tour-experience' and 'tour-search-banner' both map to 'content-background' component.
-
-  // Very special case
-  'footer-menu': 'layout/footer',
-  'footer-body': 'layout/footer',
+  'plan-without-limits': 'plan-your-next-event-with-us',
 };
 
 export const loadComponent = async (slug: string) => {
-  const mappedSlug = slugToComponentMap[slug] || slug; // Resolve to actual slug if mapped
+  const mappedSlug = slugToComponentMap[slug] || slug;
   try {
     const Component = (await import(`@/components/${mappedSlug}/index.tsx`)).default;
     return Component;

@@ -14,7 +14,7 @@ export default function ShowCases({ block, entries }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="main-padding-y lg:main-padding-x">
+    <article id={block?.slug?.current} className="main-padding-y lg:main-padding-x">
       <div className="component-wrapper space-padding">
         <section className="space-text">
           <header className="space-text max-lg:text-center max-lg:main-padding-x">

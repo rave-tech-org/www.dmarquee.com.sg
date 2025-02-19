@@ -18,7 +18,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="main-padding">
+    <article id={block?.slug?.current} className="main-padding">
       <div className="component-wrapper-small space-padding">
         <header className="space-text max-lg:text-center max-lg:main-padding-x text-center">
           <PortableText value={block?.description ?? []} />
