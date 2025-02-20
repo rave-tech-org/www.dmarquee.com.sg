@@ -19,9 +19,9 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
       id={block?.slug?.current}
       className="main-padding home-banner-wrapper flex items-center justify-center min-h-[90vh]"
     >
-      <div className="component-wrapper grid lg:grid-cols-2 gap-10 items-center lg:gap-24">
+      <div className="component-wrapper grid lg:grid-cols-2 gap-10 items-center lg:gap-24 xl:gap-32">
         <section className="flex flex-col">
-          <section className="space-y-6 lg:space-y-10">
+          <section className="space-padding">
             <header className="space-text max-lg:text-center [&_h3]:text-primary">
               <PortableText value={block?.description ?? []} />
             </header>

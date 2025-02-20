@@ -52,6 +52,7 @@ export default function Carousel({ block }: { block: ContentBlockRegistry['block
                 <header
                   className={cn('animate-longer-3 space-y-1.5 p-6 xl:main-padding', { 'translate-y-12': !selected })}
                 >
+                  <h4>{e.title}</h4>
                   <PortableText value={e.description ?? []} />
                 </header>
               </div>
@@ -72,6 +73,7 @@ export default function Carousel({ block }: { block: ContentBlockRegistry['block
 
               <div className="text-white flex items-end absolute top-0 left-0 size-full bg-gradient-to-b from-transparent to-black/70">
                 <header className="main-padding space-y-1.5">
+                  <h4>{e.title}</h4>
                   <PortableText value={e.description ?? []} />
                 </header>
               </div>

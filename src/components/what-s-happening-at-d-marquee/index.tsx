@@ -7,16 +7,16 @@ import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import type { CustomisedPackagesCustomAttribute } from './type';
 
-export default function CustomisedPackages({ block, entries }: ContentBlockRegistry) {
+export default function CustomisedPackages({ block }: ContentBlockRegistry) {
   const custom = block?.customAttributes && transformObject<CustomisedPackagesCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article className="main-padding customised-packages-wrapper">
+    <article id={block?.slug?.current} className="main-padding customised-packages-wrapper">
       <div className="component-wrapper space-padding">
-        <header className="space-text text-center">
+        <header className="space-text text-center [&_strong]:text-primary [&_strong]:font-medium">
           <PortableText value={block?.description ?? []} />
         </header>
 
