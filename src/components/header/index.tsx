@@ -55,7 +55,7 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
                 <li key={e.label}>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="[&[data-state=open]>svg]:rotate-180 flex items-center justify-center gap-1 outline-none">
-                      {e.label}
+                      <p>{e.label}</p>
                       <ChevronDown className="size-5 animate" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>

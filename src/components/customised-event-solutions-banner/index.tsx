@@ -13,7 +13,8 @@ export default function CustomisedEventSolutionsBanner({ block }: ContentBlockRe
 
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? '/';
-  const title = custom?.title ?? 'Your Vision, Our Expertise';
+
+  const title = block?.customAttributes?.find((e) => e.key === 'title');
 
   return (
     <article id={block.slug?.current}>
@@ -21,9 +22,11 @@ export default function CustomisedEventSolutionsBanner({ block }: ContentBlockRe
 
       <section className="main-padding-x main-padding-y-longer">
         <div className="grid grid-cols-1 lg:grid-cols-2 component-wrapper gap-6 lg:gap-12">
-          <header className="space-y-2">
-            <h4 className="text-primary">{block.title}</h4>
-            <h2>{title}</h2>
+          <header className="space-y-2 [&_strong]:text-primary [&_strong]:font-medium">
+            {block.slug?.current === 'the-d-marquee-experience' ? null : (
+              <h4 className="text-primary">{block.title}</h4>
+            )}
+            <PortableText value={title?.description ?? []} />
           </header>
 
           <section className="space-y-4 lg:space-y-6">
