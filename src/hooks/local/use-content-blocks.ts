@@ -5,6 +5,7 @@ import type { Entries } from './use-entries';
 
 export const slugToComponentMap: Record<string, string> = {
   'plan-without-limits': 'plan-your-next-event-with-us',
+  'loyalty-programme': 'plan-your-next-event-with-us',
   'the-d-marquee-experience': 'customised-event-solutions-banner',
 };
 
