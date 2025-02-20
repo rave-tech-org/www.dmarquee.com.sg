@@ -1,36 +1,24 @@
-'use client';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
-import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
-import type { FeaturesIntroductionCustomAttribute } from './type';
 
-export default function FeaturesIntroduction({ entries, block }: ContentBlockRegistry) {
+export default function WorldClass({ block }: ContentBlockRegistry) {
+  if (!block) return null;
+
   const custom =
-    block?.customAttributes && transformObject<FeaturesIntroductionCustomAttribute>(block?.customAttributes);
+    block?.customAttributes && transformObject<{ 'btn-text': string; 'btn-href': string }>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? '/';
-
   return (
-    <article id={block?.slug?.current} className="main-padding">
-      <div className="component-wrapper space-padding">
-        <section className="flex justify-between items-center flex-wrap gap-6">
-          <header className="[&_strong]:font-medium [&_strong]:text-primary max-w-[44rem] space-y-4">
-            <PortableText value={block?.description ?? []} />
-          </header>
-
-          <Link
-            target={btnHref.startsWith('/asset') ? '_blank' : undefined}
-            href={btnHref}
-            className={cn(buttonVariants({ className: 'h-fit max-sm:mx-auto' }))}
-          >
-            {btnText}
-          </Link>
-        </section>
+    <article id={block.slug?.current} className="main-padding-x main-padding-y-longer">
+      <div className="space-padding xl:space-y-16 component-wrapper">
+        <header className="[&_strong]:font-medium [&_strong]:text-primary">
+          <PortableText value={block?.description ?? []} />
+        </header>
 
         <ul className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12">
           {block?.listItems?.map((e) => {
@@ -49,6 +37,13 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
             );
           })}
         </ul>
+        <Link
+          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+          href={btnHref}
+          className={buttonVariants({ className: 'max-lg:mx-auto' })}
+        >
+          {btnText}
+        </Link>
       </div>
     </article>
   );

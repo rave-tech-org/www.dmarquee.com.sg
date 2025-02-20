@@ -37,7 +37,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                           'bg-primary': isActive,
                         })}
                       />
-                      <h6 className={cn('text-[#B1B0B0]', { 'text-black': isActive })}>{e.title}</h6>
+                      <h5 className={cn('text-[#B1B0B0]', { 'text-black': isActive })}>{e.title}</h5>
                     </button>
                   </li>
                 );
@@ -71,13 +71,13 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                         'bg-primary': isActive,
                       })}
                     />
-                    <h6
+                    <h5
                       className={cn('text-left text-[#B1B0B0] col-span-11', {
                         'text-black': isActive,
                       })}
                     >
                       {e.title}
-                    </h6>
+                    </h5>
                   </button>
 
                   <div className="grid grid-cols-12">

@@ -18,7 +18,7 @@ export default function WeValue({ block }: ContentBlockRegistry) {
                   </section>
                 ) : null}
                 <header className="space-y-2">
-                  <h6>{e.title}</h6>
+                  <h5>{e.title}</h5>
                   <PortableText value={e.description ?? []} />
                 </header>
               </li>
