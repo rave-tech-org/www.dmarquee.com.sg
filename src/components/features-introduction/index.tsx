@@ -16,47 +16,39 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
   const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article id={block?.slug?.current} className="main-padding features-introduction-wrapper">
+    <article id={block?.slug?.current} className="main-padding">
       <div className="component-wrapper space-padding">
-        <ul className="space-y-[2rem]">
-          {block?.listItems?.map((e, i) => {
-            const isOdd = i % 2 !== 0;
-            return (
-              <li
-                key={e.title}
-                className={cn('grid md:grid-cols-2 gap-y-4 items-center', {
-                  'grid-flow-dense': isOdd,
-                })}
-              >
-                {e.imageUrl ? (
-                  <NextImage
-                    src={e.imageUrl}
-                    className={cn('object-cover aspect-[5/3] object-bottom', {
-                      'md:col-start-2 md:row-start-1': isOdd,
-                    })}
-                  />
-                ) : null}
+        <section className="flex justify-between items-center flex-wrap gap-6">
+          <header className="[&_strong]:font-medium [&_strong]:text-primary max-w-[44rem] space-y-4">
+            <PortableText value={block?.description ?? []} />
+          </header>
 
-                <header
-                  className={cn('space-y-2 md:space-y-4 max-md:text-center', {
-                    'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16': isOdd,
-                    'md:pl-6 lg:pl-16': !isOdd,
-                  })}
-                >
-                  <PortableText value={e?.description ?? []} />
+          <Link
+            target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+            href={btnHref}
+            className={cn(buttonVariants({ className: 'h-fit max-sm:mx-auto' }))}
+          >
+            {btnText}
+          </Link>
+        </section>
+
+        <ul className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12">
+          {block?.listItems?.map((e) => {
+            return (
+              <li key={e.title} className="space-y-4 max-md:flex items-center flex-col max-md:text-center">
+                {e.imageUrl ? (
+                  <section className="aspect-square bg-primary w-16 md:w-20 flex items-center justify-center">
+                    <NextImage src={e.imageUrl} className="w-10 md:w-12" />
+                  </section>
+                ) : null}
+                <header className="space-y-2">
+                  <h6>{e.title}</h6>
+                  <PortableText value={e.description ?? []} />
                 </header>
               </li>
             );
           })}
         </ul>
-
-        <Link
-          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
-          href={btnHref}
-          className={cn(buttonVariants({ className: 'mx-auto' }))}
-        >
-          {btnText}
-        </Link>
       </div>
     </article>
   );

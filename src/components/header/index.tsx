@@ -3,11 +3,14 @@
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
+import { Icon } from '@iconify-icon/react/dist/iconify.mjs';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
-export default function Header({ block }: ContentBlockRegistry) {
+export default function Header({ block, entries }: ContentBlockRegistry) {
   if (!block) return null;
 
   const pathname = usePathname();
@@ -31,15 +34,7 @@ export default function Header({ block }: ContentBlockRegistry) {
     return () => ctr.abort();
   }, [lastScrollY]);
 
-  const menus = block?.description?.map((e) => {
-    const doesntHaveHref = !e.markDefs?.length;
-
-    return {
-      label: e.children?.[0]?.text || 'Unlabeled',
-      href: e.markDefs?.[0]?.href || '/',
-      children: doesntHaveHref ? [] : null,
-    };
-  });
+  const { menus } = entries;
 
   return (
     <nav
@@ -54,6 +49,35 @@ export default function Header({ block }: ContentBlockRegistry) {
         <ul className="hidden lg:flex gap-6 items-center">
           {menus?.map((e) => {
             const isActive = e.href === '/' ? pathname === e.href : pathname.startsWith(e.href);
+
+            if (e.children?.length && !e.href) {
+              return (
+                <li key={e.label}>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="[&[data-state=open]>svg]:rotate-180 flex items-center justify-center gap-1 outline-none">
+                      {e.label}
+                      <ChevronDown className="size-5 animate" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      {e.children.map((l) => {
+                        const isActive = l.href === '/' ? pathname === l.href : pathname.startsWith(l.href);
+                        return (
+                          <DropdownMenuItem key={l.label}>
+                            <Link
+                              href={l.href}
+                              className={cn('font-normal', { 'font-medium': isActive, 'hover:underline': !isActive })}
+                            >
+                              {l.label}
+                            </Link>
+                          </DropdownMenuItem>
+                        );
+                      })}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </li>
+              );
+            }
+
             return (
               <li key={e.label}>
                 <Link href={e.href} className={cn({ 'font-medium': isActive, 'hover:underline': !isActive })}>

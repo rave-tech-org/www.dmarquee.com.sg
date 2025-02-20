@@ -35,7 +35,6 @@ export default async function PageByPage({ params }: Props) {
   const { page } = params;
   const data = await getData(page);
 
-  console.log(data);
   const [entries, contentBlock] = await Promise.all([useEntries(), useContentBlocks()]);
 
   // Multiple page redirect handler

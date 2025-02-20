@@ -15,7 +15,7 @@ export default function PlanYourNextEvent({ block }: ContentBlockRegistry) {
 
   return (
     <article id={block.slug?.current} className="main-padding-x main-padding-y-longer bg-black">
-      <div className="componnent-wrapper space-y-6 lg:space-y-12">
+      <div className="componnent-wrapper space-padding">
         <header className="text-center text-white space-y-4 lg:space-y-6 max-w-[42rem] mx-auto">
           <h2>{block.title}</h2>
           <PortableText value={block.description ?? []} />

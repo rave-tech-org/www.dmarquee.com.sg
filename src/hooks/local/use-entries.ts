@@ -1,7 +1,8 @@
 import { sanityFetch } from '@/sanity/lib/client';
-import { GetCategories, GetPosts, GetProducts, GetTestimonials } from '@/sanity/lib/queries/cms';
+import { GetCategories, GetContentBlockBySlug, GetPosts, GetProducts, GetTestimonials } from '@/sanity/lib/queries/cms';
 import type {
   GetCategoriesResult,
+  GetContentBlockBySlugResult,
   GetPostsResult,
   GetProductsResult,
   GetTestimonialsResult,
@@ -28,7 +29,36 @@ export const useEntries = async () => {
     tags: ['post'],
   });
 
+  const header = await sanityFetch<GetContentBlockBySlugResult>({
+    query: GetContentBlockBySlug,
+    tags: ['contentBlock'],
+    qParams: { slug: 'header' },
+  });
+
+  const experience = header?.customAttributes?.find((e) => e.key === 'experience-dropdown');
+
+  const experienceMenu = {
+    label: experience?.value || 'Unlabeled',
+    href: '',
+    children: experience?.description?.map((e) => {
+      return {
+        label: e.children?.[0]?.text || 'Unlabeled',
+        href: e.markDefs?.[0]?.href || '/',
+      };
+    }),
+  };
+
+  const restMenu =
+    header?.description?.map((e) => {
+      return {
+        label: e.children?.[0]?.text || 'Unlabeled',
+        href: e.markDefs?.[0]?.href || '',
+        children: [],
+      };
+    }) || [];
+
   return {
+    menus: [experienceMenu, ...restMenu],
     categories,
     products,
     testimonials,
@@ -36,9 +66,4 @@ export const useEntries = async () => {
   };
 };
 
-export type Entries = {
-  categories: GetCategoriesResult;
-  products: GetProductsResult;
-  testimonials: GetTestimonialsResult;
-  posts: GetPostsResult;
-};
+export type Entries = Awaited<ReturnType<typeof useEntries>>;
