@@ -1,5 +1,6 @@
 'use client';
 
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -15,17 +16,17 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
 
   const custom = block?.customAttributes && transformObject<FloorPlansCustomAttribute>(block?.customAttributes);
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
-    <article id={block?.slug?.current} className="main-padding">
+    <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper-small space-padding">
         <header className="space-text max-lg:text-center max-lg:main-padding-x text-center">
           <PortableText value={block?.description ?? []} />
         </header>
 
         {block?.listItems?.length ? (
-          <section className="hidden lg:grid grid-cols-6 gap-4 lg:pl-16 lg:pr-6">
+          <section className="hidden lg:grid grid-cols-6 gap-4">
             <ul className="flex flex-col col-span-2">
               {block?.listItems?.map((e, i) => {
                 const isActive = i === selected;

@@ -1,3 +1,4 @@
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -6,12 +7,12 @@ import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 
-export default function Form({ block, entries }: ContentBlockRegistry) {
+export default function Form({ block }: ContentBlockRegistry) {
   const custom =
     block?.customAttributes && transformObject<{ 'btn-text': string; 'btn-href': string }>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
     <article id="form-section-discoverdmq">

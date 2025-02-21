@@ -1,3 +1,4 @@
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
@@ -12,7 +13,7 @@ export default function PlanYourNextEvent({ block }: ContentBlockRegistry) {
     block?.customAttributes && transformObject<{ 'btn-text': string; 'btn-href': string }>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   const isPrimaryColor = !!block.customAttributes?.find((e) => e.key === 'is-primary-color');
 

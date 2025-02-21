@@ -1,6 +1,7 @@
 import { buttonVariants } from '@/elements/button';
 import Link from 'next/link';
 import '@/styles/tailwind.css';
+import { PATHS } from '../urls';
 
 const ThankYouPage = () => {
   return (
@@ -9,7 +10,7 @@ const ThankYouPage = () => {
         <h2>Thank you for your message. We will contact you shortly.</h2>
         <h2>Have a nice day.</h2>
         <nav className="mt-4 flex gap-4 items-center justify-center flex-wrap">
-          <Link className={buttonVariants()} href={'/'}>
+          <Link className={buttonVariants()} href={PATHS.main}>
             Return to homepage
           </Link>
 

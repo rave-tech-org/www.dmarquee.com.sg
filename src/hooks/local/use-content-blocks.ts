@@ -6,7 +6,14 @@ import type { Entries } from './use-entries';
 export const slugToComponentMap: Record<string, string> = {
   'plan-without-limits': 'plan-your-next-event-with-us',
   'loyalty-programme': 'plan-your-next-event-with-us',
+  'plan-your-next-event-with-us-gallery': 'plan-your-next-event-with-us',
+
   'the-d-marquee-experience': 'customised-event-solutions-banner',
+  'occasions-at-d-marquee': 'customised-event-solutions-banner',
+  'corporate-and-business-events': 'occasions-banner',
+  'social-and-celebratory-events': 'occasions-banner',
+  'private-gatherings-and-family-events': 'occasions-banner',
+  'concerts-and-live-performances': 'occasions-banner',
 };
 
 export const loadComponent = async (slug: string) => {

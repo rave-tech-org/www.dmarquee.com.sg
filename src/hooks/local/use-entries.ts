@@ -1,3 +1,4 @@
+import { PATHS } from '@/app/urls';
 import { sanityFetch } from '@/sanity/lib/client';
 import { GetCategories, GetContentBlockBySlug, GetPosts, GetProducts, GetTestimonials } from '@/sanity/lib/queries/cms';
 import type {
@@ -43,7 +44,7 @@ export const useEntries = async () => {
     children: experience?.description?.map((e) => {
       return {
         label: e.children?.[0]?.text || 'Unlabeled',
-        href: e.markDefs?.[0]?.href || '/',
+        href: e.markDefs?.[0]?.href || PATHS.main,
       };
     }),
   };
