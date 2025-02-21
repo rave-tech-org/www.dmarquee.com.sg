@@ -12,7 +12,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',

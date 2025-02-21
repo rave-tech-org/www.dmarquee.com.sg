@@ -1,4 +1,5 @@
 'use client';
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -8,15 +9,15 @@ import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import type { FeaturesIntroductionCustomAttribute } from './type';
 
-export default function FeaturesIntroduction({ entries, block }: ContentBlockRegistry) {
+export default function FeaturesIntroduction({ block }: ContentBlockRegistry) {
   const custom =
     block?.customAttributes && transformObject<FeaturesIntroductionCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
-    <article id={block?.slug?.current} className="main-padding">
+    <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
         <section className="flex justify-between items-center flex-wrap gap-6">
           <header className="[&_strong]:font-medium [&_strong]:text-primary max-w-[44rem] space-y-4">

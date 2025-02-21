@@ -1,3 +1,4 @@
+import { PATHS } from '@/app/urls';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
@@ -16,7 +17,7 @@ export default function Footer({ block }: ContentBlockRegistry) {
 
       return {
         label: e.children?.[0]?.text || 'Unlabeled',
-        href: e.markDefs?.[0]?.href || '/',
+        href: e.markDefs?.[0]?.href || PATHS.main,
         children: doesntHaveHref ? [] : null,
       };
     });

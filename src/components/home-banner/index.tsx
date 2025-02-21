@@ -1,5 +1,6 @@
 'use client';
 
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -12,7 +13,7 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
   const custom = block?.customAttributes && transformObject<HomeBannerCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
     <article

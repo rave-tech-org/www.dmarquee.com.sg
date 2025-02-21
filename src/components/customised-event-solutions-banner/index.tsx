@@ -1,3 +1,4 @@
+import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -12,7 +13,7 @@ export default function CustomisedEventSolutionsBanner({ block }: ContentBlockRe
     transformObject<{ 'btn-text': string; 'btn-href': string; title: string }>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? '/';
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   const title = block?.customAttributes?.find((e) => e.key === 'title');
 

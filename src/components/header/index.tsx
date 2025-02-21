@@ -1,9 +1,9 @@
 'use client';
 
+import { PATHS } from '@/app/urls';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
-import { Icon } from '@iconify-icon/react/dist/iconify.mjs';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -45,27 +45,34 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
       })}
     >
       <div className="component-wrapper flex justify-between gap-6">
-        <NextImage src={block.imageUrl} className="w-44 lg:w-56" />
+        <Link href={PATHS.main}>
+          <NextImage src={block.imageUrl} className="w-44 lg:w-56" />
+        </Link>
         <ul className="hidden lg:flex gap-6 items-center">
           {menus?.map((e) => {
-            const isActive = e.href === '/' ? pathname === e.href : pathname.startsWith(e.href);
+            const isActive = e.href === PATHS.main ? pathname === e.href : pathname.startsWith(e.href);
 
             if (e.children?.length && !e.href) {
+              const hrefs = e.children?.map((e) => e.href);
+
               return (
                 <li key={e.label}>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="[&[data-state=open]>svg]:rotate-180 flex items-center justify-center gap-1 outline-none">
-                      <p>{e.label}</p>
+                      <p className={cn({ 'font-medium': hrefs.includes(pathname) })}>{e.label}</p>
                       <ChevronDown className="size-5 animate" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                       {e.children.map((l) => {
-                        const isActive = l.href === '/' ? pathname === l.href : pathname.startsWith(l.href);
+                        const isActive = l.href === PATHS.main ? pathname === l.href : pathname.startsWith(l.href);
                         return (
-                          <DropdownMenuItem key={l.label}>
+                          <DropdownMenuItem key={l.label} className="group p-0">
                             <Link
                               href={l.href}
-                              className={cn('font-normal', { 'font-medium': isActive, 'hover:underline': !isActive })}
+                              className={cn('size-full font-normal px-2 py-1', {
+                                'font-medium': isActive,
+                                'group-hover:underline': !isActive,
+                              })}
                             >
                               {l.label}
                             </Link>
