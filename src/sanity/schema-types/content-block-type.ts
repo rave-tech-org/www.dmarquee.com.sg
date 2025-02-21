@@ -168,12 +168,6 @@ export const contentBlockType = defineType({
                       validation: (Rule) => Rule.required(),
                     },
                     {
-                      name: 'image',
-                      title: 'Image',
-                      type: 'image',
-                      options: { hotspot: true },
-                    },
-                    {
                       name: 'value',
                       title: 'Value',
                       type: 'string',
@@ -184,6 +178,12 @@ export const contentBlockType = defineType({
                       title: 'Description',
                       type: 'array',
                       of: [{ type: 'block' }],
+                    },
+                    {
+                      name: 'image',
+                      title: 'Image',
+                      type: 'image',
+                      options: { hotspot: true },
                     },
                   ],
                   preview: {

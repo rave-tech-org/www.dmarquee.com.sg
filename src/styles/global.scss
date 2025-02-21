@@ -4,3 +4,19 @@
 @import '@/components/home-banner/styles.scss';
 @import '@/components/features-introduction/styles.scss';
 @import '@/sanity/structure/custom-nav-bar/styles.scss';
+
+.show-cases-carousel-wrapper {
+  .swiper-pagination-bullet {
+    width: 0.8rem;
+    height: 0.8rem;
+    background-color: white;
+    border-color: gray;
+    border-width: 2px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    border-width: 2px;
+  }
+}
