@@ -8,6 +8,7 @@ import type {
   GetProductsResult,
   GetTestimonialsResult,
 } from '@/sanity/sanity.types';
+import { createMenuFromDescription } from '@/utils';
 
 export const useEntries = async () => {
   const categories = await sanityFetch<GetCategoriesResult>({
@@ -49,14 +50,7 @@ export const useEntries = async () => {
     }),
   };
 
-  const restMenu =
-    header?.description?.map((e) => {
-      return {
-        label: e.children?.[0]?.text || 'Unlabeled',
-        href: e.markDefs?.[0]?.href || '',
-        children: [],
-      };
-    }) || [];
+  const restMenu = createMenuFromDescription({ description: header?.description }) || [];
 
   return {
     menus: [experienceMenu, ...restMenu],

@@ -2,6 +2,7 @@ import { PATHS } from '@/app/urls';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
+import { createMenuFromDescription } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import { Fragment } from 'react';
@@ -13,27 +14,10 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
   const additionalMenus = block.listItems?.find((e) => e.slug?.current === 'additional-menus');
   const linkedin = additionalMenus?.customAttributes?.find((e) => e.key === 'linkedin');
 
-  const additionalMenuMenus = additionalMenus?.description?.map((e) => {
-    const doesntHaveHref = !e.markDefs?.length;
-
-    return {
-      label: e.children?.[0]?.text || 'Unlabeled',
-      href: e.markDefs?.[0]?.href || PATHS.main,
-      children: doesntHaveHref ? [] : null,
-    };
+  const additionalMenuMenus = createMenuFromDescription({ description: additionalMenus?.description });
+  const menusBottomSide = createMenuFromDescription({
+    description: block.listItems?.find((e) => e.slug?.current === 'menus-bottom-side')?.description,
   });
-
-  const menusBottomSide = block.listItems
-    ?.find((e) => e.slug?.current === 'menus-bottom-side')
-    ?.description?.map((e) => {
-      const doesntHaveHref = !e.markDefs?.length;
-
-      return {
-        label: e.children?.[0]?.text || 'Unlabeled',
-        href: e.markDefs?.[0]?.href || PATHS.main,
-        children: doesntHaveHref ? [] : null,
-      };
-    });
 
   const { menus } = entries;
 
@@ -43,7 +27,7 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
         <section className="main-padding-y grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12">
           <section className="space-y-2">
             <NextImage src={block.imageUrl} className="w-56" />
-            <header className="[&_*]:whitespace-pre-line">
+            <header className="[&_*]:whitespace-pre-line [&_a:hover]:underline">
               <PortableText value={leftSide?.description ?? []} />
             </header>
           </section>
@@ -115,7 +99,11 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
             })}
 
             <li className="mt-4">
-              <Link href={linkedin?.value || PATHS.main} className="hover:underline flex gap-2 items-center">
+              <Link
+                target="_blank"
+                href={linkedin?.value || PATHS.main}
+                className="hover:underline flex gap-2 items-center"
+              >
                 <PortableText value={linkedin?.description ?? []} />
                 <NextImage src={linkedin?.imageUrl} className="w-5" />
               </Link>
