@@ -15,7 +15,7 @@ export default function CustomisedPackages({ block }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
-    <article id={block?.slug?.current} className="main-padding customised-packages-wrapper">
+    <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer customised-packages-wrapper">
       <div className="component-wrapper space-padding">
         <header className="space-text text-center [&_strong]:text-primary [&_strong]:font-medium">
           <PortableText value={block?.description ?? []} />

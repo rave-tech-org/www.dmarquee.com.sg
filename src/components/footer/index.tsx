@@ -1,14 +1,27 @@
 import { PATHS } from '@/app/urls';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
+import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-export default function Footer({ block }: ContentBlockRegistry) {
+export default function Footer({ block, entries }: ContentBlockRegistry) {
   if (!block) return null;
 
   const leftSide = block.listItems?.find((e) => e.slug?.current === 'description-left-side');
+  const additionalMenus = block.listItems?.find((e) => e.slug?.current === 'additional-menus');
+  const linkedin = additionalMenus?.customAttributes?.find((e) => e.key === 'linkedin');
+
+  const additionalMenuMenus = additionalMenus?.description?.map((e) => {
+    const doesntHaveHref = !e.markDefs?.length;
+
+    return {
+      label: e.children?.[0]?.text || 'Unlabeled',
+      href: e.markDefs?.[0]?.href || PATHS.main,
+      children: doesntHaveHref ? [] : null,
+    };
+  });
 
   const menusBottomSide = block.listItems
     ?.find((e) => e.slug?.current === 'menus-bottom-side')
@@ -22,6 +35,8 @@ export default function Footer({ block }: ContentBlockRegistry) {
       };
     });
 
+  const { menus } = entries;
+
   return (
     <footer id={block.slug?.current} className="main-padding-x bg-[#EEE]">
       <div className="component-wrapper">
@@ -33,8 +48,79 @@ export default function Footer({ block }: ContentBlockRegistry) {
             </header>
           </section>
 
-          <section></section>
-          <section></section>
+          <ul className="flex flex-col gap-3">
+            {menus.slice(0, 5).map((e) => {
+              if (e.children?.length) {
+                return e.children.map((l, i) => {
+                  if (!l.href) return null;
+                  return (
+                    <li key={l.href}>
+                      <Link
+                        href={l.href}
+                        className={cn('hover:underline', { 'text-[#666666]': i !== 0, 'font-medium': i === 0 })}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  );
+                });
+              }
+
+              if (!e.href) return null;
+              return (
+                <li key={e.href}>
+                  <Link href={e.href} className="font-medium hover:underline">
+                    {e.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <ul className="flex flex-col gap-3">
+            {menus?.slice(5, undefined).map((e) => {
+              if (e.children?.length) {
+                return e.children.map((l, i) => {
+                  if (!l.href) return null;
+                  return (
+                    <li key={l.href}>
+                      <Link
+                        href={l.href}
+                        className={cn('hover:underline', { 'text-[#666666]': i !== 0, 'font-medium': i === 0 })}
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  );
+                });
+              }
+
+              if (!e.href) return null;
+              return (
+                <li key={e.href}>
+                  <Link href={e.href} className="font-medium hover:underline">
+                    {e.label}
+                  </Link>
+                </li>
+              );
+            })}
+            {additionalMenuMenus?.map((e) => {
+              return (
+                <li key={e.href}>
+                  <Link href={e.href} className="font-medium hover:underline">
+                    {e.label}
+                  </Link>
+                </li>
+              );
+            })}
+
+            <li className="mt-4">
+              <Link href={linkedin?.value || PATHS.main} className="hover:underline flex gap-2 items-center">
+                <PortableText value={linkedin?.description ?? []} />
+                <NextImage src={linkedin?.imageUrl} className="w-5" />
+              </Link>
+            </li>
+          </ul>
         </section>
 
         <section className="border-t border-black py-6 flex justify-between flex-wrap gap-4 md:gap-6 items-center">
