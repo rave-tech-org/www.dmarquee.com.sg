@@ -42,7 +42,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   const isStudio = pathname.includes('studio');
   const isContentBlock = pathname.includes('content-block');
-  const isHome = pathname === '/';
 
   return (
     <html lang="en" className={brandonGrotesque.variable}>
