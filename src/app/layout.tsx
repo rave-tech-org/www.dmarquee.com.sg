@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { getMetadata } from './metadata';
 
 import '@/styles/tailwind.css';
 import 'swiper/css';
@@ -13,11 +14,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-export const metadata: Metadata = {
-  title: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
-  description: 'D’Marquee: Indoor MICE Venue with D’Resort in Downtown East, Pasir Ris!',
-};
-
+export async function generateMetadata(): Promise<Metadata> {
+  return await getMetadata({});
+}
 const brandonGrotesque = localFont({
   variable: '--font-brandon-grotesque',
   display: 'swap',
