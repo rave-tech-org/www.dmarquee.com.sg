@@ -1,4 +1,4 @@
-// import PageLayout from '@/components/previous-project/page-layout';
+import PageLayout from '@/components/previous-project/page-layout';
 import ReactQueryProvider from '@/elements/react-query-provider';
 import WhatsAppButton from '@/elements/whatsapp-button';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
@@ -52,9 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <NuqsAdapter>
           <ReactQueryProvider>
             {!isStudio && !isContentBlock && <WhatsAppButton />}
-
-            {/* {isHome ? <PageLayout>{children}</PageLayout> : children} */}
-            {children}
+            {isHome ? <PageLayout>{children}</PageLayout> : children}
           </ReactQueryProvider>
         </NuqsAdapter>
         <noscript>

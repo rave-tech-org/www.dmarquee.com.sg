@@ -20,7 +20,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
 
   return (
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
-      <div className="mx-auto max-w-[1000px] w-full space-padding">
+      <div className="component-wrapper space-padding">
         <header className="space-text max-lg:text-center max-lg:main-padding-x text-center">
           <PortableText value={block?.description ?? []} />
         </header>
