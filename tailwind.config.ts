@@ -98,7 +98,7 @@ const config = {
           '@apply max-w-[1366px] w-full mx-auto': {},
         },
         '.component-wrapper-small': {
-          '@apply max-w-[1200px] mx-auto': {},
+          '@apply max-w-[800px] w-full mx-auto': {},
         },
 
         '.main-padding': {
