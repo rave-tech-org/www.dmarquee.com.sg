@@ -56,12 +56,16 @@ export const useEntries = async () => {
   const currentPath = headers().get('path') || '';
   const [_, page, slug] = currentPath.split('/');
 
+  const updatedPosts = posts?.map((e) => {
+    return { ...e, path: `${e.type === 'blog' ? PATHS.blog : PATHS.news}/${e.slug?.current}` };
+  });
+
   return {
     menus: [experienceMenu, ...restMenu],
     categories,
     products,
     testimonials,
-    posts,
+    posts: updatedPosts,
     route: {
       currentPath,
       page,
@@ -70,7 +74,7 @@ export const useEntries = async () => {
     foundedDataBySlug: {
       product: products.find((e) => e.slug?.current === slug),
       testimonial: testimonials.find((e) => e.slug?.current === slug),
-      post: posts.find((e) => e.slug?.current === slug),
+      post: updatedPosts.find((e) => e.slug?.current === slug),
     },
   };
 };

@@ -39,6 +39,35 @@ export const GetPage = defineQuery(`
   }
 `);
 
+export const GetPages = defineQuery(`
+  *[_type == "page"] {
+    ...,
+    layout[]->{
+      ...,
+      "imageUrl": image.asset->url,
+      "fileUrl": file.asset->url,
+      listItems[]{
+        ...,
+        "imageUrl": image.asset->url,
+        customAttributes[]{
+          ...,
+          "imageUrl": image.asset->url
+        },
+      },
+      "categories": categoryBlock[]->{
+        ...
+      },
+      customAttributes[]{
+          ...,
+          "imageUrl": image.asset->url
+        }
+    },
+    variants[]->{
+      ...
+    }
+  }
+`);
+
 export const GetPosts = defineQuery(`
   *[_type == "post"] | order(publishedDate desc) {
     ...,

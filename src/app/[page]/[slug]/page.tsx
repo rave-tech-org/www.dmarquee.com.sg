@@ -1,10 +1,25 @@
+import { getMetadata } from '@/app/metadata';
 import { useContentBlocks } from '@/hooks/local/use-content-blocks';
 import { useEntries } from '@/hooks/local/use-entries';
 import { sanityFetch } from '@/sanity/lib/client';
 import { GetPage } from '@/sanity/lib/queries/cms';
 import type { GetPageResult } from '@/sanity/sanity.types';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import '@/styles/tailwind.css';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const {
+    foundedDataBySlug: { product, testimonial, post },
+  } = await useEntries();
+
+  return getMetadata({
+    imageUrl: product?.imageUrl ?? testimonial?.imageUrl ?? post?.imageUrl,
+    title: product?.name ?? testimonial?.name ?? post?.title,
+    description: post?.summary,
+    keywords: post?.metaKeywords,
+  });
+}
 
 // MULTIPLE PAGE RENDERING
 export default async function PageSlugPage() {

@@ -1042,6 +1042,258 @@ export type GetPageResult = {
     }>;
   }> | null;
 } | null;
+// Variable: GetPages
+// Query: *[_type == "page"] {    ...,    layout[]->{      ...,      "imageUrl": image.asset->url,      "fileUrl": file.asset->url,      listItems[]{        ...,        "imageUrl": image.asset->url,        customAttributes[]{          ...,          "imageUrl": image.asset->url        },      },      "categories": categoryBlock[]->{        ...      },      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    variants[]->{      ...    }  }
+export type GetPagesResult = Array<{
+  _id: string;
+  _type: 'page';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  pageType?: 'multiple' | 'single';
+  title?: string;
+  slug?: Slug;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+    listItem?: 'bullet' | 'number';
+    markDefs?: Array<{
+      href?: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }>;
+  layout: Array<{
+    _id: string;
+    _type: 'contentBlock';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    blockType?: 'basic' | 'categoryBlock' | 'list' | 'post' | 'testimonial';
+    title?: string;
+    slug?: Slug;
+    customAttributes: Array<{
+      key?: string;
+      value?: string;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      _type: 'attribute';
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
+      _key: string;
+    }>;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    };
+    file?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      _type: 'file';
+    };
+    listItems: Array<{
+      title?: string;
+      slug?: Slug;
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
+      customAttributes: Array<{
+        key?: string;
+        value?: string;
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: 'span';
+            _key: string;
+          }>;
+          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+          listItem?: 'bullet' | 'number';
+          markDefs?: Array<{
+            href?: string;
+            _type: 'link';
+            _key: string;
+          }>;
+          level?: number;
+          _type: 'block';
+          _key: string;
+        }>;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
+        _type: 'attribute';
+        _key: string;
+        imageUrl: string | null;
+      }> | null;
+      _key: string;
+      imageUrl: string | null;
+    }> | null;
+    categoryBlock?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'category';
+    }>;
+    imageUrl: string | null;
+    fileUrl: string | null;
+    categories: Array<{
+      _id: string;
+      _type: 'category';
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      description?: string;
+      parentCategory?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'category';
+      };
+      customAttributes?: Array<{
+        key?: string;
+        value?: string;
+        _type: 'attribute';
+        _key: string;
+      }>;
+    }> | null;
+  }> | null;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: Array<string>;
+  variants: Array<{
+    _id: string;
+    _type: 'category';
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    parentCategory?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'category';
+    };
+    customAttributes?: Array<{
+      key?: string;
+      value?: string;
+      _type: 'attribute';
+      _key: string;
+    }>;
+  }> | null;
+}>;
 // Variable: GetPosts
 // Query: *[_type == "post"] | order(publishedDate desc) {    ...,    contents[] {      ...,      "imageUrl": image.asset->url,    },    "imageUrl": image.asset->url  }
 export type GetPostsResult = Array<{
@@ -4116,6 +4368,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "page" && slug.current == $name][0] {\n    _id,\n    slug,\n    metaTitle,\n    metaDescription,\n    metaKeywords\n  }\n': GetPageMetaResult;
     '\n  *[_type == "page" && slug.current == $name][0] {\n    ...,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      "fileUrl": file.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url,\n        customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        },\n      },\n      "categories": categoryBlock[]->{\n        ...\n      },\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    variants[]->{\n      ...\n    }\n  }\n': GetPageResult;
+    '\n  *[_type == "page"] {\n    ...,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      "fileUrl": file.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url,\n        customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        },\n      },\n      "categories": categoryBlock[]->{\n        ...\n      },\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    variants[]->{\n      ...\n    }\n  }\n': GetPagesResult;
     '\n  *[_type == "post"] | order(publishedDate desc) {\n    ...,\n    contents[] {\n      ...,\n      "imageUrl": image.asset->url,\n    },\n    "imageUrl": image.asset->url\n  }\n': GetPostsResult;
     '\n  *[_type == "testimonial"] {\n    ...,\n    "imageUrl": image.asset->url,\n    product->{\n      ...\n    }\n  }\n': GetTestimonialsResult;
     '\n  *[_type == "page" && slug.current == "header-layout"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    description,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url\n      }\n    }\n  }\n': GetHeaderLayoutResult;

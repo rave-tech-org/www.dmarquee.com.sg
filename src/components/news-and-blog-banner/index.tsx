@@ -31,10 +31,9 @@ export default function NewsAndBlogBanner({ block, entries }: ContentBlockRegist
 
         <ul className="space-padding">
           {posts?.map((e) => {
-            const path = e.type === 'blog' ? `/blog/${e.slug?.current}` : `/news/${e.slug?.current}`;
             return (
               <li key={e._id}>
-                <Link href={path}>
+                <Link href={e.path}>
                   <NextImage
                     src={e.imageUrl}
                     className="w-full aspect-vidoe xl:aspect-[31/9] object-top object-cover"
