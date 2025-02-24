@@ -1,4 +1,4 @@
-import PageLayout from '@/components/previous-project/page-layout';
+// import PageLayout from '@/components/previous-project/page-layout';
 import ReactQueryProvider from '@/elements/react-query-provider';
 import WhatsAppButton from '@/elements/whatsapp-button';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
@@ -7,7 +7,7 @@ import localFont from 'next/font/local';
 import { headers } from 'next/headers';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-import '@/styles/global.scss';
+import '@/styles/tailwind.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -55,7 +55,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <ReactQueryProvider>
             {!isStudio && !isContentBlock && <WhatsAppButton />}
 
-            {isHome ? <PageLayout>{children}</PageLayout> : children}
+            {/* {isHome ? <PageLayout>{children}</PageLayout> : children} */}
+            {children}
           </ReactQueryProvider>
         </NuqsAdapter>
         <noscript>

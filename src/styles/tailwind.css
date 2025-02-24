@@ -130,3 +130,17 @@
   left: 50% !important;
   transform: translateX(-50%) !important;
 }
+
+.show-cases-carousel-wrapper .swiper-pagination-bullet {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: white;
+  border-color: gray;
+  border-width: 2px;
+}
+
+.show-cases-carousel-wrapper .swiper-pagination-bullet-active {
+  background-color: #8d579e;
+  border-color: #8d579e;
+  border-width: 2px;
+}
