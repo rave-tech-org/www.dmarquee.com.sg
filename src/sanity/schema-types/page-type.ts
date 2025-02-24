@@ -23,7 +23,7 @@ export const pageType = defineType({
         ],
         layout: 'radio',
       },
-      readOnly: true,
+
       initialValue: 'single',
     }),
     defineField({

@@ -36,7 +36,7 @@ export default function Carousel({ block }: { block: ContentBlockRegistry['block
                 'max-lg:h-[16rem]': !selected,
                 'max-lg:h-[27rem]': selected,
               })}
-              key={e.title}
+              key={i}
               style={{
                 width: selected ? '40%' : `${60 / ((block?.listItems?.length ? block?.listItems?.length : 0) - 1)}%`,
               }}

@@ -62,12 +62,12 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
           </ul>
 
           <ul className="flex flex-col gap-3">
-            {menus?.slice(5, undefined).map((e) => {
+            {menus?.slice(5, undefined).map((e, i) => {
               if (e.children?.length) {
                 return e.children.map((l, i) => {
                   if (!l.href) return null;
                   return (
-                    <li key={l.href}>
+                    <li key={i}>
                       <Link
                         href={l.href}
                         className={cn('hover:underline', { 'text-[#666666]': i !== 0, 'font-medium': i === 0 })}
@@ -81,16 +81,16 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
 
               if (!e.href) return null;
               return (
-                <li key={e.href}>
+                <li key={i}>
                   <Link href={e.href} className="font-medium hover:underline">
                     {e.label}
                   </Link>
                 </li>
               );
             })}
-            {additionalMenuMenus?.map((e) => {
+            {additionalMenuMenus?.map((e, i) => {
               return (
-                <li key={e.href}>
+                <li key={i}>
                   <Link href={e.href} className="font-medium hover:underline">
                     {e.label}
                   </Link>
@@ -119,7 +119,7 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
               if (!e.href) return null;
               const isLastIndex = i === menusBottomSide?.length - 1;
               return (
-                <Fragment key={e.label}>
+                <Fragment key={i}>
                   <li>
                     <Link href={e.href} className="hover:underline">
                       {e.label}

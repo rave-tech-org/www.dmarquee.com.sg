@@ -26,15 +26,16 @@ export const structure: StructureResolver = (S) =>
         .child(S.documentTypeList('contentBlock').title('All Content Blocks'))
         .icon(BlockContentIcon),
       S.listItem()
-        .title('Testimonial')
-        .schemaType('testimonial')
-        .child(S.documentTypeList('testimonial').title('All Testimonials'))
-        .icon(CommentIcon),
-      S.listItem()
-        .title('Post')
+        .title('News & Blog')
         .schemaType('post')
-        .child(S.documentTypeList('post').title('All Posts'))
+        .child(S.documentTypeList('post').title('All News & Blog'))
         .icon(StringIcon),
+      // S.listItem()
+      //   .title('Testimonial')
+      //   .schemaType('testimonial')
+      //   .child(S.documentTypeList('testimonial').title('All Testimonials'))
+      //   .icon(CommentIcon),
+
       S.listItem()
         .title('Assets')
         .icon(ImageIcon)

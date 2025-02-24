@@ -9,6 +9,7 @@ import type {
   GetTestimonialsResult,
 } from '@/sanity/sanity.types';
 import { createMenuFromDescription } from '@/utils';
+import { headers } from 'next/headers';
 
 export const useEntries = async () => {
   const categories = await sanityFetch<GetCategoriesResult>({
@@ -52,12 +53,25 @@ export const useEntries = async () => {
 
   const restMenu = createMenuFromDescription({ description: header?.description }) || [];
 
+  const currentPath = headers().get('path') || '';
+  const [_, page, slug] = currentPath.split('/');
+
   return {
     menus: [experienceMenu, ...restMenu],
     categories,
     products,
     testimonials,
     posts,
+    route: {
+      currentPath,
+      page,
+      slug,
+    },
+    foundedDataBySlug: {
+      product: products.find((e) => e.slug?.current === slug),
+      testimonial: testimonials.find((e) => e.slug?.current === slug),
+      post: posts.find((e) => e.slug?.current === slug),
+    },
   };
 };
 
