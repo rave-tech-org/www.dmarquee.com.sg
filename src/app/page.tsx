@@ -1,14 +1,9 @@
 import { useContentBlocks } from '@/hooks/local/use-content-blocks';
 import { useEntries } from '@/hooks/local/use-entries';
 import { sanityFetch } from '@/sanity/lib/client';
-import { GetPage, GetPageMeta } from '@/sanity/lib/queries/cms';
-import type { GetPageMetaResult, GetPageResult } from '@/sanity/sanity.types';
-import type { Metadata } from 'next';
+import { GetPage } from '@/sanity/lib/queries/cms';
+import type { GetPageResult } from '@/sanity/sanity.types';
 import { notFound } from 'next/navigation';
-import '@/styles/tailwind.css';
-import { getMetadata } from './metadata';
-
-type Props = { params: { page: string } };
 
 const getData = async (name: string) => {
   const data = await sanityFetch<GetPageResult>({
@@ -18,16 +13,6 @@ const getData = async (name: string) => {
   });
   return data;
 };
-
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await sanityFetch<GetPageMetaResult>({
-    query: GetPageMeta,
-    tags: ['page'],
-    qParams: { name: 'home' },
-  });
-
-  return await getMetadata({ title: data?.metaTitle, description: data?.metaDescription });
-}
 
 // SINGLE PAGE RENDERING
 export default async function PageByPage() {

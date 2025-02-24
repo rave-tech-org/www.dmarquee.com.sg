@@ -5,7 +5,6 @@ import { GetPage, GetPageMeta } from '@/sanity/lib/queries/cms';
 import type { GetPageMetaResult, GetPageResult } from '@/sanity/sanity.types';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import '@/styles/tailwind.css';
 import { getMetadata } from '../metadata';
 
 type Props = { params: { page: string } };

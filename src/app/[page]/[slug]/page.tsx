@@ -6,7 +6,6 @@ import { GetPage } from '@/sanity/lib/queries/cms';
 import type { GetPageResult } from '@/sanity/sanity.types';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import '@/styles/tailwind.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const {
