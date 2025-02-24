@@ -40,8 +40,12 @@ export const GetPage = defineQuery(`
 `);
 
 export const GetPosts = defineQuery(`
-  *[_type == "post"] {
+  *[_type == "post"] | order(publishedDate desc) {
     ...,
+    contents[] {
+      ...,
+      "imageUrl": image.asset->url,
+    },
     "imageUrl": image.asset->url
   }
 `);

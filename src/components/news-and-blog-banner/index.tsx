@@ -1,30 +1,36 @@
 'use client';
 
-import { PATHS } from '@/app/urls';
-import { buttonVariants } from '@/elements/button';
+import Button from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import dayjs from 'dayjs';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
-import type { CustomisedPackagesCustomAttribute } from './type';
+import { useState } from 'react';
 
-export default function CustomisedPackages({ block, entries }: ContentBlockRegistry) {
-  const custom = block?.customAttributes && transformObject<CustomisedPackagesCustomAttribute>(block?.customAttributes);
+export default function NewsAndBlogBanner({ block, entries }: ContentBlockRegistry) {
+  const [viewAll, setViewAll] = useState(false);
+
+  if (!block) return null;
+
+  const custom =
+    block?.customAttributes && transformObject<{ 'btn-text': string; 'btn-href': string }>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? PATHS.main;
+
+  const posts = viewAll ? entries.posts : entries.posts?.slice(0, 1);
 
   return (
-    <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer customised-packages-wrapper">
+    <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
-        <header className="space-text text-center [&_strong]:text-primary [&_strong]:font-medium">
-          <PortableText value={block?.description ?? []} />
+        <header className="space-y-4">
+          <PortableText value={block.description ?? []} />
         </header>
+        <div className="border-t w-full" />
 
-        <ul className="grid md:grid-cols-2 gap-6">
-          {entries.posts?.slice(0, 2)?.map((e) => {
+        <ul className="space-padding">
+          {posts?.map((e) => {
             const path = e.type === 'blog' ? `/blog/${e.slug?.current}` : `/news/${e.slug?.current}`;
             return (
               <li key={e._id}>
@@ -47,13 +53,12 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
             );
           })}
         </ul>
-        <Link
-          target={btnHref.startsWith('/asset') ? '_blank' : undefined}
-          className={buttonVariants({ className: 'mx-auto' })}
-          href={btnHref}
-        >
-          {btnText}
-        </Link>
+
+        {!viewAll && entries.posts?.length > 1 ? (
+          <Button onClick={() => setViewAll(true)} className="mx-auto">
+            {btnText}
+          </Button>
+        ) : null}
       </div>
     </article>
   );

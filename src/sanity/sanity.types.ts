@@ -52,10 +52,10 @@ export type Post = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  type?: 'news' | 'blog';
   title?: string;
   slug?: Slug;
   publishedDate?: string;
-  excerpt?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -67,25 +67,44 @@ export type Post = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
+  summary?: string;
+  contents?: Array<{
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
       _key: string;
     }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+    };
+    isGrayBackground?: boolean;
+    leftImage?: boolean;
+    _type: 'content';
     _key: string;
   }>;
-  tags?: Array<string>;
+  metaKeywords?: Array<string>;
 };
 
 export type Testimonial = {
@@ -234,17 +253,6 @@ export type ContentBlock = {
     };
     customAttributes?: Array<{
       key?: string;
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      };
       value?: string;
       description?: Array<{
         children?: Array<{
@@ -264,6 +272,17 @@ export type ContentBlock = {
         _type: 'block';
         _key: string;
       }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
       _type: 'attribute';
       _key: string;
     }>;
@@ -928,17 +947,6 @@ export type GetPageResult = {
       };
       customAttributes: Array<{
         key?: string;
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: 'reference';
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: 'image';
-        };
         value?: string;
         description?: Array<{
           children?: Array<{
@@ -958,6 +966,17 @@ export type GetPageResult = {
           _type: 'block';
           _key: string;
         }>;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         _type: 'attribute';
         _key: string;
         imageUrl: string | null;
@@ -1024,17 +1043,17 @@ export type GetPageResult = {
   }> | null;
 } | null;
 // Variable: GetPosts
-// Query: *[_type == "post"] {    ...,    "imageUrl": image.asset->url  }
+// Query: *[_type == "post"] | order(publishedDate desc) {    ...,    contents[] {      ...,      "imageUrl": image.asset->url,    },    "imageUrl": image.asset->url  }
 export type GetPostsResult = Array<{
   _id: string;
   _type: 'post';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  type?: 'blog' | 'news';
   title?: string;
   slug?: Slug;
   publishedDate?: string;
-  excerpt?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -1046,25 +1065,45 @@ export type GetPostsResult = Array<{
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
+  summary?: string;
+  contents: Array<{
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
       _key: string;
     }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+    };
+    isGrayBackground?: boolean;
+    leftImage?: boolean;
+    _type: 'content';
     _key: string;
-  }>;
-  tags?: Array<string>;
+    imageUrl: string | null;
+  }> | null;
+  metaKeywords?: Array<string>;
   imageUrl: string | null;
 }>;
 // Variable: GetTestimonials
@@ -1537,17 +1576,6 @@ export type GetHeaderLayoutResult = {
       };
       customAttributes?: Array<{
         key?: string;
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: 'reference';
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: 'image';
-        };
         value?: string;
         description?: Array<{
           children?: Array<{
@@ -1567,6 +1595,17 @@ export type GetHeaderLayoutResult = {
           _type: 'block';
           _key: string;
         }>;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         _type: 'attribute';
         _key: string;
       }>;
@@ -1750,17 +1789,6 @@ export type GetFooterLayoutResult = {
       };
       customAttributes?: Array<{
         key?: string;
-        image?: {
-          asset?: {
-            _ref: string;
-            _type: 'reference';
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: 'image';
-        };
         value?: string;
         description?: Array<{
           children?: Array<{
@@ -1780,6 +1808,17 @@ export type GetFooterLayoutResult = {
           _type: 'block';
           _key: string;
         }>;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: 'reference';
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: 'image';
+        };
         _type: 'attribute';
         _key: string;
       }>;
@@ -2296,17 +2335,6 @@ export type GetContentBlockBySlugResult = {
     };
     customAttributes: Array<{
       key?: string;
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      };
       value?: string;
       description?: Array<{
         children?: Array<{
@@ -2326,6 +2354,17 @@ export type GetContentBlockBySlugResult = {
         _type: 'block';
         _key: string;
       }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
       _type: 'attribute';
       _key: string;
       imageUrl: string | null;
@@ -2987,10 +3026,10 @@ export type GetPostBySlugResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  type?: 'blog' | 'news';
   title?: string;
   slug?: Slug;
   publishedDate?: string;
-  excerpt?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -3002,25 +3041,44 @@ export type GetPostBySlugResult = {
     crop?: SanityImageCrop;
     _type: 'image';
   };
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
+  summary?: string;
+  contents?: Array<{
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }>;
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
+      listItem?: 'bullet' | 'number';
+      markDefs?: Array<{
+        href?: string;
+        _type: 'link';
+        _key: string;
+      }>;
+      level?: number;
+      _type: 'block';
       _key: string;
     }>;
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: 'image';
+    };
+    isGrayBackground?: boolean;
+    leftImage?: boolean;
+    _type: 'content';
     _key: string;
   }>;
-  tags?: Array<string>;
+  metaKeywords?: Array<string>;
   imageUrl: string | null;
 } | null;
 // Variable: GetProductsByCategory
@@ -3754,17 +3812,6 @@ export type GetContentBlockResult = {
     };
     customAttributes: Array<{
       key?: string;
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      };
       value?: string;
       description?: Array<{
         children?: Array<{
@@ -3784,6 +3831,17 @@ export type GetContentBlockResult = {
         _type: 'block';
         _key: string;
       }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
       _type: 'attribute';
       _key: string;
       imageUrl: string | null;
@@ -3982,17 +4040,6 @@ export type GetContentBlocksResult = Array<{
     };
     customAttributes: Array<{
       key?: string;
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: 'image';
-      };
       value?: string;
       description?: Array<{
         children?: Array<{
@@ -4012,6 +4059,17 @@ export type GetContentBlocksResult = Array<{
         _type: 'block';
         _key: string;
       }>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+      };
       _type: 'attribute';
       _key: string;
       imageUrl: string | null;
@@ -4058,7 +4116,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "page" && slug.current == $name][0] {\n    _id,\n    slug,\n    metaTitle,\n    metaDescription,\n    metaKeywords\n  }\n': GetPageMetaResult;
     '\n  *[_type == "page" && slug.current == $name][0] {\n    ...,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      "fileUrl": file.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url,\n        customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        },\n      },\n      "categories": categoryBlock[]->{\n        ...\n      },\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    variants[]->{\n      ...\n    }\n  }\n': GetPageResult;
-    '\n  *[_type == "post"] {\n    ...,\n    "imageUrl": image.asset->url\n  }\n': GetPostsResult;
+    '\n  *[_type == "post"] | order(publishedDate desc) {\n    ...,\n    contents[] {\n      ...,\n      "imageUrl": image.asset->url,\n    },\n    "imageUrl": image.asset->url\n  }\n': GetPostsResult;
     '\n  *[_type == "testimonial"] {\n    ...,\n    "imageUrl": image.asset->url,\n    product->{\n      ...\n    }\n  }\n': GetTestimonialsResult;
     '\n  *[_type == "page" && slug.current == "header-layout"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    description,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url\n      }\n    }\n  }\n': GetHeaderLayoutResult;
     '\n  *[_type == "page" && slug.current == "footer-layout"][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    layout[]->{\n      ...,\n      "imageUrl": image.asset->url,\n      listItems[]{\n        ...,\n        "imageUrl": image.asset->url\n      }\n    }\n  }\n': GetFooterLayoutResult;

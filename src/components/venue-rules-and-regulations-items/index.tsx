@@ -17,7 +17,7 @@ export default function VenueRulesAndRegulationsItems({ block }: ContentBlockReg
             if (!block.listItems?.length) return null;
             const isLastIndex = i === block?.listItems?.length - 1;
             return (
-              <li key={e._key} className={cn({ 'border-b border-black': !isLastIndex })}>
+              <li key={i} className={cn({ 'border-b border-black': !isLastIndex })}>
                 <section className="flex gap-4 items-center main-padding-t">
                   <section className="aspect-square bg-primary w-16 md:w-20 flex items-center justify-center">
                     <NextImage src={e.imageUrl} className="w-10 md:w-12" />
@@ -26,9 +26,9 @@ export default function VenueRulesAndRegulationsItems({ block }: ContentBlockReg
                 </section>
 
                 <ul className="grid grid-cols-2 gap-6 xl:gap-y-10 main-padding-y">
-                  {e.customAttributes?.map((l) => {
+                  {e.customAttributes?.map((l, index) => {
                     return (
-                      <li key={l._key} className="flex flex-col gap-2">
+                      <li key={index} className="flex flex-col gap-2">
                         <h5 className="font-semibold">{l.key}</h5>
                         <PortableText value={l.description ?? []} />
                       </li>

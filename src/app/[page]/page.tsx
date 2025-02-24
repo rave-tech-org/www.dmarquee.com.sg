@@ -13,7 +13,7 @@ const getData = async (name: string) => {
   const data = await sanityFetch<GetPageResult>({
     query: GetPage,
     qParams: { name },
-    tags: ['page'],
+    tags: ['page', 'contentBlock'],
   });
   return data;
 };
@@ -38,7 +38,7 @@ export default async function PageByPage({ params }: Props) {
   const [entries, contentBlock] = await Promise.all([useEntries(), useContentBlocks()]);
 
   // Multiple page redirect handler
-  if (!data) notFound();
+  if ((data?.pageType === 'multiple' && !entries.route.slug) || (data?.pageType !== 'multiple' && !data)) notFound();
 
   return data?.layout?.map((block) => {
     if (!block?.slug?.current) return null;
