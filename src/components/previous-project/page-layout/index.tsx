@@ -8,7 +8,7 @@ import useScrollTo from '@/hooks/client/use-scroll-to';
 import useViewport from '@/hooks/client/use-viewport';
 import { redirect, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import PageLayoutProps from './type';
+import type PageLayoutProps from './type';
 import '@/styles/previous-project/customize.css';
 import Footer from '@/components/previous-project/footer';
 import { MobileNavigation } from '@/components/previous-project/mobile-navigation';
@@ -16,9 +16,6 @@ import { MobileNavigation } from '@/components/previous-project/mobile-navigatio
 const PageLayout = ({ children, className }: PageLayoutProps) => {
   const pathname = usePathname();
   const [isSticky, setIsSticky] = useState(false);
-  const isRedirectToDiscoverDmq = true;
-
-  if (isRedirectToDiscoverDmq) redirect('/discoverdmq');
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
