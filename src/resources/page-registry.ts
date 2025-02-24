@@ -1,8 +1,9 @@
+import { PATHS } from '@/app/urls';
+
 const pageRegistry = new Map([
-  ['discover-dmq', '/preview/discoverdmq'],
-  ['discover-dmq-social', '/preview/discoverdmq-social'],
-  ['header-layout', '/content-block/navigation-menu'],
-  ['footer-layout', '/content-block/footer-menu'],
+  ['discoverdmq', PATHS.main],
+  [PATHS.news.replace('/', ''), PATHS.newsBlogIndex],
+  [PATHS.blog.replace('/', ''), PATHS.newsBlogIndex],
 ]);
 
 export default pageRegistry;

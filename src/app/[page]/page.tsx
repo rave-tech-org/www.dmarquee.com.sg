@@ -6,6 +6,7 @@ import type { GetPageMetaResult, GetPageResult } from '@/sanity/sanity.types';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import '@/styles/tailwind.css';
+import { getMetadata } from '../metadata';
 
 type Props = { params: { page: string } };
 
@@ -19,15 +20,13 @@ const getData = async (name: string) => {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const homePage = await sanityFetch<GetPageMetaResult>({
+  const data = await sanityFetch<GetPageMetaResult>({
     query: GetPageMeta,
     tags: ['page'],
     qParams: { name: params.page },
   });
-  return {
-    title: homePage?.metaTitle || "D'Marquee",
-    description: homePage?.metaDescription || "D'Marquee",
-  };
+
+  return await getMetadata({ title: data?.metaTitle, description: data?.metaDescription });
 }
 
 // SINGLE PAGE RENDERING
