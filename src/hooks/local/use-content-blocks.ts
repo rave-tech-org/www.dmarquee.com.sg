@@ -14,6 +14,8 @@ export const slugToComponentMap: Record<string, string> = {
   'social-and-celebratory-events': 'occasions-banner',
   'private-gatherings-and-family-events': 'occasions-banner',
   'concerts-and-live-performances': 'occasions-banner',
+
+  'venue-rules-and-regulations-banner': 'page-title-banner',
 };
 
 export const loadComponent = async (slug: string) => {
