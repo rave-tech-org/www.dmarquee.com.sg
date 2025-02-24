@@ -32,7 +32,7 @@ const ENDPOINTS = {
 };
 
 const PATHS = {
-  main: '/discoverdmq',
+  main: '/',
   blog: '/blog',
   news: '/news',
   newsBlogIndex: '/news-and-blog',

@@ -16,10 +16,7 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
   const btnHref = custom?.['btn-href'] ?? PATHS.main;
 
   return (
-    <article
-      id={block?.slug?.current}
-      className="main-padding home-banner-wrapper flex items-center justify-center min-h-[90vh]"
-    >
+    <article id={block?.slug?.current} className="main-padding flex items-center justify-center min-h-[90vh]">
       <div className="component-wrapper grid lg:grid-cols-2 gap-10 items-center lg:gap-24 xl:gap-32">
         <section className="flex flex-col">
           <section className="space-padding">

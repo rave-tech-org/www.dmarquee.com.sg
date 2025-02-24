@@ -28,7 +28,7 @@ export const getMetadata = async ({
 }: Props): Promise<Metadata> => {
   const homePage = await sanityFetch<GetPageMetaResult>({
     query: GetPageMeta,
-    qParams: { name: 'discoverdmq' },
+    qParams: { name: 'home' },
     tags: ['page'],
   });
 
