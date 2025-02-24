@@ -1,13 +1,25 @@
 'use client';
 
+import { PATHS } from '@/app/urls';
+import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
+import { cn } from '@/lib/utils';
+import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
+import Link from 'next/link';
 import { Mousewheel } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function InAction({ block }: ContentBlockRegistry) {
   if (!block) return null;
+
+  const custom =
+    block?.customAttributes && transformObject<{ 'btn-text': string; 'btn-href': string }>(block?.customAttributes);
+
+  const btnText = custom?.['btn-text'];
+  const btnHref = custom?.['btn-href'] ?? PATHS.main;
+
   return (
     <article id={block?.slug?.current} className="main-padding-y-longer space-padding">
       <div className="main-padding-x">
@@ -37,6 +49,14 @@ export default function InAction({ block }: ContentBlockRegistry) {
           );
         })}
       </Swiper>
+
+      <Link
+        target={btnHref.startsWith('/asset') ? '_blank' : undefined}
+        href={btnHref}
+        className={cn(buttonVariants({ className: 'mx-auto' }))}
+      >
+        {btnText}
+      </Link>
     </article>
   );
 }

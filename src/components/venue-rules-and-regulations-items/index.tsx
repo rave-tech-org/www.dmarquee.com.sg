@@ -6,7 +6,7 @@ import { PortableText } from 'next-sanity';
 export default function VenueRulesAndRegulationsItems({ block }: ContentBlockRegistry) {
   if (!block) return null;
   return (
-    <article id={block.slug?.current} className="main-padding-x">
+    <article id={block.slug?.current} className="main-padding-x pb-12">
       <div className="component-wrapper-small">
         <header className="text-center main-padding-y-longer">
           <PortableText value={block.description ?? []} />
@@ -22,14 +22,14 @@ export default function VenueRulesAndRegulationsItems({ block }: ContentBlockReg
                   <section className="aspect-square bg-primary w-16 md:w-20 flex items-center justify-center">
                     <NextImage src={e.imageUrl} className="w-10 md:w-12" />
                   </section>
-                  <h5>{e.title}</h5>
+                  <h4>{e.title}</h4>
                 </section>
 
                 <ul className="grid grid-cols-2 gap-6 xl:gap-y-10 main-padding-y">
                   {e.customAttributes?.map((l) => {
                     return (
                       <li key={l._key} className="flex flex-col gap-2">
-                        <h6>{l.key}</h6>
+                        <h5 className="font-semibold">{l.key}</h5>
                         <PortableText value={l.description ?? []} />
                       </li>
                     );
