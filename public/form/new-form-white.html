@@ -1,0 +1,452 @@
+
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <META> element to your page <HEAD>.      -->
+<!--  If necessary, please modify the charset parameter to specify the        -->
+<!--  character set of your HTML page.                                        -->
+<!--  ----------------------------------------------------------------------  -->
+
+<head>
+  <style>
+    @font-face {
+      font-family: Brandon Grotesque;
+      src: url(./fonts/Brandon-Grotesque-Regular.ttf);
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: Brandon Grotesque;
+      src: url(./fonts/Brandon-Grotesque-Bold.ttf);
+      font-weight: 500;
+    }
+
+    body {
+      background: white;
+      color: black;
+      margin: 0;
+    }
+
+    * {
+      font-family: Brandon Grotesque;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #ffffff;
+      transition: background-color 5000s ease-in-out 0s;
+      box-shadow: inset 0 0 20px 20px #23232329;
+    }
+
+    .form-section {
+      position: relative;
+      z-index: 10;
+    }
+
+    .over-top {
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-section::after {
+      content: '';
+      background: #642b7c;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10%;
+    }
+
+    .form-section .content-section {
+      margin-top: 100px;
+      margin-bottom: 50px;
+    }
+
+    .form-section .content-section p {
+      text-align: center;
+    }
+
+    .cover-image img {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .form-wrapper {
+      background: #3d3834;
+    }
+
+    .form-inner-wrapper {
+      margin: 0 auto;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .input-wrapper-linear {
+      display: flex;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .input-wrapper input,
+    select {
+      outline: none;
+      border: 1px solid black;
+      padding: 8px;
+      font-size: 18px;
+    }
+
+    .input-wrapper,
+    .input-wrapper-linear input[type='checkbox'] {
+      accent-color: #642b7c;
+    }
+
+    .validation-error input {
+      border-bottom: 1px solid red;
+    }
+
+    .validation-error span {
+      color: red;
+      font-size: 14px;
+    }
+
+    .pd-l-32 {
+      padding-left: 32px;
+    }
+
+    .pd-t-32 {
+      padding-top: 32px;
+    }
+
+    .pd-t-8 {
+      padding-top: 8px;
+    }
+
+    .contact-wrapper {
+      background: #8c54a1;
+      color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 56px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .contact-wrapper .contact-item {
+      margin: 0 auto;
+      max-width: 290px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .contact-wrapper .contact-item a {
+      color: #fff;
+    }
+
+    .contact-wrapper .contact-item a:hover {
+      color: #642b7c;
+    }
+
+    .contact-wrapper .contact-item h3 {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .m-b-16 {
+      margin-bottom: 16px;
+    }
+
+    .submit-success {
+      justify-content: center;
+    }
+
+    .submit-success label {
+      color: rgb(2, 163, 2);
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .submit-success label p {
+      font-size: 18px;
+      margin-top: 5px;
+    }
+    .submit-success label a.submit-success-pdf {
+      color: rgb(2, 163, 2);
+      font-weight: 500;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.5vw;
+    }
+
+    .btn-group .btn-primary {
+      border-radius: 25px;
+      background-color: #8D579E;
+      border: none;
+      outline: none;
+      padding: 12px 1.5rem;
+      text-transform: uppercase;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: 400;
+    }
+    .btn-group .btn-primary:disabled {
+      background-color: #F2F2F2;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+  function timestamp() {
+    var response = document.getElementById('g-recaptcha-response')
+    if (response == null || response.value.trim() == '') {
+      var elems = JSON.parse(document.getElementsByName('captcha_settings')[0].value)
+      elems['ts'] = JSON.stringify(new Date().getTime())
+      document.getElementsByName('captcha_settings')[0].value = JSON.stringify(elems)
+    }
+  }
+  setInterval(timestamp, 500)
+</script>
+
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <FORM> element to your page.             -->
+<!--  ----------------------------------------------------------------------  -->
+
+<form
+  id="web2lead"
+  action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00D2x0000073XGr"
+  method="POST"
+>
+  <input
+    type="hidden"
+    name="captcha_settings"
+    value='{"keyname":"GooglereCaptcha","fallback":"true","orgId":"00D2x0000073XGr","ts":""}'
+  />
+  <input type="hidden" name="oid" value="00D2x0000073XGr" />
+  <input type="hidden" name="retURL" value="https://dmarquee.com.sg/thank-you" />
+
+  <!--  ----------------------------------------------------------------------  -->
+  <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+  <!--  these lines if you wish to test in debug mode.                          -->
+  <!--  <input type="hidden" name="debug" value=1>                              -->
+  <!--  <input type="hidden" name="debugEmail"                                  -->
+  <!--  value="691792aa.viseo.com@emea.teams.ms">                               -->
+  <!--  ----------------------------------------------------------------------  -->
+
+  <div class="form-inner-wrapper">
+    <div class="form-row">
+      <div class="input-wrapper">
+        <label for="first_name">First Name</label>
+        <input id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+      </div>
+      <div class="input-wrapper">
+        <label for="last_name">Last Name</label>
+        <input id="last_name" maxlength="80" name="last_name" size="20" type="text" required />
+      </div>
+    </div>
+    <div class="form-row pd-t-32">
+      <div class="input-wrapper">
+        <label for="company">Company</label>
+        <input id="company" maxlength="40" name="company" size="20" type="text" required />
+      </div>
+      <div class="input-wrapper">
+        <label for="email">Email Address</label>
+        <input id="email" maxlength="80" name="email" size="20" type="email" required />
+      </div>
+    </div>
+
+    <div class="form-row pd-t-32">
+      <div class="input-wrapper">
+        <label for="mobile">Phone Number</label>
+        <input
+          id="mobile"
+          maxlength="40"
+          name="mobile"
+          size="20"
+          type="text"
+          pattern="^[0-9]{7,15}$"
+          title="SG mobile numbers, use this format: '12345678' and for non-SG mobile numbers, use this format: 'CountryCode + mobile number', e.g. ' 6312345678'"
+          required
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="lead_source">Media Source</label>
+        <select id="lead_source" name="lead_source" required>
+          <option value="">--None--</option>
+          <option value="EDM">EDM</option>
+          <option value="Facebook">Facebook</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Website">Website</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row pd-t-32">
+      <div class="input-wrapper">
+        <label for="00NIh000000Jd1B">Subject</label>
+        <input id="00NIh000000Jd1B" maxlength="255" name="00NIh000000Jd1B" size="20" type="text" required />
+      </div>
+      <div class="input-wrapper">
+        <label for="description">Description</label>
+        <input name="description" required></input>
+      </div>
+    </div>
+
+    <div class="form-row pd-t-32">
+      <div class="input-wrapper-linear">
+        <div>
+          <input id="00NIh000000Jb8v" name="00NIh000000Jb8v" type="checkbox" value="1" />
+        </div>
+        <label for="00NIh000000Jb8v">By checking this box, you agree to allow NTUC Club and its entities to use and disclose your contact details and particulars for the purposes of facilitating your feedback. I acknowledge that all personal data provided shall be disclosed and shared amongst the NTUC Club Group for the purposes set out in our Privacy Policy.</label>
+      </div>
+    </div>
+
+    <div class="form-row pd-t-8 pd-l-32">
+      <div class="input-wrapper-linear">
+        <label for="requestText">I would like to receive the latest updates on new campaigns, promotions, events and products and services from the NTUC Club Group via:</label>
+      </div>
+    </div>
+
+
+    <div class="form-row pd-t-8 pd-l-32">
+      <div class="input-wrapper">
+        <div>
+          <input id="00NIh000000Jb98" name="00NIh000000Jb98" type="checkbox" value="1" />
+          <label for="00NIh000000Jb98">Email</label>
+        </div>
+
+        <div>
+          <input id="00NIh000000Jb9A" name="00NIh000000Jb9A" type="checkbox" value="1" />
+          <label for="00NIh000000Jb9A">Text Message</label>
+        </div>
+
+        <div>
+          <input id="00NIh000000Jb99" name="00NIh000000Jb99" type="checkbox" value="1" />
+          <label for="00NIh000000Jb99">Phone Calls</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row pd-t-8">
+      <div class="input-wrapper-linear">
+        <label for="noteText">Please note that your selection here shall not supersede any consents provided to us prior to this.</label>
+      </div>
+    </div>
+
+
+    <div class="form-row pd-t-8">
+      <div class="input-wrapper-linear">
+        <label for="noteDesc"> For more information, please refer to our Privacy Policy which can be found at here, and is incorporated into this Agreement by reference. Please note our privacy policy may be updated from time to time without notice.</label>
+      </div>
+    </div>
+
+    <div id="captchaMessage" style="color: red; display: none">
+      reCAPTCHA is required. Please verify you are not a robot.
+    </div>
+
+    <div style="margin-top: 0.5rem;" class="g-recaptcha" data-sitekey="6LfobYIcAAAAAAWcmAxPbPX_iSIWzmVvtryzxXTG" data-callback="verifyCaptcha"></div>
+    <br />
+    <br />
+    <div class="btn-group">
+      <button disabled type="submit" id="submitBtn" class="btn-primary">
+        Submit Your Inquiry
+      </button>
+    </div>
+  </div>
+
+  <select id="00N2x000008wEVY" name="00N2x000008wEVY" title="Market Segment" style="display: none">
+    <option value="">--None--</option>
+    <option value="Association">Association</option>
+    <option value="Corporate" selected>Corporate</option>
+    <option value="Government">Government</option>
+    <option value="Internal">Internal</option>
+    <option value="NTUC">NTUC</option>
+    <option value="Others">Others</option>
+    <option value="Social">Social</option>
+    <option value="Union">Union</option>
+    <option value="UPlay">UPlay</option>
+  </select>
+
+  <select id="00N2x000008K3qc" name="00N2x000008K3qc" title="Booking Type" style="display: none">
+    <option value="">--None--</option>
+    <option value="Corporate Meals">Corporate Meals</option>
+    <option value="Corporate Privileges">Corporate Privileges</option>
+    <option value="Family Day">Family Day</option>
+    <option value="Golf">Golf</option>
+    <option value="Leases">Leases</option>
+    <option value="Meetings">Meetings</option>
+    <option value="Residential Seminars">Residential Seminars</option>
+    <option value="Social">Social</option>
+    <option value="Team Building">Team Building</option>
+    <option value="Trade Shows">Trade Shows</option>
+    <option value="Uplay" selected>Uplay</option>
+    <option value="Weddings">Weddings</option>
+    <option value="WWW Bulk Purchase">WWW Bulk Purchase</option>
+    <option value="WWW Corporate Pass">WWW Corporate Pass</option>
+    <option value="Others">Others</option>
+  </select>
+
+  <select id="00NIh000000Jd1C" name="00NIh000000Jd1C" title="Website Source" style="display: none">
+    <option value="">--None--</option>
+    <option value="Downtown East">Downtown East</option>
+    <option value="MICE" selected>MICE</option>
+    <option value="UPlay">UPlay</option>
+  </select>
+</form>
+<script>
+  var isCaptchaVerified = false
+  var pdpaCheckbox = document.getElementById('00NIh000000Jb8v')
+  var submitButton = document.getElementById('submitBtn')
+
+  function verifyCaptcha() {
+    isCaptchaVerified = true
+    document.getElementById('captchaMessage').style.display = 'none'
+  }
+
+  document.getElementById('web2lead').addEventListener('submit', function (event) {
+    // Clear previous error messages
+    document.getElementById('captchaMessage').style.display = 'none'
+
+    if(isCaptchaVerified) {
+      const button = document.getElementById('submitBtn')
+      button.removeAttribute("disabled");
+    }
+    // CAPTCHA Verification
+    if (!isCaptchaVerified) {
+      document.getElementById('captchaMessage').style.display = 'block'
+      event.preventDefault() // Prevent form submission
+      return // Exit function to prevent further execution
+    }
+  })
+
+  document.querySelector('#web2lead').addEventListener('submit', function(event) {
+    if (isCaptchaVerified) {
+      console.log('Form submitted inside iframe!');
+      window.parent.postMessage('formSubmitted', '*');
+    }
+  });
+
+  /// Add event listener to the checkbox
+  pdpaCheckbox.addEventListener('change', function () {
+    // If the checkbox is checked, enable the submit button
+    if (pdpaCheckbox.checked) {
+      submitButton.disabled = false
+    } else {
+      // If the checkbox is not checked, disable the submit button
+      submitButton.disabled = true
+    }
+  })
+</script>
