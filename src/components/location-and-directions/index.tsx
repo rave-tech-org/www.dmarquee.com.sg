@@ -24,7 +24,9 @@ export default function LocationAndDirections({ block }: ContentBlockRegistry) {
               return (
                 <header key={e._key} className="space-y-1 [&_a]:text-primary [&_a]:underline">
                   <h6 className="text-primary">{e.title}</h6>
-                  <PortableText value={e.description ?? []} />
+                  <div className="[&_ul]:!list-disc [&_ul]:ml-8">
+                    <PortableText value={e.description ?? []} />
+                  </div>
                 </header>
               );
             })}
