@@ -116,6 +116,10 @@ const config = {
           '@apply py-16 lg:py-24': {},
         },
 
+        '.main-padding-b-longer': {
+          '@apply pb-16 lg:pb-24': {},
+        },
+
         '.main-padding-t': {
           '@apply pt-8 lg:pt-12': {},
         },

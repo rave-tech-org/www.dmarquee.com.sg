@@ -16,6 +16,7 @@ export const slugToComponentMap: Record<string, string> = {
   'concerts-and-live-performances': 'occasions-banner',
 
   'venue-rules-and-regulations-banner': 'page-title-banner',
+  'contact-us-banner': 'page-title-banner',
 };
 
 export const loadComponent = async (slug: string) => {
@@ -73,4 +74,7 @@ export const useContentBlocks = async () => {
   return registry;
 };
 
-export type ContentBlockRegistry = { block: GetContentBlockResult; entries: Entries };
+export type ContentBlockRegistry = {
+  block: GetContentBlockResult;
+  entries: Entries;
+};
