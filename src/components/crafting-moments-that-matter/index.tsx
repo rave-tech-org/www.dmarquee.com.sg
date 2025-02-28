@@ -1,13 +1,16 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
+import { sanityFetch } from '@/sanity/lib/client';
+import { GetContentBlockBySlug } from '@/sanity/lib/queries/cms';
+import type { GetContentBlockBySlugResult } from '@/sanity/sanity.types';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import React from 'react';
 import Carousel from './carousel';
 
-export default function CraftingMoments({ block }: ContentBlockRegistry) {
+export default async function CraftingMoments({ block }: ContentBlockRegistry) {
   if (!block) return null;
 
   const custom =
@@ -15,6 +18,13 @@ export default function CraftingMoments({ block }: ContentBlockRegistry) {
 
   const btnText = custom?.['btn-text'];
   const btnHref = custom?.['btn-href'] ?? PATHS.main;
+
+  const carouselData = await sanityFetch<GetContentBlockBySlugResult>({
+    query: GetContentBlockBySlug,
+    qParams: { slug: 'event-type' },
+    tags: ['contentBlock'],
+  });
+
   return (
     <article id={block?.slug?.current} className="bg-[#EEE] main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
@@ -34,7 +44,7 @@ export default function CraftingMoments({ block }: ContentBlockRegistry) {
           </header>
         </section>
 
-        <Carousel block={block} />
+        <Carousel block={carouselData} />
       </div>
     </article>
   );

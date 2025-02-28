@@ -20,7 +20,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
 
   return (
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
-      <div className="component-wrapper-small space-padding">
+      <div className="mx-auto max-w-[1000px] w-full space-padding">
         <header className="space-text max-lg:text-center max-lg:main-padding-x text-center">
           <PortableText value={block?.description ?? []} />
         </header>
@@ -38,7 +38,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                           'bg-primary': isActive,
                         })}
                       />
-                      <h4 className={cn('text-[#B1B0B0]', { 'text-black': isActive })}>{e.title}</h4>
+                      <h4 className={cn('text-[#B1B0B0] text-left', { 'text-black': isActive })}>{e.title}</h4>
                     </button>
                   </li>
                 );

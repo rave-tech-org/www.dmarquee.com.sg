@@ -2469,7 +2469,7 @@ export type GetProductsByParentCategoriesResult = Array<{
   imageUrl: string | null;
 }>;
 // Variable: GetContentBlockBySlug
-// Query: *[_type == "contentBlock" && slug.current == $slug][0] {    ...,    "imageUrl": image.asset->url,    listItems[]{      ...,      "imageUrl": image.asset->url,      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    "categories": categoryBlock[]->{      ...    },    customAttributes[]{          ...,          "imageUrl": image.asset->url        }  }
+// Query: *[_type == "contentBlock" && slug.current == $slug][0] {    ...,    "imageUrl": image.asset->url,    "fileUrl": file.asset->url,    listItems[]{      ...,      "imageUrl": image.asset->url,      customAttributes[]{          ...,          "imageUrl": image.asset->url        }    },    "categories": categoryBlock[]->{      ...    },    customAttributes[]{          ...,          "imageUrl": image.asset->url        }  }
 export type GetContentBlockBySlugResult = {
   _id: string;
   _type: 'contentBlock';
@@ -2632,6 +2632,7 @@ export type GetContentBlockBySlugResult = {
     [internalGroqTypeReferenceTo]?: 'category';
   }>;
   imageUrl: string | null;
+  fileUrl: string | null;
   categories: Array<{
     _id: string;
     _type: 'category';
@@ -4376,7 +4377,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "category" && parentCategory->slug.current == $slug] {\n    ...\n  }\n': GetCategoriesByParentCategoryResult;
     '\n  *[_type == "category" && parentCategory->slug.current in $slugs] {\n    ...,\n    parentCategory->{\n      ...\n    }\n  }\n': GetCategoriesByParentCategoriesResult;
     '\n  *[_type == "product" && references(\n    *[_type == "category" && parentCategory->slug.current in $categories]._id\n  )] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsByParentCategoriesResult;
-    '\n  *[_type == "contentBlock" && slug.current == $slug][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    listItems[]{\n      ...,\n      "imageUrl": image.asset->url,\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    "categories": categoryBlock[]->{\n      ...\n    },\n    customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n  }\n': GetContentBlockBySlugResult;
+    '\n  *[_type == "contentBlock" && slug.current == $slug][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    "fileUrl": file.asset->url,\n    listItems[]{\n      ...,\n      "imageUrl": image.asset->url,\n      customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n    },\n    "categories": categoryBlock[]->{\n      ...\n    },\n    customAttributes[]{\n          ...,\n          "imageUrl": image.asset->url\n        }\n  }\n': GetContentBlockBySlugResult;
     '\n  *[_type == "product" && slug.current == $slug && productType == $type][0] {\n    ...,\n    "imageUrl": image.asset->url,\n    "helpIconImageUrl": helpIcon.asset->url,\n    itinerary[]{\n      ...,\n      "imageUrls": images[].asset->url\n    },\n    tourSummary[]{\n      ...,\n      "imageUrl": image.asset->url\n    },\n    categories[]->{\n      ...\n    }\n  }\n': GetProductBySlugResult;
     '\n  *[_type == "product" && productType == $type] {\n    ...,\n    "imageUrl": image.asset->url,\n    categories[]->{\n      ...\n    }\n  }\n': GetProductsByTypeResult;
     '\n  *[_type == "post" && slug.current == $slug][0] {\n    ...,\n    "imageUrl": image.asset->url\n  }\n': GetPostBySlugResult;
