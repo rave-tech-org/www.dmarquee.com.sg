@@ -1,12 +1,16 @@
 'use client';
 
+import Button from '@/elements/button';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
+import { useState } from 'react';
 import Carousel from './carousel';
 
 export default function Gallery({ block }: ContentBlockRegistry) {
   if (!block) return null;
   if (!block?.listItems?.length) return null;
+
+  const [viewAll, setViewAll] = useState(false);
 
   function splitIntoChunks<T>(arr: T[], chunkSize: number): T[][] {
     const result: T[][] = [];
@@ -17,6 +21,7 @@ export default function Gallery({ block }: ContentBlockRegistry) {
   }
 
   const result = splitIntoChunks(block.listItems, 4);
+  const filteredResult = viewAll ? result : result?.slice(0, 1);
 
   return (
     <article className="main-padding-y-longer space-padding">
@@ -29,10 +34,16 @@ export default function Gallery({ block }: ContentBlockRegistry) {
         </section>
       </div>
       <section className="space-padding md:component-wrapper">
-        {result.map((e, i) => {
+        {filteredResult.map((e, i) => {
           if (!e) return null;
           return <Carousel key={i} listItems={e} />;
         })}
+
+        {viewAll ? null : (
+          <Button className="mx-auto" onClick={() => setViewAll(true)}>
+            View All
+          </Button>
+        )}
       </section>
     </article>
   );

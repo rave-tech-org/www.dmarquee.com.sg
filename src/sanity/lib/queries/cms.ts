@@ -151,6 +151,7 @@ export const GetContentBlockBySlug = defineQuery(`
   *[_type == "contentBlock" && slug.current == $slug][0] {
     ...,
     "imageUrl": image.asset->url,
+    "fileUrl": file.asset->url,
     listItems[]{
       ...,
       "imageUrl": image.asset->url,
