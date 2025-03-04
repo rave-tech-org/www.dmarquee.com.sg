@@ -23,8 +23,8 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
           <PortableText value={block?.description ?? []} />
         </header>
 
-        <ul className="grid md:grid-cols-2 gap-6">
-          {entries.posts?.slice(0, 2)?.map((e) => {
+        <ul className="grid md:grid-cols-1 max-w-xl mx-auto">
+          {entries.posts?.slice(0, 1)?.map((e) => {
             return (
               <li key={e._id}>
                 <Link href={e.path}>
