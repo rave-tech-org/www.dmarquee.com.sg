@@ -1,1 +1,7 @@
 @import '_variables.scss';
+
+#discover-home-banner {
+  strong {
+    color: $primary-color;
+  }
+}
