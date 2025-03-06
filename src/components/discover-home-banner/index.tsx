@@ -1,6 +1,5 @@
 'use client';
 
-import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
@@ -13,14 +12,20 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
   const custom = block?.customAttributes && transformObject<HomeBannerCustomAttribute>(block?.customAttributes);
 
   const btnText = custom?.['btn-text'];
-  const btnHref = custom?.['btn-href'] ?? PATHS.main;
+  const btnHref = custom?.['btn-href'] ?? '/';
 
   return (
-    <article id={block?.slug?.current} className="main-padding flex items-center justify-center min-h-[100vh]">
-      <div className="component-wrapper grid lg:grid-cols-2 gap-10 items-center lg:gap-24 xl:gap-32">
-        <section className="flex flex-col">
-          <section className="space-padding">
-            <header className="space-text max-lg:text-center [&_h3]:text-primary">
+    <article className="main-padding home-banner-wrapper flex items-center justify-center min-h-screen">
+      <div className="component-wrapper grid lg:grid-cols-2 gap-10 lg:gap-24">
+        <section className="flex flex-col justify-between">
+          {block?.fileUrl ? (
+            <Link href={'/'} className="max-lg:mb-6">
+              <NextImage src={block.fileUrl} className="w-36 xl:w-44" />
+            </Link>
+          ) : null}
+
+          <section className="space-y-6 lg:space-y-10">
+            <header className="space-text max-lg:text-center [&_strong]:text-primary [&_strong]:font-semibold">
               <PortableText value={block?.description ?? []} />
             </header>
             <Link
