@@ -15,7 +15,7 @@ const ThankYouPage = () => {
           </Link>
 
           <Link
-            href="https://f003.cdn.net.in/file/agencies/ntuc/d'marquee-floor-plan.pdf"
+            href="/assets/[No%20Green]%20-%20D'Marquee%20Brochure%20-%2010.1.25.pdf"
             className={buttonVariants({ color: 'white' })}
             target="_blank"
           >
