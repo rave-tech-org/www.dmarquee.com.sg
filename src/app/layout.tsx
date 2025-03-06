@@ -40,6 +40,7 @@ const brandonGrotesque = localFont({
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const pathname = headers().get('path') ?? '/';
 
+  const isHome = false
   const isStudio = pathname.includes('studio');
   const isContentBlock = pathname.includes('content-block');
 
