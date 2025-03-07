@@ -1,10 +1,10 @@
 'use client';
 
 import { PATHS } from '@/app/urls';
-import NextImage from '@/elements/next-image';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -45,9 +45,11 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
       })}
     >
       <div className="component-wrapper flex justify-between gap-6">
-        <Link href={PATHS.main}>
-          <NextImage src={block.imageUrl} className="w-44 lg:w-56" />
-        </Link>
+        {block.imageUrl ? (
+          <Link href={PATHS.main}>
+            <Image src={block.imageUrl} alt="" className="w-44 lg:w-56" width={230} height={230} />
+          </Link>
+        ) : null}
         <ul className="hidden lg:flex gap-6 items-center">
           {menus?.map((e) => {
             const isActive = e.href === PATHS.main ? pathname === e.href : pathname.startsWith(e.href);
