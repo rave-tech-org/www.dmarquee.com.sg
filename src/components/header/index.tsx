@@ -47,7 +47,7 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
       <div className="component-wrapper flex justify-between gap-6">
         {block.imageUrl ? (
           <Link href={PATHS.main}>
-            <Image src={block.imageUrl} alt="" className="w-44 lg:w-56" width={230} height={230} />
+            <Image src={block.imageUrl} alt="" className="w-44 lg:w-56" width={400} height={400} />
           </Link>
         ) : null}
         <ul className="hidden lg:flex gap-6 items-center">
