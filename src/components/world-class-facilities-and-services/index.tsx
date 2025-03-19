@@ -1,6 +1,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -17,9 +18,10 @@ export default function WorldClass({ block }: ContentBlockRegistry) {
   return (
     <article id={block.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="space-padding xl:space-y-16 component-wrapper">
-        <header className="[&_strong]:font-medium [&_strong]:text-primary">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="[&_strong]:font-medium [&_strong]:text-primary"
+          value={block?.description ?? []}
+        />
 
         <ul className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12">
           {block?.listItems?.map((e) => {
@@ -32,7 +34,7 @@ export default function WorldClass({ block }: ContentBlockRegistry) {
                 ) : null}
                 <header className="space-y-2">
                   <h5>{e.title}</h5>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText className="space-y-2" value={e.description ?? []} />
                 </header>
               </li>
             );

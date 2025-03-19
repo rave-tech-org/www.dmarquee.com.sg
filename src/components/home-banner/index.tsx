@@ -3,6 +3,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -20,9 +21,10 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
       <div className="component-wrapper grid lg:grid-cols-2 gap-10 items-center lg:gap-24 xl:gap-32">
         <section className="flex flex-col">
           <section className="space-padding">
-            <header className="space-text max-lg:text-center [&_h3]:text-primary">
-              <PortableText value={block?.description ?? []} />
-            </header>
+            <PortableSanityText
+              className="space-text max-lg:text-center [&_h3]:text-primary"
+              value={block?.description ?? []}
+            />
             <Link
               target={btnHref.startsWith('/asset') ? '_blank' : undefined}
               href={btnHref}

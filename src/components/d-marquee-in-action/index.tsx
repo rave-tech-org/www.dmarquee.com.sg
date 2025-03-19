@@ -3,6 +3,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
@@ -23,9 +24,10 @@ export default function InAction({ block }: ContentBlockRegistry) {
   return (
     <article id={block?.slug?.current} className="main-padding-y-longer space-padding">
       <div className="main-padding-x">
-        <header className="mx-auto max-w-[44rem] text-center space-y-4 md:space-y-6 [&_strong]:font-medium [&_strong]:text-primary">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="mx-auto max-w-[44rem] text-center space-y-4 md:space-y-6 [&_strong]:font-medium [&_strong]:text-primary"
+          value={block?.description ?? []}
+        />
       </div>
 
       <Swiper

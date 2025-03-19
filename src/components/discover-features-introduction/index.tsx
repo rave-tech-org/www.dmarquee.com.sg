@@ -14,6 +14,7 @@ import { PortableText } from 'next-sanity';
 
 import Link from 'next/link';
 
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { FeaturesIntroductionCustomAttribute } from './type';
 
 export default function FeaturesIntroduction({ entries, block }: ContentBlockRegistry) {
@@ -46,15 +47,13 @@ export default function FeaturesIntroduction({ entries, block }: ContentBlockReg
                     })}
                   />
                 ) : null}
-                <header
+                <PortableSanityText
                   className={cn('space-y-2 md:space-y-4 max-md:text-center', {
                     'md:col-start-1 md:row-start-1 md:pr-6 lg:pr-16': isOdd,
-
                     'md:pl-6 lg:pl-16': !isOdd,
                   })}
-                >
-                 <PortableText value={e?.description ?? []} />
-                </header>
+                  value={e?.description ?? []}
+                />
               </li>
             );
           })}

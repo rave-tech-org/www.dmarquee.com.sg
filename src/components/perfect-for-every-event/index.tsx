@@ -1,4 +1,5 @@
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 
@@ -20,7 +21,7 @@ export default function PerfectForEveryEvent({ block }: ContentBlockRegistry) {
 
                 <header>
                   <h6>{e.title}</h6>
-                  {e.description?.length ? <PortableText value={e.description} /> : null}
+                  {e.description?.length ? <PortableSanityText className="space-y-0" value={e.description} /> : null}
                 </header>
               </li>
             );

@@ -2,6 +2,7 @@
 
 import Button from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import dayjs from 'dayjs';
@@ -40,13 +41,12 @@ export default function NewsDetailPlaceholder({ entries, block }: ContentBlockRe
                   'bg-[#eee]': e.isGrayBackground,
                 })}
               >
-                <header
+                <PortableSanityText
                   className={cn(
                     'space-y-4 [&_h1]:text-primary [&_h2]:text-primary [&_h3]:text-primary [&_h4]:text-primary [&_h5]:text-primary [&_h6]:text-primary [&_strong]:font-semibold'
                   )}
-                >
-                  <PortableText value={e.description ?? []} />
-                </header>
+                  value={e.description ?? []}
+                />
                 {e.imageUrl ? (
                   <figure className={cn({ 'row-start-1': e.leftImage })}>
                     <NextImage src={e.imageUrl} />

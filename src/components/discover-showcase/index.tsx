@@ -2,6 +2,7 @@
 
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
@@ -19,9 +20,10 @@ export default function EventType({ block }: ContentBlockRegistry) {
   return (
     <article id={block?.slug?.current} className="bg-[#EEE] main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
-        <header className="mx-auto space-y-4 [&_strong]:text-primary [&_strong]:font-medium">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="mx-auto space-y-4 [&_strong]:text-primary [&_strong]:font-medium"
+          value={block?.description ?? []}
+        />
         <Carousel block={block} />
 
         <Link

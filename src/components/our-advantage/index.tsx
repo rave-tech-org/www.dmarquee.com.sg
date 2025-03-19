@@ -1,6 +1,7 @@
 'use client';
 
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
@@ -35,7 +36,7 @@ export default function OurAdvantage({ block }: ContentBlockRegistry) {
                     onClick={() => e.title && setAdvantage(e.title)}
                   >
                     <h4 className="group-hover:underline">{e.title}</h4>
-                    <PortableText value={e.description ?? []} />
+                    <PortableSanityText value={e.description ?? []} />
                   </button>
                 </li>
               );
@@ -74,7 +75,7 @@ export default function OurAdvantage({ block }: ContentBlockRegistry) {
                   <figure className={cn('space-y-6 col-span-11 py-4', { hidden: !isActive })}>
                     <NextImage preview src={data.imageUrl} alt={data.title} />
                     <figcaption className="space-y-4">
-                      <PortableText value={data.description ?? []} />
+                      <PortableSanityText value={data.description ?? []} />
                     </figcaption>
                   </figure>
                 </div>

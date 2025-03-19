@@ -1,3 +1,4 @@
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { isOdd } from '@/utils';
@@ -8,9 +9,10 @@ export default function WhyChoose({ block }: ContentBlockRegistry) {
   return (
     <article id={block.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-y-12">
-        <header className="space-y-6 [&_strong]:font-medium [&_strong]:text-primary">
-          <PortableText value={block.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="space-y-6 [&_strong]:font-medium [&_strong]:text-primary"
+          value={block.description ?? []}
+        />
 
         <ul className="grid grid-cols-2 md:grid-cols-6 gap-6 xl:gap-12">
           {block.listItems?.map((e, i) => {
@@ -31,7 +33,7 @@ export default function WhyChoose({ block }: ContentBlockRegistry) {
                 })}
               >
                 <h6>{e.title}</h6>
-                <PortableText value={e.description ?? []} />
+                <PortableSanityText value={e.description ?? []} />
               </li>
             );
           })}

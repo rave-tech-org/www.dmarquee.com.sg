@@ -2,6 +2,7 @@
 
 import Button from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import dayjs from 'dayjs';
@@ -24,9 +25,7 @@ export default function NewsAndBlogBanner({ block, entries }: ContentBlockRegist
   return (
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
-        <header className="space-y-4">
-          <PortableText value={block.description ?? []} />
-        </header>
+        <PortableSanityText className="space-y-4" value={block.description ?? []} />
         <div className="border-t w-full" />
 
         <ul className="space-padding">

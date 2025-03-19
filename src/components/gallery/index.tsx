@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/elements/button';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 import { useState } from 'react';
@@ -29,7 +30,7 @@ export default function Gallery({ block }: ContentBlockRegistry) {
         <section className="component-wrapper">
           <header className="space-y-4 max-w-2xl">
             <h5 className="font-medium text-primary">Gallery</h5>
-            <PortableText value={block?.description ?? []} />
+            <PortableSanityText value={block?.description ?? []} />
           </header>
         </section>
       </div>

@@ -2,6 +2,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
@@ -20,9 +21,10 @@ export default function FeaturesIntroduction({ block }: ContentBlockRegistry) {
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
         <section className="flex justify-between items-center flex-wrap gap-6">
-          <header className="[&_strong]:font-medium [&_strong]:text-primary max-w-[44rem] space-y-4">
-            <PortableText value={block?.description ?? []} />
-          </header>
+          <PortableSanityText
+            className="[&_strong]:font-medium [&_strong]:text-primary max-w-[44rem] space-y-4"
+            value={block?.description ?? []}
+          />
 
           <Link
             target={btnHref.startsWith('/asset') ? '_blank' : undefined}
@@ -44,7 +46,7 @@ export default function FeaturesIntroduction({ block }: ContentBlockRegistry) {
                 ) : null}
                 <header className="space-y-2">
                   <h5>{e.title}</h5>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText className="space-y-2" value={e.description ?? []} />
                 </header>
               </li>
             );

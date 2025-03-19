@@ -1,5 +1,6 @@
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -24,9 +25,7 @@ export default function LocationAndDirections({ block }: ContentBlockRegistry) {
               return (
                 <header key={e._key} className="space-y-1 [&_a]:text-primary [&_a]:underline">
                   <h6 className="text-primary">{e.title}</h6>
-                  <div className="[&_ul]:!list-disc [&_ul]:ml-8">
-                    <PortableText value={e.description ?? []} />
-                  </div>
+                  <PortableSanityText className="[&_ul]:!list-disc [&_ul]:ml-8" value={e.description ?? []} />
                 </header>
               );
             })}

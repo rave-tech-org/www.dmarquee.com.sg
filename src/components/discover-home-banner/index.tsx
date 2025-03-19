@@ -2,6 +2,7 @@
 
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -25,9 +26,10 @@ export default function HomeBanner({ block }: ContentBlockRegistry) {
           ) : null}
 
           <section className="space-y-6 lg:space-y-10">
-            <header className="space-text max-lg:text-center [&_strong]:text-primary [&_strong]:font-semibold">
-              <PortableText value={block?.description ?? []} />
-            </header>
+            <PortableSanityText
+              className="space-text max-lg:text-center [&_strong]:text-primary [&_strong]:font-semibold"
+              value={block?.description ?? []}
+            />
             <Link
               target={btnHref.startsWith('/asset') ? '_blank' : undefined}
               href={btnHref}
