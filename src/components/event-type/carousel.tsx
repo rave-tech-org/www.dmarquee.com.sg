@@ -1,6 +1,7 @@
 'use client';
 
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
@@ -53,7 +54,7 @@ export default function Carousel({ block }: { block: ContentBlockRegistry['block
                   className={cn('animate-longer-3 space-y-1.5 p-6 xl:main-padding', { 'translate-y-12': !selected })}
                 >
                   <h4>{e.title}</h4>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText className="space-y-1.5" value={e.description ?? []} />
                 </header>
               </div>
             </li>
@@ -74,7 +75,7 @@ export default function Carousel({ block }: { block: ContentBlockRegistry['block
               <div className="text-white flex items-end absolute top-0 left-0 size-full bg-gradient-to-b from-transparent to-black/70">
                 <header className="main-padding space-y-1.5">
                   <h4>{e.title}</h4>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText className="space-y-1.5" value={e.description ?? []} />
                 </header>
               </div>
             </SwiperSlide>

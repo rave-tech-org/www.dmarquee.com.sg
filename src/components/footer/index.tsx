@@ -1,5 +1,6 @@
 import { PATHS } from '@/app/urls';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { createMenuFromDescription } from '@/utils';
@@ -27,9 +28,10 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
         <section className="main-padding-y grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-12">
           <section className="space-y-2">
             <NextImage src={block.imageUrl} className="w-56" />
-            <header className="[&_*]:whitespace-pre-line [&_a:hover]:underline">
-              <PortableText value={leftSide?.description ?? []} />
-            </header>
+            <PortableSanityText
+              className="[&_*]:whitespace-pre-line [&_a:hover]:underline space-y-0"
+              value={leftSide?.description ?? []}
+            />
           </section>
 
           <ul className="flex flex-col gap-3">
@@ -104,7 +106,7 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
                 href={linkedin?.value || PATHS.main}
                 className="hover:underline flex gap-2 items-center"
               >
-                <PortableText value={linkedin?.description ?? []} />
+                <PortableSanityText value={linkedin?.description ?? []} />
                 <NextImage src={linkedin?.imageUrl} className="w-5" />
               </Link>
             </li>
@@ -112,7 +114,7 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
         </section>
 
         <section className="border-t border-black py-6 flex justify-between flex-wrap gap-4 md:gap-6 items-center">
-          <PortableText value={block.description ?? []} />
+          <PortableSanityText className="md:space-y-6" value={block.description ?? []} />
 
           <ul className="flex md:items-center flex-wrap max-md:flex-col">
             {menusBottomSide?.map((e, i) => {

@@ -2,6 +2,7 @@
 
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -26,12 +27,16 @@ export default function Faq({ block }: ContentBlockRegistry) {
       <div className="component-wrapper grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-24">
         <header className="[&_strong]:text-primary [&_strong]:font-medium space-text">
           {isFaqPage ? (
-            <PortableText
+            <PortableSanityText
+              className='className="[&_strong]:text-primary [&_strong]:font-medium space-text"'
               value={block?.customAttributes?.find((e) => e.key === 'faq-page-header')?.description ?? []}
             />
           ) : (
             <Fragment>
-              <PortableText value={block?.description ?? []} />
+              <PortableSanityText
+                className="[&_strong]:text-primary [&_strong]:font-medium space-text"
+                value={block?.description ?? []}
+              />
               <Link
                 target={btnHref.startsWith('/asset') ? '_blank' : undefined}
                 className={buttonVariants()}
@@ -53,7 +58,7 @@ export default function Faq({ block }: ContentBlockRegistry) {
                   <h6 className="font-semibold">{e.title}</h6>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText value={e.description ?? []} />
                 </AccordionContent>
               </AccordionItem>
             );

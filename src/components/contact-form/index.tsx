@@ -1,3 +1,4 @@
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 
@@ -10,17 +11,18 @@ export default function ContactForm({ block }: ContentBlockRegistry) {
       <div className="component-wrapper grid grid-cols-1 lg:grid-cols-2 gap-16">
         <section className="flex flex-col gap-6">
           <h2>{block.title}</h2>
-          <header className="space-y-2 [&_h6]:text-primary">
-            <PortableText value={block.description ?? []} />
-          </header>
+
+          <PortableSanityText value={block.description} className="space-y-2 [&_h6]:text-primary" />
           <iframe src="/form/new-form-white.html" className="min-h-[44rem] size-full" title="Web-to-Lead form" />
         </section>
 
         <section className="flex flex-col gap-6">
           <h2>{directContacts?.key}</h2>
-          <header className="space-y-3 [&_h6]:text-primary [&_h6]:pb-2 [&_a:hover]:underline">
-            <PortableText value={directContacts?.description ?? []} />
-          </header>
+
+          <PortableSanityText
+            value={directContacts?.description}
+            className="space-y-3 [&_h6]:text-primary [&_h6]:pb-2 [&_a:hover]:underline"
+          />
         </section>
       </div>
     </article>

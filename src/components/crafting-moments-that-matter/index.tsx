@@ -1,5 +1,6 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { sanityFetch } from '@/sanity/lib/client';
 import { GetContentBlockBySlug } from '@/sanity/lib/queries/cms';
@@ -29,11 +30,12 @@ export default async function CraftingMoments({ block }: ContentBlockRegistry) {
     <article id={block?.slug?.current} className="bg-[#EEE] main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
         <section className="grid grid-cols-2">
-          <section className="[&_strong]:font-medium [&_strong]:text-primary">
-            <PortableText value={block.customAttributes?.find((e) => e.key === 'title')?.description ?? []} />
-          </section>
+          <PortableSanityText
+            className="[&_strong]:font-medium [&_strong]:text-primary"
+            value={block.customAttributes?.find((e) => e.key === 'title')?.description ?? []}
+          />
           <header className="space-y-6">
-            <PortableText value={block.description ?? []} />
+            <PortableSanityText className="space-y-6" value={block.description ?? []} />
             <Link
               target={btnHref.startsWith('/asset') ? '_blank' : undefined}
               href={btnHref}

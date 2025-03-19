@@ -1,6 +1,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -27,11 +28,14 @@ export default function CustomisedEventSolutionsBanner({ block }: ContentBlockRe
             {block.slug?.current === 'the-d-marquee-experience' ? null : (
               <h4 className="text-primary">{block.title}</h4>
             )}
-            <PortableText value={title?.description ?? []} />
+            <PortableSanityText
+              className="space-y-2 [&_strong]:text-primary [&_strong]:font-medium"
+              value={title?.description ?? []}
+            />
           </header>
 
           <section className="space-y-4 lg:space-y-6">
-            <PortableText value={block.description ?? []} />
+            <PortableSanityText className="space-y-4 lg:space-y-6" value={block.description ?? []} />
             <Link
               target={btnHref.startsWith('/asset') ? '_blank' : undefined}
               className={buttonVariants()}

@@ -1,4 +1,5 @@
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 
@@ -19,7 +20,7 @@ export default function WeValue({ block }: ContentBlockRegistry) {
                 ) : null}
                 <header className="space-y-2">
                   <h5>{e.title}</h5>
-                  <PortableText value={e.description ?? []} />
+                  <PortableSanityText className="space-y-2" value={e.description ?? []} />
                 </header>
               </li>
             );

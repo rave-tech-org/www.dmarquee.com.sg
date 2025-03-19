@@ -1,4 +1,5 @@
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { PortableText } from 'next-sanity';
@@ -9,7 +10,7 @@ export default function VenueRulesAndRegulationsItems({ block }: ContentBlockReg
     <article id={block.slug?.current} className="main-padding-x pb-12">
       <div className="component-wrapper-small">
         <header className="text-center main-padding-y-longer">
-          <PortableText value={block.description ?? []} />
+          <PortableSanityText value={block.description ?? []} />
         </header>
 
         <ul className="flex flex-col">
@@ -30,7 +31,7 @@ export default function VenueRulesAndRegulationsItems({ block }: ContentBlockReg
                     return (
                       <li key={index} className="flex flex-col gap-2">
                         <h5 className="font-semibold">{l.key}</h5>
-                        <PortableText value={l.description ?? []} />
+                        <PortableSanityText className="space-y-2" value={l.description ?? []} />
                       </li>
                     );
                   })}

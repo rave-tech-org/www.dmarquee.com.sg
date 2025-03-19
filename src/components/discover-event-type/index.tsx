@@ -14,6 +14,7 @@ import { PortableText } from 'next-sanity';
 
 import Link from 'next/link';
 
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { EventTypeCustomAttribute } from './type';
 
 export default function EventType({ block, entries }: ContentBlockRegistry) {
@@ -26,9 +27,10 @@ export default function EventType({ block, entries }: ContentBlockRegistry) {
   return (
     <article className="lg:bg-muted-light main-padding discover-event-type-wrapper">
       <div className="component-wrapper main-padding-y space-padding lg:space-y-12">
-        <header className="space-text text-center event-type-header-wrapper">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="space-text text-center event-type-header-wrapper"
+          value={block?.description ?? []}
+        />
         <ul
           className="grid max-md:!grid-cols-1 max-lg:!grid-cols-2 gap-6 lg:gap-20"
           style={{ gridTemplateColumns: `repeat(${block?.listItems?.length}, minmax(0, 1fr))` }}
@@ -41,9 +43,7 @@ export default function EventType({ block, entries }: ContentBlockRegistry) {
                     <NextImage src={e.imageUrl} className="w-10 md:w-12" />
                   </section>
                 ) : null}
-                <header className="space-y-2">
-                  <PortableText value={e?.description ?? []} />
-                </header>
+                <PortableSanityText className="space-y-2" value={e?.description ?? []} />
               </li>
             );
           })}

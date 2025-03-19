@@ -1,6 +1,7 @@
 'use client';
 
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 import { Mousewheel, Scrollbar } from 'swiper/modules';
@@ -30,7 +31,7 @@ export default function OurTeam({ block }: ContentBlockRegistry) {
                   <NextImage src={e.imageUrl} className="aspect-[3.5/3] object-center object-cover" />
                   <figcaption className="text-center space-y-2">
                     <h6>{e.title}</h6>
-                    <PortableText value={e.description ?? []} />
+                    <PortableSanityText className="space-y-2" value={e.description ?? []} />
                   </figcaption>
                 </figure>
               </SwiperSlide>

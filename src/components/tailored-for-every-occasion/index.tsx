@@ -1,4 +1,5 @@
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 
@@ -16,7 +17,7 @@ export default function TailoredForEveryOccasion({ block }: ContentBlockRegistry
                   <NextImage src={e.imageUrl} className="aspect-video object-cover object-center" />
                   <figcaption className="text-center space-y-4">
                     <h5>{e.title}</h5>
-                    <PortableText value={e.description ?? []} />
+                    <PortableSanityText value={e.description ?? []} />
                   </figcaption>
                 </figure>
               </li>

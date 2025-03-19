@@ -1,5 +1,6 @@
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import { PortableText } from 'next-sanity';
@@ -32,9 +33,7 @@ export default function EventGalleries({ block, entries }: ContentBlockRegistry)
           ) : null}
 
           <section className="flex flex-col gap-y-10 justify-between size-full absolute left-0 top-0 main-padding">
-            <div className="space-text text-white">
-              <PortableText value={block?.description ?? []} />
-            </div>
+            <PortableSanityText className="space-text text-white" value={block?.description ?? []} />
 
             <nav className="flex flex-wrap gap-4">
               <Link href={bookVisit.href} className={buttonVariants()}>

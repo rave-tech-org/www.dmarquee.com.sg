@@ -3,6 +3,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
@@ -21,9 +22,10 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
   return (
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper space-padding">
-        <header className="space-text max-lg:text-center max-lg:main-padding-x text-center">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="space-text max-lg:text-center max-lg:main-padding-x text-center"
+          value={block?.description ?? []}
+        />
 
         {block?.listItems?.length ? (
           <section className="hidden lg:grid grid-cols-6 gap-4">
@@ -53,7 +55,7 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                   alt={block?.listItems[selected].title}
                 />
                 <figcaption className="space-y-4">
-                  <PortableText value={block?.listItems[selected].description ?? []} />
+                  <PortableSanityText className="space-y-4" value={block?.listItems[selected].description ?? []} />
                 </figcaption>
               </figure>
             </section>
@@ -91,7 +93,10 @@ export default function FloorPlans({ block }: ContentBlockRegistry) {
                         alt={block?.listItems?.[selected].title}
                       />
                       <figcaption className="space-y-4">
-                        <PortableText value={block?.listItems?.[selected].description ?? []} />
+                        <PortableSanityText
+                          className="space-y-4"
+                          value={block?.listItems?.[selected].description ?? []}
+                        />
                       </figcaption>
                     </figure>
                   </div>

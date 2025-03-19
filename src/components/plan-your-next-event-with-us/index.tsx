@@ -1,5 +1,6 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
 import { transformObject } from '@/utils';
@@ -25,7 +26,7 @@ export default function PlanYourNextEvent({ block }: ContentBlockRegistry) {
       <div className="componnent-wrapper space-padding">
         <header className="text-center text-white space-y-4 lg:space-y-6 max-w-[42rem] mx-auto">
           <h2>{block.title}</h2>
-          <PortableText value={block.description ?? []} />
+          <PortableSanityText className="lg:space-y-6" value={block.description ?? []} />
         </header>
 
         <Link

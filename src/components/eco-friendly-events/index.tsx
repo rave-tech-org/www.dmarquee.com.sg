@@ -1,4 +1,5 @@
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 
@@ -8,9 +9,10 @@ export default function EcoFriendlyEvents({ block }: ContentBlockRegistry) {
   return (
     <article id={block.slug?.current} className="main-padding-x main-padding-y-longer">
       <div className="component-wrapper lg:space-y-12 space-y-6">
-        <header className="[&_strong]:font-medium [&_strong]:text-primary space-y-6 max-w-[52rem]">
-          <PortableText value={block.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="[&_strong]:font-medium [&_strong]:text-primary space-y-6 max-w-[52rem]"
+          value={block.description ?? []}
+        />
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-14 items-center">
           <ul className="grid grid-cols-2 gap-6 md:gap-12">
@@ -24,7 +26,7 @@ export default function EcoFriendlyEvents({ block }: ContentBlockRegistry) {
                   ) : null}
                   <header className="space-y-2">
                     <h5>{e.title}</h5>
-                    <PortableText value={e.description ?? []} />
+                    <PortableSanityText className="space-y-2" value={e.description ?? []} />
                   </header>
                 </li>
               );

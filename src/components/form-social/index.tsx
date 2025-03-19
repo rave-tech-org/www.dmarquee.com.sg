@@ -1,6 +1,7 @@
 'use client';
 
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { PortableText } from 'next-sanity';
 import { useRouter } from 'next/navigation';
@@ -25,9 +26,10 @@ export default function Form({ block, entries }: ContentBlockRegistry) {
     <article id="form-section-discoverdmq">
       <section className="bg-primary main-padding !pb-32">
         <div className="component-wrapper grid md:grid-cols-2 gap-6 lg:gap-12 text-white main-padding-y">
-          <header className="space-text max-md:text-center max-w-[32rem]">
-            <PortableText value={block?.description ?? []} />
-          </header>
+          <PortableSanityText
+            className="space-text max-md:text-center max-w-[32rem]"
+            value={block?.description ?? []}
+          />
           <iframe
             src="/form/form-social.html"
             className="min-h-[32rem]"

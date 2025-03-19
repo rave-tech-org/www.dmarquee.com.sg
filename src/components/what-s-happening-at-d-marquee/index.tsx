@@ -3,6 +3,7 @@
 import { PATHS } from '@/app/urls';
 import { buttonVariants } from '@/elements/button';
 import NextImage from '@/elements/next-image';
+import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { transformObject } from '@/utils';
 import dayjs from 'dayjs';
@@ -19,9 +20,10 @@ export default function CustomisedPackages({ block, entries }: ContentBlockRegis
   return (
     <article id={block?.slug?.current} className="main-padding-x main-padding-y-longer customised-packages-wrapper">
       <div className="component-wrapper space-padding">
-        <header className="space-text text-center [&_strong]:text-primary [&_strong]:font-medium">
-          <PortableText value={block?.description ?? []} />
-        </header>
+        <PortableSanityText
+          className="space-text text-center [&_strong]:text-primary [&_strong]:font-medium"
+          value={block?.description ?? []}
+        />
 
         <ul className="grid md:grid-cols-1 max-w-xl mx-auto">
           {entries.posts?.slice(0, 1)?.map((e) => {

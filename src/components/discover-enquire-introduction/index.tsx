@@ -29,6 +29,25 @@ export default function EnquireIntroduction({ block, entries }: ContentBlockRegi
           <header className="space-text max-md:text-center max-w-[44rem]">
             <PortableText
               components={{
+                marks: {
+                  link: ({ value, children }) => {
+                    const path = value?.href as string;
+                    if (!path) return null;
+
+                    const newTab = path.startsWith('http') || path.startsWith('mailto') || path.startsWith('tel');
+
+                    return (
+                      <Link
+                        target={newTab ? '_blank' : undefined}
+                        href={path as string}
+                        className="text-primary hover:underline"
+                      >
+                        {children}
+                      </Link>
+                    );
+                  },
+                },
+
                 block: {
                   h2: ({ children }) => <h2 className="max-md:text-[20px]">{children}</h2>,
                 },
