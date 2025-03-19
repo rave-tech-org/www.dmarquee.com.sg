@@ -63,7 +63,7 @@ Make sure to setup sanity client with targeted projectId
 To export project
 ```
 cd to-path-file
-sanity dataset export production ./<to-path-file>.tar.gz production 
+sanity dataset export production ./backup/<to-path-file>.tar.gz production 
 ```
 
 To import project
