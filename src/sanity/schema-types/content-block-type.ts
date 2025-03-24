@@ -38,10 +38,13 @@ export const contentBlockType = defineType({
       title: 'Slug',
       group: 'detail',
       type: 'slug',
+      validation: (Rule) => Rule.required().error('Slug is required'),
       options: {
         source: 'title',
         maxLength: 96,
+        isUnique: () => true,
       },
+      description: '(Do Not Change) This is mapping of UI component',
     }),
     defineField({
       name: 'customAttributes',

@@ -11,8 +11,9 @@ import { usePathname } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { buildMenu } from '@/utils';
 
-export default function Header({ block, entries }: ContentBlockRegistry) {
+export default function Header({ block }: ContentBlockRegistry) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -55,7 +56,7 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
     };
   }, [open]);
 
-  const { menus } = entries;
+  const menus = buildMenu(block?.description);
 
   if (!block) return null;
 
@@ -80,32 +81,36 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
           </button>
 
           <ul className="hidden lg:flex gap-6 items-center">
-            {menus?.map((e) => {
-              const isActive = e.href === PATHS.main ? pathname === e.href : pathname.startsWith(e.href);
+            {menus?.map((item) => {
+              const href = item.marks?.href || PATHS.main;
+              const isActive = href === PATHS.main ? pathname === href : pathname.startsWith(href);
 
-              if (e.children?.length && !e.href) {
-                const hrefs = e.children?.map((e) => e.href);
+              if (item.subMenu?.length) {
+                const subMenuHrefs = item.subMenu?.map((subItem) => subItem.marks?.href || PATHS.main);
 
                 return (
-                  <li key={e.label}>
+                  <li key={item.id}>
                     <DropdownMenu>
                       <DropdownMenuTrigger className="[&[data-state=open]>svg]:rotate-180 flex items-center justify-center gap-1 outline-none">
-                        <p className={cn({ 'font-medium': hrefs.includes(pathname) })}>{e.label}</p>
+                        <p className={cn({ 'font-medium': subMenuHrefs.includes(pathname) })}>{item.text}</p>
                         <ChevronDown className="size-5 animate" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        {e.children.map((l) => {
-                          const isActive = l.href === PATHS.main ? pathname === l.href : pathname.startsWith(l.href);
+                        {item.subMenu.map((subItem) => {
+                          const subItemHref = subItem.marks?.href || PATHS.main;
+                          const isSubItemActive =
+                            subItemHref === PATHS.main ? pathname === subItemHref : pathname.startsWith(subItemHref);
+
                           return (
-                            <DropdownMenuItem key={l.label} className="group p-0">
+                            <DropdownMenuItem key={subItem.text} className="group p-0">
                               <Link
-                                href={l.href}
+                                href={subItemHref}
                                 className={cn('size-full font-normal px-2 py-1', {
-                                  'font-medium': isActive,
-                                  'group-hover:underline': !isActive,
+                                  'font-medium': isSubItemActive,
+                                  'group-hover:underline': !isSubItemActive,
                                 })}
                               >
-                                {l.label}
+                                {subItem.text}
                               </Link>
                             </DropdownMenuItem>
                           );
@@ -117,9 +122,9 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
               }
 
               return (
-                <li key={e.label}>
-                  <Link href={e.href} className={cn({ 'font-medium': isActive, 'hover:underline': !isActive })}>
-                    {e.label}
+                <li key={item.id || item.text}>
+                  <Link href={href} className={cn({ 'font-medium': isActive, 'hover:underline': !isActive })}>
+                    {item.text}
                   </Link>
                 </li>
               );
@@ -136,35 +141,41 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
       >
         {open ? (
           <ul className="flex gap-4 flex-col">
-            {menus?.map((e) => {
-              const isActive = e.href === '/' ? pathname === e.href : pathname.startsWith(e.href);
+            {menus?.map((item) => {
+              const href = item.marks?.href || PATHS.main;
+              const isActive = href === PATHS.main ? pathname === href : pathname.startsWith(href);
 
-              if (e.children?.length && !e.href) {
-                const hrefs = e.children?.map((e) => e.href);
+              if (item.subMenu?.length) {
+                const subMenuHrefs = item.subMenu?.map((subItem) => subItem.marks?.href || PATHS.main);
 
                 return (
-                  <li key={e.label}>
+                  <li key={item.id || item.text}>
                     <Accordion type="multiple">
-                      <AccordionItem value={e.label}>
+                      <AccordionItem value={item.text}>
                         <AccordionTrigger className="p-0 [&[data-state=open]>svg]:rotate-180 gap-4 outline-none hover:no-underline">
-                          <div className={cn('text-xl font-normal', { 'font-medium': hrefs.includes(pathname) })}>
-                            {e.label}
+                          <div
+                            className={cn('text-xl font-normal', { 'font-medium': subMenuHrefs.includes(pathname) })}
+                          >
+                            {item.text}
                           </div>
                         </AccordionTrigger>
 
                         <AccordionContent className="px-0 pb-0 pt-4 flex flex-col gap-2">
-                          {e.children.map((l) => {
-                            const isActive = l.href === PATHS.main ? pathname === l.href : pathname.startsWith(l.href);
+                          {item.subMenu.map((subItem) => {
+                            const subItemHref = subItem.marks?.href || PATHS.main;
+                            const isSubItemActive =
+                              subItemHref === PATHS.main ? pathname === subItemHref : pathname.startsWith(subItemHref);
+
                             return (
                               <Link
-                                key={l.href}
-                                href={l.href}
+                                key={subItemHref || subItem.text}
+                                href={subItemHref}
                                 className={cn('size-full font-normal pl-4', {
-                                  'font-medium': isActive,
-                                  'group-hover:underline': !isActive,
+                                  'font-medium': isSubItemActive,
+                                  'group-hover:underline': !isSubItemActive,
                                 })}
                               >
-                                {l.label}
+                                {subItem.text}
                               </Link>
                             );
                           })}
@@ -176,17 +187,17 @@ export default function Header({ block, entries }: ContentBlockRegistry) {
               }
 
               return (
-                <li key={e.href} className="flex flex-col group w-fit">
+                <li key={item.id || item.text} className="flex flex-col group w-fit">
                   <Link
                     type="button"
-                    href={e.href}
+                    href={href}
                     onClick={() => setOpen(false)}
                     className={cn('text-granite transition-none !text-xl', {
                       'text-black font-semibold': isActive,
                       'group-hover:text-black': !isActive,
                     })}
                   >
-                    {e.label}
+                    {item.text}
                   </Link>
                 </li>
               );

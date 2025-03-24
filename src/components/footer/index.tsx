@@ -3,16 +3,17 @@ import NextImage from '@/elements/next-image';
 import PortableSanityText from '@/elements/portable-sanity-text';
 import type { ContentBlockRegistry } from '@/hooks/local/use-content-blocks';
 import { cn } from '@/lib/utils';
-import { createMenuFromDescription } from '@/utils';
+import { buildMenu, createMenuFromDescription } from '@/utils';
 import { PortableText } from 'next-sanity';
 import Link from 'next/link';
 import { Fragment } from 'react';
 
-export default function Footer({ block, entries }: ContentBlockRegistry) {
+export default function Footer({ block }: ContentBlockRegistry) {
   if (!block) return null;
 
   const leftSide = block.listItems?.find((e) => e.slug?.current === 'description-left-side');
   const additionalMenus = block.listItems?.find((e) => e.slug?.current === 'additional-menus');
+  const mainMenus = block.listItems?.find((e) => e.slug?.current === 'main-menus');
   const linkedin = additionalMenus?.customAttributes?.find((e) => e.key === 'linkedin');
 
   const additionalMenuMenus = createMenuFromDescription({ description: additionalMenus?.description });
@@ -20,7 +21,7 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
     description: block.listItems?.find((e) => e.slug?.current === 'menus-bottom-side')?.description,
   });
 
-  const { menus } = entries;
+  const menus = buildMenu(mainMenus?.description) || [];
 
   return (
     <footer id={block.slug?.current} className="main-padding-x bg-[#EEE]">
@@ -35,28 +36,30 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
           </section>
 
           <ul className="flex flex-col gap-3">
-            {menus.slice(0, 5).map((e) => {
-              if (e.children?.length) {
-                return e.children.map((l, i) => {
-                  if (!l.href) return null;
+            {menus.slice(0, 5).map((item) => {
+              if (item.subMenu?.length) {
+                return item.subMenu.map((subItem, i) => {
+                  const subItemHref = subItem.marks?.href || PATHS.main;
+                  if (!subItemHref) return null;
                   return (
-                    <li key={l.href}>
+                    <li key={subItemHref || `${item.id}-${i}`}>
                       <Link
-                        href={l.href}
+                        href={subItemHref}
                         className={cn('hover:underline', { 'text-[#666666]': i !== 0, 'font-medium': i === 0 })}
                       >
-                        {l.label}
+                        {subItem.text}
                       </Link>
                     </li>
                   );
                 });
               }
 
-              if (!e.href) return null;
+              const href = item.marks?.href || PATHS.main;
+              if (!href) return null;
               return (
-                <li key={e.href}>
-                  <Link href={e.href} className="font-medium hover:underline">
-                    {e.label}
+                <li key={href || item.id}>
+                  <Link href={href} className="font-medium hover:underline">
+                    {item.text}
                   </Link>
                 </li>
               );
@@ -64,32 +67,6 @@ export default function Footer({ block, entries }: ContentBlockRegistry) {
           </ul>
 
           <ul className="flex flex-col gap-3">
-            {menus?.slice(5, undefined).map((e, i) => {
-              if (e.children?.length) {
-                return e.children.map((l, i) => {
-                  if (!l.href) return null;
-                  return (
-                    <li key={i}>
-                      <Link
-                        href={l.href}
-                        className={cn('hover:underline', { 'text-[#666666]': i !== 0, 'font-medium': i === 0 })}
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  );
-                });
-              }
-
-              if (!e.href) return null;
-              return (
-                <li key={i}>
-                  <Link href={e.href} className="font-medium hover:underline">
-                    {e.label}
-                  </Link>
-                </li>
-              );
-            })}
             {additionalMenuMenus?.map((e, i) => {
               return (
                 <li key={i}>
